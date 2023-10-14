@@ -1,31 +1,51 @@
 ﻿<!DOCTYPE html>
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="utf-8" />
-    <title>Ejercicio4</title>
-    <link rel="stylesheet" href="styles.css" type="text/css">
-    <script src = "main.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MyGPU</title>
+    <link href="css/estilos.css" rel="stylesheet" />
+    <script src="js/script.js"></script>
+
 </head>
 <body>
-    <h1>Attack the monsters</h1>
-    <canvas width="800" height="600"></canvas>
-    <ul id="party-monsters">
-        </ul>
-    <form name="killing-machine">
-        <p>
-            <select name="chara"></select>
-            <button type="submit" id="button ">Hit!</button>
-        </p>
-    </form>
-    <section class="resources">
-        <img id="background" src="https://media.orm.es/thumbnail/V281YzBreE1EMD0/1400/788/c/ZnBBTmF2dUY2R0twVkllNG55Yy9lVzc1QW90WUNsYVlXRkptRWo5c0kxMD0=/la-cueva-del-arco-en-cieza-el-mayor-descubrimiento-geologico-y-espeleologico-de-las-ultimas-decadas.jpg" alt="background" />
-        <img id="slime" src="https://gifs.eco.br/wp-content/uploads/2023/02/imagens-de-bola-verde-png-12.png" alt="slime" />
-        <img id="bat" src="https://i.pinimg.com/originals/b6/2b/d6/b62bd653a5ea86726d1b28b9cfc9916d.gif" alt="bat" />
-        <audio id="hit" src="Audio/Hit1.mp3"></audio>
-        <audio id="music" src="Audio/Musica.mp3"></audio>
-        <audio id="explosion" src="Audio/Exp.mp3"></audio>
-    </section>
 
-</body>
-</html>
+    <header>
+        <nav>
+            <a href="#">Inicio</a>
+            <a href="#">Acerca de</a>
+            <a href="#">Portafolio</a>
+            <a href="#">Servivios</a>
+            <a href="#">Contacto</a>
+        </nav>
+
+    </header>
+    <h1 class="titulo"> GPU´S DE ÚLTIMA GENERACIÓN </h1>
+    <button onclick="CambiaColor('text')">Cambiar color</button>
+    <a href="https://www.nvidia.com/es-es/geforce/graphics-cards/40-series/" ta_blank>
+        <h2 class="titulo2">NVIDIA</h2>
+    </a>
+    <div>
+        <p class="texto" id="text">NVIDIA GeForce RTX impulsa las GPU más rápidas del mundo y la plataforma definitiva para jugadores y creadores. Disfruta de trazado de rayos espectaculares, DLSS con tecnología de IA y mucho más en juegos y aplicaciones, desde tu ordenador de sobremesa, tu portátil, en la nube o desde tu salón.</p>
+        <img class=clase id="4090" src="img/4090.jpg"> <img />
+        <div>
+            <button onclick="document.getElementById('4090').style.visibility = 'hidden'">Eliminar</button>
+            <button onclick="document.getElementById('4090').style.visibility = 'visible' ">Aparecer</button>
+        </div>
+
+    </div>
+    <button onclick="CambiaColor('text1')">Cambiar color</button>
+    <a href="https://www.amd.com/en/graphics/radeon-rx-graphics" ta_blank>
+        <h2 class="titulo1">AMD</h2>
+    </a>
+    <div>
+        <p class="texto" id="text1">Break through new levels of performance with up to 24 GB of GDDR6 memory and blazing fast clock speeds for an incredible gaming experience. Radeon™ RX 7000 Series graphics feature advanced AMD RDNA™ 3 compute units, with second-generation raytracing accelerators and new AI accelerators to deliver remarkable performance while maximizing graphical fidelity.</p>
+        <img class=clase id="7900" src="img/7900.jpg"> <img />
+        <button onclick="document.getElementById('7900').style.visibility = 'hidden'">Eliminar</button>
+        <button onclick="document.getElementById('7900').style.visibility = 'visible' ">Aparecer</button>
+    </div>
+    <div>
+        <button onclick="alert(DevuelveAlerta())">Info</button>
+    </div>

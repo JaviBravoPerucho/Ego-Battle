@@ -1,8 +1,74 @@
 ﻿body {
+    background: #FFEFBA; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FFFFFF, #FFEFBA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-.dead{
-    text-decoration: line-through;
+
+* {
+    margin: 0;
+    padding: 0
 }
-.resources {
-    display: none;
+
+nav {
+    text-align: right;
+    padding: 30px 50px 0 0;
+    text-size-adjust: 15%;
+}
+
+h2 {
+    color: green;
+    font-size: 30px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+button {
+    color: blue;
+    font-size: 15px;
+    width: 10%;
+    height: 4%;
+    text-align: center;
+    margin-left: 45%;
+}
+
+.clase {
+    width: 30%;
+    height: 15%;
+    margin-left: 35%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+p {
+    color: darkred;
+    font-size: 25px;
+    text-align: center;
+    margin-left: 40%;
+    margin-right: 40%;
+}
+
+.titulo {
+    color: purple;
+    font-size: 70px;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.titulo1 {
+    color: red;
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+header {
+    width: 100%;
+    height: 200px;
+    background: #12c2e9; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #f64f59, #c471ed, #12c2e9); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #f64f59, #c471ed, #12c2e9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative;
 }

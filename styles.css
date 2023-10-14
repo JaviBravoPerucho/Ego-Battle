@@ -1,7 +1,7 @@
 ﻿body {
-    background: #FFEFBA; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #FFFFFF, #FFEFBA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #000000; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #434343, #000000); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 * {
@@ -41,18 +41,17 @@ button {
 }
 
 p {
-    color: darkred;
+    color: white;
     font-size: 25px;
     text-align: center;
-    margin-left: 40%;
-    margin-right: 40%;
 }
 
 .titulo {
-    color: purple;
-    font-size: 70px;
+    color: darkkhaki;
+    font-size: 120px;
     text-align: center;
     margin-bottom: 60px;
+    margin-top:50px;
 }
 
 .titulo1 {
@@ -64,10 +63,10 @@ p {
 
 header {
     width: 100%;
-    height: 200px;
-    background: #12c2e9; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #f64f59, #c471ed, #12c2e9); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #f64f59, #c471ed, #12c2e9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    height: 30px;
+    background: #000000; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #434343, #000000); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background-size: cover;
     background-attachment: fixed;
     position: relative;

@@ -15,6 +15,10 @@ nav {
     text-size-adjust: 15%;
 }
 
+canvas{
+    margin: auto;
+}
+
 h2 {
     color: green;
     font-size: 30px;

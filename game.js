@@ -1,4 +1,5 @@
 import { MainScene } from "./mainScene.js";
+import {Menu } from "./mainMenu.js"
 
 
 var config = {
@@ -6,7 +7,7 @@ var config = {
     width: 800,
     height: 600,
     pixelArt: true,
-    scene: [MainScene],
+    scene: [ MainScene],
     physics: {
         default: 'arcade',
         arcade: {

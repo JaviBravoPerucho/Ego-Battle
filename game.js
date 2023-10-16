@@ -1,3 +1,4 @@
+import { MainScene } from "./mainScene.js";
 
 
 var config = {
@@ -5,7 +6,7 @@ var config = {
     width: 800,
     height: 600,
     pixelArt: true,
-    scene: [{ create: create, preload: preload }],
+    scene: [MainScene],
     physics: {
         default: 'arcade',
         arcade: {
@@ -14,15 +15,8 @@ var config = {
         }
     }
 }
-const game = new Phaser.Game(config);
+var game = new Phaser.Game(config);
 
-function preload() {
-    this.load.image('background', 'img/jungla.png');
-}
 
-function create() {
-    this.background = this.add.image(400, 300, 'background');
-    
-}
 
 

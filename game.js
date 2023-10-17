@@ -7,11 +7,11 @@ var config = {
     width: 800,
     height: 600,
     pixelArt: true,
-    scene: [ MainScene],
+    scene: [ MainScene, Menu],
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 400 },
+            gravity: { y: 700 },
             debug: false
         }
     }

@@ -30,7 +30,9 @@ export class MainScene extends Phaser.Scene {
         this.player = this.createPlayer();
         this.physics.add.collider(this.player, platforms);
         this.cursors = this.input.keyboard.createCursorKeys();//Teclas
-        
+        this.score1 = 0;
+        this.score2 = 0;//Marcador de la partida
+        this.loadFont("ka1", "fonts/ka1.ttf");//Font del marcador  
     }
     update(t) {
         //ESTO SE QUITARA
@@ -55,6 +57,8 @@ export class MainScene extends Phaser.Scene {
             time += 6000;
             this.creaObjeto();
         }
+
+        this.add.text(50, 0, score1 + "-" + score2, { fontFamily: 'ka1', fontSize: 50 });
     }
     createPlatforms() {//Crea la plataforma
         const platforms = this.physics.add.staticGroup();

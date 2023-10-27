@@ -1,6 +1,8 @@
 import VolcanFireBall from '../VolcanFireball.js';
 import Volcan from '../Volcan.js';
 import Sword from '../Sword.js';
+import Coconut from './Coconut.js';
+import Fish from './Fish.js'
 
 const PLATFORM = 'platform'
 const PLAYER = 'player'
@@ -14,15 +16,17 @@ export class MainScene extends Phaser.Scene {
         this.player2 = undefined;//Jugador 2
         this.platforms = undefined;
         this.cursors = undefined;
-        this.time = undefined;
+        this.time = undefined;//Tiempo en el juego para poder pasarselo a otros objetos
     }
     
-    preload() {//Dependiendo de lo seleccionado cargamos una cosa u otra  
+    preload() {//Dependiendo de lo seleccionado cargamos una cosa u otra (mas adelante) 
         this.load.image('background', 'img/castillo.jpg');//Fondo castillo
         this.load.image(PLATFORM, 'img/puente1.png');//Plataforma fea
-        this.load.image('Sword', 'img/Sword.png');
+        this.load.image('Sword', 'img/Sword.png');//Espada
+        this.load.image('Coconut', 'img/coco.png');//Coco
         this.load.spritesheet(PLAYER, 'img/dude.png', { frameWidth: 32, frameHeight: 48 });//Player prueba
         this.load.spritesheet('VFB', 'img/VFB.png', { frameWidth: 32, frameHeight: 67 });//Bola de fuego volcan
+        this.load.spritesheet('Fish', 'img/Pez.png', { frameWidth: 500, frameHeight: 659 });//Bola de fuego volcan
         this.load.spritesheet('Volcan', 'img/Volcan.png', { frameWidth: 800, frameHeight: 336 });//Fondo volcan
         this.load.spritesheet('Explosion', 'img/explosionFB.png', { frameWidth: 247, frameHeight: 240 });//explosion bola de fuego
         //this.loadFont('font', 'fonts/ka1.ttf');//Font del marcador  
@@ -74,9 +78,13 @@ export class MainScene extends Phaser.Scene {
     }
     creaObjeto() {//Funcion para crear los objetos que caen, se pondran ifs dentro para luego seleccionar el correspondiente de la escena
         var value = Phaser.Math.Between(2, 7) * 100;//posicion desde donde cae
-        new VolcanFireBall(this, value, -300, value, this.player);
+        new VolcanFireBall(this, value, -300, value, this.player);//Bolas de fuego
         value = Phaser.Math.Between(2, 7) * 100;//posicion desde donde cae
-        new Sword(this, value, -100, this.player, this.platforms, this.time);
+        new Sword(this, value, -100, this.player, this.platforms, this.time);//Espadas
+        value = Phaser.Math.Between(2, 7) * 100;//posicion desde donde cae
+        new Coconut(this, value, -100, this.player, this.platforms, this.time);//Espadas
+        value = Phaser.Math.Between(2, 7) * 100;//posicion desde donde cae
+        new Fish(this, value, 800, this.player, this.time);//Peces
 
     }
     //ESTO SE QUITARA

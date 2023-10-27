@@ -19,7 +19,7 @@ var config = {
             width: 1312,
             height: 752
         },
-        zoom: 1
+        zoom: 0.2
     },
     scene: [ MainScene, Menu],
     physics: {
@@ -32,7 +32,7 @@ var config = {
         },
         arcade: {
             gravity: { y: 700 },
-            debug: true
+            debug: false
         }
     }
 }

@@ -5,8 +5,14 @@ export default class VolcanFireBall extends Phaser.GameObjects.Sprite {
         super(scene, x, y, 'VFB');
         scene.add.existing(this).setScale(1.5,1.5);
         scene.physics.add.existing(this);
-        scene.physics.add.collider(this, player);
+        this.hit = false;
+        this.collision = scene.physics.add.collider(this, player, collider =>
+        {
+            scene.physics.world.removeCollider(this.collision)
+            this.hit = true;
+        });
         this.eliminate = false;
+        
 
         this.scene.anims.create({//Anim basica
             key: 'fallFB',
@@ -21,8 +27,7 @@ export default class VolcanFireBall extends Phaser.GameObjects.Sprite {
             repeat: 0
         });
         this.on('animationcomplete', end => {//Detecta que ha finalizado la explosion
-            if (this.anims.currentAnim.key === 'hitExplosion') {
-                console.log('Elimina');
+            if (this.anims.currentAnim.key === 'hitExplosion') {            
                 this.eliminate = true;
             }
         })
@@ -34,9 +39,9 @@ export default class VolcanFireBall extends Phaser.GameObjects.Sprite {
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
        
-        if (this.body.position.y > 380) {//Llega al suelo
+        if (this.body.position.y > 380 || this.hit === true) {//Llega al suelo   
             this.play('hitExplosion')
-            this.body.velocity.y = 0;          
+            this.body.velocity.y = 0;   
         }
         else this.body.velocity.y = 200;//Cae
 

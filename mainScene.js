@@ -1,5 +1,6 @@
 import VolcanFireBall from '../VolcanFireball.js';
 import Volcan from '../Volcan.js';
+import Sword from '../Sword.js';
 
 const PLATFORM = 'platform'
 const PLAYER = 'player'
@@ -11,30 +12,35 @@ export class MainScene extends Phaser.Scene {
         this.player = undefined;
         this.player1 = undefined;//Jugador 1
         this.player2 = undefined;//Jugador 2
+        this.platforms = undefined;
         this.cursors = undefined;
+        this.time = undefined;
     }
     
     preload() {//Dependiendo de lo seleccionado cargamos una cosa u otra  
         this.load.image('background', 'img/castillo.jpg');//Fondo castillo
         this.load.image(PLATFORM, 'img/puente1.png');//Plataforma fea
+        this.load.image('Sword', 'img/Sword.png');
         this.load.spritesheet(PLAYER, 'img/dude.png', { frameWidth: 32, frameHeight: 48 });//Player prueba
         this.load.spritesheet('VFB', 'img/VFB.png', { frameWidth: 32, frameHeight: 67 });//Bola de fuego volcan
         this.load.spritesheet('Volcan', 'img/Volcan.png', { frameWidth: 800, frameHeight: 336 });//Fondo volcan
         this.load.spritesheet('Explosion', 'img/explosionFB.png', { frameWidth: 247, frameHeight: 240 });//explosion bola de fuego
+        //this.loadFont('font', 'fonts/ka1.ttf');//Font del marcador  
     }
 
     create() {//asignamos player1 y player 2
         new Volcan(this, 600, 300).setScale(1.7, 1.8);
         //this.background = this.add.image(400, 300, 'background');
-        const platforms = this.createPlatforms();
+        this.platforms = this.createPlatforms();
         this.player = this.createPlayer();
-        this.physics.add.collider(this.player, platforms);
+        this.physics.add.collider(this.player, this.platforms);
         this.cursors = this.input.keyboard.createCursorKeys();//Teclas
         this.score1 = 0;
         this.score2 = 0;//Marcador de la partida
-        this.loadFont("ka1", "fonts/ka1.ttf");//Font del marcador  
+        
     }
     update(t) {
+        this.time = t;
         //ESTO SE QUITARA
         if (this.cursors.left.isDown) {//Se mueve hacia la izquierda
             this.player.setVelocityX(-150);
@@ -58,17 +64,20 @@ export class MainScene extends Phaser.Scene {
             this.creaObjeto();
         }
 
-        this.add.text(50, 0, score1 + "-" + score2, { fontFamily: 'ka1', fontSize: 50 });
+       // this.add.text(50, 0, score1 + "-" + score2, { fontFamily: 'ka1', fontSize: 50 });
     }
     createPlatforms() {//Crea la plataforma
-        const platforms = this.physics.add.staticGroup();
+        let platforms = this.physics.add.staticGroup();
         platforms.create(400, 540, PLATFORM).setScale(1.2).refreshBody();
         return platforms;
 
     }
     creaObjeto() {//Funcion para crear los objetos que caen, se pondran ifs dentro para luego seleccionar el correspondiente de la escena
-        var value = Phaser.Math.Between(2, 7) * 100;
-        new VolcanFireBall(this, value, -100, this.player);
+        var value = Phaser.Math.Between(2, 7) * 100;//posicion desde donde cae
+        new VolcanFireBall(this, value, -300, value, this.player);
+        value = Phaser.Math.Between(2, 7) * 100;//posicion desde donde cae
+        new Sword(this, value, -100, this.player, this.platforms, this.time);
+
     }
     //ESTO SE QUITARA
     createPlayer() {//Crea personaje

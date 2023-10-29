@@ -4,6 +4,7 @@ import Sword from '../Sword.js';
 import Coconut from './Coconut.js';
 import Fish from './Fish.js';
 import Trevor from './Personaje1.js';
+import Arturo from './Arturo.js';
 
 const PLATFORM = 'platform'
 const PLAYER = 'player'
@@ -35,6 +36,11 @@ export class MainScene extends Phaser.Scene {
         this.load.spritesheet('Trevoridle', 'img/Trevor/Idle.png', { frameWidth: 150, frameHeight: 150 });
         this.load.spritesheet('Trevorjump', 'img/Trevor/Jump.png', { frameWidth: 150, frameHeight: 150 });
         this.load.spritesheet('Trevorwalk', 'img/Trevor/Run.png', { frameWidth: 150, frameHeight: 150 });
+        this.load.spritesheet('Arturonormalattack', 'img/Arturo/ANA.png', { frameWidth: 160, frameHeight: 111 });
+        this.load.spritesheet('Arturostrongattack', 'img/Arturo/ASA.png', { frameWidth: 160, frameHeight: 111 });
+        this.load.spritesheet('Arturoidle', 'img/Arturo/Aidle.png', { frameWidth: 160, frameHeight: 111 });
+        this.load.spritesheet('Arturojump', 'img/Arturo/Ajump.png', { frameWidth: 160, frameHeight: 111 });
+        this.load.spritesheet('Arturowalk', 'img/Arturo/Arun.png', { frameWidth: 160, frameHeight: 111 });
         //this.loadFont('font', 'fonts/ka1.ttf');//Font del marcador  
     }
 
@@ -47,7 +53,8 @@ export class MainScene extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();//Teclas
         this.score1 = 0;
         this.score2 = 0;//Marcador de la partida
-        this.player1 = new Trevor(this,500, 300, this.player,this.platforms);
+        this.player1 = new Trevor(this, 500, 300, this.player, this.platforms);
+        this.player2 = new Arturo(this, 300, 300, this.player1, this.platforms);
         
     }
     update(t) {

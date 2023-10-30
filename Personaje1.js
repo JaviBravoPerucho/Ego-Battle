@@ -38,7 +38,7 @@ export default class Trevor extends Phaser.GameObjects.Sprite {
         scene.anims.create({//Anim explosion
             key: 'Tstrongattack',
             frames: scene.anims.generateFrameNumbers('Trevorstrongattack', { start: 0, end: 3 }),
-            frameRate: 15,
+            frameRate: 10,
             repeat: 0
         });
         scene.anims.create({//Anim explosion
@@ -89,13 +89,21 @@ export default class Trevor extends Phaser.GameObjects.Sprite {
             this.jumps = 0;
             this.jumping = false;
         }
-        if (this.aKey.isDown) {
+        if (this.aKey.isDown && this.dKey.isDown) {
+            this.body.setVelocityX(0);
+            if (!this.attacking && !this.jumping) {
+                if (this.anims.currentAnim.key !== 'Tidle') {
+                    this.play('Tidle');
+                }
+            }
+        }
+        else if (this.aKey.isDown) {
             if (this.anims.currentAnim.key !== 'Twalk') {
                 this.setFlip(true, false)
                 if (!this.jumping && !this.attacking) {
                     this.play('Twalk');
                 }
-                if (!this.nattacking) {
+                if (!this.nattacking&&!this.attacking) {
                     this.body.setVelocityX(-125);
                 }               
                 this.moving = true;
@@ -108,7 +116,7 @@ export default class Trevor extends Phaser.GameObjects.Sprite {
                 if (!this.jumping && !this.attacking) {
                     this.play('Twalk');
                 }
-                if (!this.nattacking) {
+                if (!this.nattacking && !this.attacking) {
                     this.body.setVelocityX(125);
                 }    
                 this.moving = true;
@@ -123,21 +131,22 @@ export default class Trevor extends Phaser.GameObjects.Sprite {
             }
           
         }
-        if (this.wKey.isDown&&this.jumps<2) {
+        if (Phaser.Input.Keyboard.JustDown(this.wKey) &&this.jumps<2) {
             this.jumps++;
-            this.body.setVelocityY(-500);
+            this.body.setVelocityY(-375);
             if (this.anims.currentAnim.key !== 'Tjump') {
                 this.play('Tjump');
                 this.jumping = true;
             }
         }
-        if (this.gKey.isDown) {
+        if (Phaser.Input.Keyboard.JustDown(this.gKey)) {
             if (this.anims.currentAnim.key !== 'Tstrongattack') {
                 this.play('Tstrongattack');
                 this.attacking = true;
+                if (!this.jumping) this.body.setVelocityX(0);
             }
         }
-        if (this.hKey.isDown) {
+        if (Phaser.Input.Keyboard.JustDown(this.hKey)) {
             if (this.anims.currentAnim.key !== 'Tnormalattack') {
                 this.play('Tnormalattack');
                 if (!this.left) this.body.setVelocityX(500);
@@ -152,6 +161,7 @@ export default class Trevor extends Phaser.GameObjects.Sprite {
             this.body.setVelocityX(0);
 
         }
+
 
     }
 }

@@ -4,6 +4,8 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
         scene.add.existing(this).setScale(1.5, 1.5);
         scene.physics.add.existing(this);
         scene.physics.add.collider(this, floor);
+        this.body.setSize(25, 45);
+        this.body.setOffset(70, 60);
         this.hit = false;
         this.onAir = false;
         this.eliminate = false;
@@ -61,17 +63,24 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
             this.jumps = 0;
             this.onAir = false;
         }
-        else { this.onAir = true; }
+        else { this.onAir = true;}
 
-        if (this.aKey.isDown && !this.attacking) {
-            if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(-100); }
+        if (this.aKey.isDown && this.dKey.isDown) {
+            this.body.setVelocityX(0);
+            if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Aidle') { this.play('Aidle'); }
+            else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Ajump') { this.play('Ajump'); }
+        }
+        else if (this.aKey.isDown) {
+            if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(-125); }
+            else { this.body.setVelocityX(0); }
             if (this.anims.currentAnim.key !== 'Awalk') {
                 this.setFlip(true, false)
                 if (!this.attacking && !this.onAir) { this.play('Awalk');}           
             }
         }
         else if (this.dKey.isDown) {
-            if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(100); }
+            if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(125); }
+            else { this.body.setVelocityX(0); }
             if (this.anims.currentAnim.key !== 'Awalk') {          
                 this.setFlip(false, false)
                 if (!this.attacking && !this.onAir) { this.play('Awalk');}              
@@ -80,12 +89,12 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
         else {         
             this.body.setVelocityX(0);
             if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Aidle') { this.play('Aidle'); }
-            else if (!this.attacking && this.onAir) { this.play('Ajump');}
+            else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Ajump') { this.play('Ajump');}
         }
 
         if (this.wKey.isDown && this.jumps < 2) {
             this.jumps++;
-            this.body.setVelocityY(-500);
+            this.body.setVelocityY(-400);
             if (this.anims.currentAnim.key !== 'Ajump' && !this.attacking) {
                 this.play('Ajump');
             }

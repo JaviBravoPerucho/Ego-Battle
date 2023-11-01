@@ -1,15 +1,18 @@
 export default class Azazel extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, player, floor) {//Habra que pasarle player2 para que colisione con ellos 
+    constructor(scene, x, y, floor) {//Habra que pasarle player2 para que colisione con ellos 
         super(scene, x, y);
-        scene.add.existing(this).setScale(1.5, 1.5);
+        scene.add.existing(this).setScale(2, 2);
         scene.physics.add.existing(this);
         scene.physics.add.collider(this, floor);
-        this.body.setSize(25, 45);
-        this.body.setOffset(70, 60);
+        this.body.setSize(20, 45);
+        this.body.setOffset(65, 55);
         this.hit = false;
         this.onAir = false;
         this.eliminate = false;
         this.attacking = false;
+        this.right = true;
+        this.fireDuration = 3;
+        this.fire = 0;
         this.jumps = 0
 
         scene.anims.create({//Anim idle
@@ -21,30 +24,34 @@ export default class Azazel extends Phaser.GameObjects.Sprite {
         scene.anims.create({//Anim andar
             key: 'Azwalk',
             frames: scene.anims.generateFrameNumbers('Azazelwalk', { start: 0, end: 7 }),
-            frameRate: 15,
+            frameRate: 12,
             repeat: -1
         });
-       /* scene.anims.create({//Anim saltar
-            key: 'Ajump',
-            frames: scene.anims.generateFrameNumbers('Arturojump', { start: 0, end: 1 }),
-            frameRate: 1,
-            repeat: 0
-        });*/
         scene.anims.create({//Anim ataque fuerte
             key: 'AzSA',
             frames: scene.anims.generateFrameNumbers('Azazelstrongattack', { start: 0, end: 3 }),
-            frameRate: 10,
+            frameRate: 22,
             repeat: 0
         });
         scene.anims.create({//Anim ataque normal
             key: 'AzNA',
             frames: scene.anims.generateFrameNumbers('Azazelnormalattack', { start: 0, end: 3 }),
-            frameRate: 10,
+            frameRate: 8,
             repeat: 0
         });
         this.on('animationcomplete', end => {//Detecta que ha dejado de pegar
-            if (this.anims.currentAnim.key === 'AzSA' || this.anims.currentAnim.key === 'AzNA') {
+            if (this.anims.currentAnim.key === 'AzSA') {
                 this.attacking = false;
+            }
+            else if (this.anims.currentAnim.key === 'AzNA') {
+                if (this.fire < this.fireDuration) {
+                    this.fire++;
+                    this.play('AzNA');
+                }
+                else {
+                    this.fire = 0;
+                    this.attacking = false;
+                }
             }
         })
 
@@ -71,20 +78,20 @@ export default class Azazel extends Phaser.GameObjects.Sprite {
            // else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Ajump') { this.play('Ajump'); }
         }
         else if (this.aKey.isDown) {
-            if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(-125); }
-            else { this.body.setVelocityX(0); }
+            if (this.right) { this.setFlip(true, false); this.right = false; }
+            if (this.attacking) { this.body.setVelocityX(-60); }
+            else { this.body.setVelocityX(-150);}         
             if (this.anims.currentAnim.key !== 'Azwalk') {
-                this.setFlip(true, false)
-                if (!this.attacking && !this.onAir) { this.play('Azwalk'); }
+                if (!this.attacking) { this.play('Azwalk'); }
                // else if (!this.attacking) { this.play('Ajump');}
             }
         }
         else if (this.dKey.isDown) {
-            if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(125); }
-            else { this.body.setVelocityX(0); }
-            if (this.anims.currentAnim.key !== 'Azwalk') {          
-                this.setFlip(false, false)
-                if (!this.attacking && !this.onAir) { this.play('Azwalk'); }
+            if (!this.right) { this.setFlip(false, false); this.right = true;}           
+            if (this.attacking) { this.body.setVelocityX(60); }
+            else { this.body.setVelocityX(150); }
+            if (this.anims.currentAnim.key !== 'Azwalk') {                         
+                if (!this.attacking) { this.play('Azwalk'); }
                // else if (!this.attacking) { this.play('Ajump'); }
             }
         }
@@ -94,20 +101,20 @@ export default class Azazel extends Phaser.GameObjects.Sprite {
             //else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Ajump') { this.play('Ajump');}
         }
 
-        if (Phaser.Input.Keyboard.JustDown(this.wKey) && this.jumps < 2) {
+        if (Phaser.Input.Keyboard.JustDown(this.wKey) && this.jumps < 1) {
             this.jumps++;
-            this.body.setVelocityY(-400);
+            this.body.setVelocityY(-320);
             if (this.anims.currentAnim.key !== 'Azwalk' && !this.attacking) {
                 this.play('Azwalk');
             }
         }
-        if (this.gKey.isDown && !this.attacking) {
+        if (Phaser.Input.Keyboard.JustDown(this.gKey) && !this.attacking) {
             if (this.anims.currentAnim.key !== 'AzSA') {
                 this.play('AzSA');
                 this.attacking = true;
             }
         }
-        if (this.hKey.isDown && !this.attacking) {
+        if (Phaser.Input.Keyboard.JustDown(this.hKey) && !this.attacking) {
             if (this.anims.currentAnim.key !== 'AzNA') {
                 this.play('AzNA');
                 this.attacking = true;

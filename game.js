@@ -5,7 +5,7 @@ import {Menu } from "./mainMenu.js"
 var config = {
     type: Phaser.AUTO,
     parent: 'juego',
-    width: 800,
+    width: 1200,
     height: 600,
     pixelArt: true,
     scale: {
@@ -19,7 +19,7 @@ var config = {
             width: 1312,
             height: 752
         },
-        zoom: 0.2
+        zoom: 2
     },
     scene: [ MainScene, Menu],
     physics: {
@@ -32,7 +32,7 @@ var config = {
         },
         arcade: {
             gravity: { y: 700 },
-            debug: true
+            debug: false
         }
     }
 }

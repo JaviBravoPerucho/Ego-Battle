@@ -1,11 +1,11 @@
 export default class Arturo extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, player, floor) {//Habra que pasarle player2 para que colisione con ellos 
+    constructor(scene, x, y, floor) {//Habra que pasarle player2 para que colisione con ellos 
         super(scene, x, y);
-        scene.add.existing(this).setScale(1.5, 1.5);
+        scene.add.existing(this).setScale(2, 2);
         scene.physics.add.existing(this);
         scene.physics.add.collider(this, floor);
-        this.body.setSize(25, 45);
-        this.body.setOffset(70, 60);
+        this.body.setSize(22, 45);
+        this.body.setOffset(68, 60);
         this.hit = false;
         this.onAir = false;
         this.eliminate = false;
@@ -33,13 +33,13 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
         scene.anims.create({//Anim ataque fuerte
             key: 'ASA',
             frames: scene.anims.generateFrameNumbers('Arturostrongattack', { start: 0, end: 3 }),
-            frameRate: 10,
+            frameRate: 8,
             repeat: 0
         });
         scene.anims.create({//Anim ataque normal
             key: 'ANA',
             frames: scene.anims.generateFrameNumbers('Arturonormalattack', { start: 0, end: 3 }),
-            frameRate: 10,
+            frameRate: 8,
             repeat: 0
         });
         this.on('animationcomplete', end => {//Detecta que ha dejado de pegar
@@ -71,7 +71,7 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
             else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Ajump') { this.play('Ajump'); }
         }
         else if (this.aKey.isDown) {
-            if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(-125); }
+            if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(-160); }
             else { this.body.setVelocityX(0); }
             if (this.anims.currentAnim.key !== 'Awalk') {
                 this.setFlip(true, false)
@@ -80,7 +80,7 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
             }
         }
         else if (this.dKey.isDown) {
-            if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(125); }
+            if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(160); }
             else { this.body.setVelocityX(0); }
             if (this.anims.currentAnim.key !== 'Awalk') {
                 this.setFlip(false, false)
@@ -102,13 +102,13 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
                 this.play('Ajump');
             }           
         }
-        if (this.gKey.isDown && !this.attacking) {
+        if (Phaser.Input.Keyboard.JustDown(this.gKey) && !this.attacking) {
             if (this.anims.currentAnim.key !== 'ASA') {
                 this.play('ASA');
                 this.attacking = true;
             }
         }
-        if (this.hKey.isDown && !this.attacking) {
+        if (Phaser.Input.Keyboard.JustDown(this.hKey) && !this.attacking) {
             if (this.anims.currentAnim.key !== 'ANA') {
                 this.play('ANA');
                 this.attacking = true;

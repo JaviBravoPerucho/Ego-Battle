@@ -1,4 +1,4 @@
-export default class Arturo extends Phaser.GameObjects.Sprite {
+export default class Azazel extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, player, floor) {//Habra que pasarle player2 para que colisione con ellos 
         super(scene, x, y);
         scene.add.existing(this).setScale(1.5, 1.5);
@@ -13,48 +13,48 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
         this.jumps = 0
 
         scene.anims.create({//Anim idle
-            key: 'Aidle',
-            frames: scene.anims.generateFrameNumbers('Arturoidle', { start: 0, end: 7 }),
+            key: 'Azidle',
+            frames: scene.anims.generateFrameNumbers('Azazelidle', { start: 0, end: 7 }),
             frameRate: 10,
             repeat: -1
         });
         scene.anims.create({//Anim andar
-            key: 'Awalk',
-            frames: scene.anims.generateFrameNumbers('Arturowalk', { start: 0, end: 7 }),
+            key: 'Azwalk',
+            frames: scene.anims.generateFrameNumbers('Azazelwalk', { start: 0, end: 7 }),
             frameRate: 15,
             repeat: -1
         });
-        scene.anims.create({//Anim saltar
+       /* scene.anims.create({//Anim saltar
             key: 'Ajump',
             frames: scene.anims.generateFrameNumbers('Arturojump', { start: 0, end: 1 }),
             frameRate: 1,
             repeat: 0
-        });
+        });*/
         scene.anims.create({//Anim ataque fuerte
-            key: 'ASA',
-            frames: scene.anims.generateFrameNumbers('Arturostrongattack', { start: 0, end: 3 }),
+            key: 'AzSA',
+            frames: scene.anims.generateFrameNumbers('Azazelstrongattack', { start: 0, end: 3 }),
             frameRate: 10,
             repeat: 0
         });
         scene.anims.create({//Anim ataque normal
-            key: 'ANA',
-            frames: scene.anims.generateFrameNumbers('Arturonormalattack', { start: 0, end: 3 }),
+            key: 'AzNA',
+            frames: scene.anims.generateFrameNumbers('Azazelnormalattack', { start: 0, end: 3 }),
             frameRate: 10,
             repeat: 0
         });
         this.on('animationcomplete', end => {//Detecta que ha dejado de pegar
-            if (this.anims.currentAnim.key === 'ASA' || this.anims.currentAnim.key === 'ANA') {
+            if (this.anims.currentAnim.key === 'AzSA' || this.anims.currentAnim.key === 'AzNA') {
                 this.attacking = false;
             }
         })
 
 
-        this.play('Aidle');
-        this.wKey = this.scene.input.keyboard.addKey('up');
-        this.aKey = this.scene.input.keyboard.addKey('left');
-        this.dKey = this.scene.input.keyboard.addKey('right');
-        this.gKey = this.scene.input.keyboard.addKey('P');
-        this.hKey = this.scene.input.keyboard.addKey('O');
+        this.play('Azidle');
+        this.wKey = this.scene.input.keyboard.addKey('W');
+        this.aKey = this.scene.input.keyboard.addKey('A');
+        this.dKey = this.scene.input.keyboard.addKey('D');
+        this.gKey = this.scene.input.keyboard.addKey('G');
+        this.hKey = this.scene.input.keyboard.addKey('H');
     }
 
     preUpdate(t, dt) {
@@ -63,54 +63,53 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
             this.jumps = 0;
             this.onAir = false;
         }
-        else { this.onAir = true; }
+        else { this.onAir = true;}
 
         if (this.aKey.isDown && this.dKey.isDown) {
             this.body.setVelocityX(0);
-            if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Aidle') { this.play('Aidle'); }
-            else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Ajump') { this.play('Ajump'); }
+            if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Azidle') { this.play('Azidle'); }
+           // else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Ajump') { this.play('Ajump'); }
         }
         else if (this.aKey.isDown) {
             if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(-125); }
             else { this.body.setVelocityX(0); }
-            if (this.anims.currentAnim.key !== 'Awalk') {
+            if (this.anims.currentAnim.key !== 'Azwalk') {
                 this.setFlip(true, false)
-                if (!this.attacking && !this.onAir) { this.play('Awalk'); }
-                else if (!this.attacking) { this.play('Ajump'); }
+                if (!this.attacking && !this.onAir) { this.play('Azwalk'); }
+               // else if (!this.attacking) { this.play('Ajump');}
             }
         }
         else if (this.dKey.isDown) {
             if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(125); }
             else { this.body.setVelocityX(0); }
-            if (this.anims.currentAnim.key !== 'Awalk') {
+            if (this.anims.currentAnim.key !== 'Azwalk') {          
                 this.setFlip(false, false)
-                if (!this.attacking && !this.onAir) { this.play('Awalk'); }
-                else if (!this.attacking) { this.play('Ajump'); }
+                if (!this.attacking && !this.onAir) { this.play('Azwalk'); }
+               // else if (!this.attacking) { this.play('Ajump'); }
             }
         }
-        else {
+        else {         
             this.body.setVelocityX(0);
-            if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Aidle') { this.play('Aidle'); }
-            else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Ajump') { this.play('Ajump'); }
+            if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Azidle') { this.play('Azidle'); }
+            //else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Ajump') { this.play('Ajump');}
         }
 
         if (Phaser.Input.Keyboard.JustDown(this.wKey) && this.jumps < 2) {
             this.jumps++;
             this.body.setVelocityY(-400);
-            this.onAir = true;
-            if (this.anims.currentAnim.key !== 'Ajump' && !this.attacking) {
-                this.play('Ajump');
-            }           
+            if (this.anims.currentAnim.key !== 'Azwalk' && !this.attacking) {
+                this.play('Azwalk');
+            }
         }
         if (this.gKey.isDown && !this.attacking) {
-            if (this.anims.currentAnim.key !== 'ASA') {
-                this.play('ASA');
+            if (this.anims.currentAnim.key !== 'AzSA') {
+                this.play('AzSA');
                 this.attacking = true;
             }
         }
         if (this.hKey.isDown && !this.attacking) {
-            if (this.anims.currentAnim.key !== 'ANA') {
-                this.play('ANA');
+            if (this.anims.currentAnim.key !== 'AzNA') {
+                this.play('AzNA');
                 this.attacking = true;
             }
         }

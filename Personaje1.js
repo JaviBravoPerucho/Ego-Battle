@@ -49,26 +49,20 @@ export default class Trevor extends Phaser.GameObjects.Sprite {
         });
         this.on('animationcomplete', end => {//Detecta que ha finalizado la explosion
             if (this.anims.currentAnim.key === 'Tnormalattack') {
-                this.body.setVelocityX(0);
+               // this.body.setVelocityX(0);
                 this.attacking = false;
                 this.nattacking = false;
             }
         })
         this.on('animationcomplete', end => {//Detecta que ha finalizado la explosion
             if (this.anims.currentAnim.key === 'Tstrongattack') {
-                this.body.setVelocityX(0);
+               // this.body.setVelocityX(0);
                 this.attacking = false;
             }
         })
-        //this.on('animationcomplete', end => {//detecta que ha finalizado la explosion
-        //    if (this.anims.currentanim.key === 'twalk') {
-        //        this.body.setvelocityx(0);
-
-        //    }
-        //})
         this.on('animationcomplete', end => {//Detecta que ha finalizado la explosion
             if (this.anims.currentAnim.key === 'Tjump') {
-                this.body.setVelocityX(0);
+               // this.body.setVelocityX(0);
 
             }
         })
@@ -79,8 +73,8 @@ export default class Trevor extends Phaser.GameObjects.Sprite {
         this.wKey = this.scene.input.keyboard.addKey('W'); 
         this.aKey = this.scene.input.keyboard.addKey('A'); 
         this.dKey = this.scene.input.keyboard.addKey('D'); 
-        this.gKey = this.scene.input.keyboard.addKey('G');
-        this.hKey = this.scene.input.keyboard.addKey('H'); 
+        this.gKey = this.scene.input.keyboard.addKey('ctrl');
+        this.hKey = this.scene.input.keyboard.addKey('shift'); 
     }
 
     preUpdate(t, dt) {

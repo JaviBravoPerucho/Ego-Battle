@@ -52,7 +52,6 @@ export class MainScene extends Phaser.Scene {
         this.load.spritesheet('Azazelidle', '/assets/img/Azazel/Idle.png', { frameWidth: 150, frameHeight: 150 });
         this.load.spritesheet('Azazelwalk', '/assets/img/Azazel/Move.png', { frameWidth: 150, frameHeight: 150 });
         this.load.spritesheet('AzazelBall', '/assets/img/AzazelBall.png', { frameWidth: 498, frameHeight: 498 });
-
         //this.loadFont('font', 'fonts/ka1.ttf');//Font del marcador  
     }
 
@@ -63,8 +62,8 @@ export class MainScene extends Phaser.Scene {
         //this.background = this.add.image(400, 300, 'background');
         this.platforms = this.createPlatforms();
         this.cursors = this.input.keyboard.createCursorKeys();//Teclas
-        this.score1 = 0;
-        this.score2 = 0;//Marcador de la partida
+        this.score1 = 2;
+        this.score2 = 1;//Marcador de la partida
         //this.player1 = new Trevor(this, 500, 300, this.player, this.platforms);  
         this.player2 = new Arturo(this, this.WIDTH - this.WIDTH / 4, this.HEIGHT / 2, this.platforms);
         this.player1 = new Azazel(this, this.WIDTH / 4, this.HEIGHT / 2, this.platforms, this.player2, this.HUD);
@@ -82,7 +81,7 @@ export class MainScene extends Phaser.Scene {
         }
         
 
-       // this.add.text(50, 0, score1 + "-" + score2, { fontFamily: 'ka1', fontSize: 50 });
+       this.add.text(this.WIDTH/2-50, 30, this.score1 + "-" + this.score2, { fontFamily: 'ka1', fontSize: 80 });
     }
     createPlatforms() {//Crea la plataforma
         let platforms = this.physics.add.staticGroup();

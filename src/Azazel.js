@@ -1,11 +1,14 @@
 export default class Azazel extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, floor) {//Habra que pasarle player2 para que colisione con ellos 
+    constructor(scene, x, y, floor, player2) {//Habra que pasarle player2 para que colisione con ellos 
         super(scene, x, y);
         scene.add.existing(this).setScale(2, 2);
         scene.physics.add.existing(this);
         scene.physics.add.collider(this, floor);
         this.body.setSize(20, 45);
         this.body.setOffset(65, 55);
+        this.scene = scene;
+        this.player2 = player2;
+        this.floor = floor;
         this.hit = false;
         this.onAir = false;
         this.eliminate = false;
@@ -31,7 +34,7 @@ export default class Azazel extends Phaser.GameObjects.Sprite {
         scene.anims.create({//Anim ataque fuerte
             key: 'AzSA',
             frames: scene.anims.generateFrameNumbers('Azazelstrongattack', { start: 0, end: 3 }),
-            frameRate: 22,
+            frameRate: 15,
             repeat: 0
         });
         scene.anims.create({//Anim ataque normal
@@ -65,6 +68,7 @@ export default class Azazel extends Phaser.GameObjects.Sprite {
         this.hKey = this.scene.input.keyboard.addKey('H');
     }
 
+   
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
         if (this.body.onFloor()) {
@@ -112,6 +116,7 @@ export default class Azazel extends Phaser.GameObjects.Sprite {
         if (Phaser.Input.Keyboard.JustDown(this.gKey) && !this.attacking) {
             if (this.anims.currentAnim.key !== 'AzSA') {
                 this.play('AzSA');
+                this.throwFireBall();
                 this.attacking = true;
             }
         }
@@ -121,5 +126,49 @@ export default class Azazel extends Phaser.GameObjects.Sprite {
                 this.attacking = true;
             }
         }
+    }
+    throwFireBall() {
+
+        let dir, x, y;
+        if (this.right) { dir = 1; x = this.body.x + 80; y = this.body.y + 40;}
+        else { dir = 0; x = this.body.x - 45; y = this.body.y + 40;}
+        new AzazelBall(this.scene, x, y, dir, this.player2, this.floor);
+    }
+
+}
+export class AzazelBall extends Phaser.GameObjects.Sprite {
+
+    constructor(scene, x, y, direction, player2, floor) {
+        super(scene, x, y);
+        scene.add.existing(this).setScale(0.2, 0.2);
+        scene.physics.add.existing(this);
+        scene.physics.add.collider(this, floor);
+        this.delete = false;
+        this.elapsed = 0;
+        scene.physics.add.collider(this, player2, end => {
+            this.delete = true;
+        });
+        this.body.setSize(130, 130);
+        this.body.setOffset(240, 180);
+        if (direction == 0) { this.body.setVelocityX(-200); this.setFlip(true, false)}
+        else { this.body.setVelocityX(200);}
+        this.damage = 20;
+
+        scene.anims.create({//Anim idle
+            key: 'AFB',
+            frames: scene.anims.generateFrameNumbers('AzazelBall', { start: 0, end: 4 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.play('AFB');
+    }
+
+    preUpdate(t, dt) {
+        super.preUpdate(t, dt);
+        this.body.setVelocityY(0);
+        this.elapsed += dt;
+        if (this.elapsed > 5000) { this.delete = true;}
+        if (this.delete) { this.destroy();}
     }
 }

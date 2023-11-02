@@ -28,7 +28,7 @@ export class MainScene extends Phaser.Scene {
     
     preload() {//Dependiendo de lo seleccionado cargamos una cosa u otra (mas adelante) 
         this.load.image('background', '/assets/img/castillo.jpg');//Fondo castillo
-        this.load.image(PLATFORM, '/assets/img/puente1.png');//Plataforma fea
+        this.load.image(PLATFORM, '/assets/img/lavaPlat.png');//Plataforma lava
         this.load.image('Sword', '/assets/img/Sword.png');//Espada
         this.load.image('Coconut', '/assets/img/coco.png');//Coco
         this.load.spritesheet(PLAYER, '/assets/img/dude.png', { frameWidth: 32, frameHeight: 48 });//Player prueba
@@ -50,6 +50,8 @@ export class MainScene extends Phaser.Scene {
         this.load.spritesheet('Azazelstrongattack', '/assets/img/Azazel/Attack.png', { frameWidth: 150, frameHeight: 150 });
         this.load.spritesheet('Azazelidle', '/assets/img/Azazel/Idle.png', { frameWidth: 150, frameHeight: 150 });
         this.load.spritesheet('Azazelwalk', '/assets/img/Azazel/Move.png', { frameWidth: 150, frameHeight: 150 });
+        this.load.spritesheet('AzazelBall', '/assets/img/AzazelBall.png', { frameWidth: 498, frameHeight: 498 });
+
         //this.loadFont('font', 'fonts/ka1.ttf');//Font del marcador  
     }
 
@@ -62,9 +64,9 @@ export class MainScene extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();//Teclas
         this.score1 = 0;
         this.score2 = 0;//Marcador de la partida
-        //this.player1 = new Trevor(this, 500, 300, this.player, this.platforms);
-        this.player1 = new Azazel(this, this.WIDTH / 4, this.HEIGHT / 2, this.platforms);
+        //this.player1 = new Trevor(this, 500, 300, this.player, this.platforms);  
         this.player2 = new Arturo(this, this.WIDTH - this.WIDTH / 4, this.HEIGHT / 2, this.platforms);
+        this.player1 = new Azazel(this, this.WIDTH / 4, this.HEIGHT / 2, this.platforms, this.player2);
         
         new HUD(this, 0, 0, this.player1, this.player2);
     }
@@ -81,7 +83,9 @@ export class MainScene extends Phaser.Scene {
     }
     createPlatforms() {//Crea la plataforma
         let platforms = this.physics.add.staticGroup();
-        platforms.create(this.WIDTH / 2, this.HEIGHT - (this.HEIGHT / 10), PLATFORM).setScale(2,2).refreshBody();
+        platforms.create(this.WIDTH / 2, this.HEIGHT - (this.HEIGHT / 10), PLATFORM).setScale(2, 2).refreshBody();
+        platforms.create(this.WIDTH - this.WIDTH / 5, this.HEIGHT - (this.HEIGHT / 15), PLATFORM).setScale(2, 2).refreshBody();
+        platforms.create(this.WIDTH / 5, this.HEIGHT - (this.HEIGHT / 15), PLATFORM).setScale(2, 2).refreshBody();
         return platforms;
 
     }

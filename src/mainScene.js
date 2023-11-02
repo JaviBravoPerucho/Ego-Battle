@@ -28,14 +28,14 @@ export class MainScene extends Phaser.Scene {
     }
     
     preload() {//Dependiendo de lo seleccionado cargamos una cosa u otra (mas adelante) 
-        this.load.image('background', '/assets/img/castillo.jpg');//Fondo castillo
+        this.load.image('background', '/assets/img/fondos/castillo.jpg');//Fondo castillo
         this.load.image(PLATFORM, '/assets/img/lavaPlat.png');//Plataforma lava
         this.load.image('Sword', '/assets/img/Sword.png');//Espada
         this.load.image('Coconut', '/assets/img/coco.png');//Coco
         this.load.spritesheet(PLAYER, '/assets/img/dude.png', { frameWidth: 32, frameHeight: 48 });//Player prueba
         this.load.spritesheet('VFB', '/assets/img/VFB.png', { frameWidth: 32, frameHeight: 67 });//Bola de fuego volcan
         this.load.spritesheet('Fish', '/assets/img/Pez.png', { frameWidth: 500, frameHeight: 659 });//Bola de fuego volcan
-        this.load.spritesheet('Volcan', '/assets/img/Volcan.png', { frameWidth: 800, frameHeight: 336 });//Fondo volcan
+        this.load.spritesheet('Volcan', '/assets/img/fondos/Volcan.png', { frameWidth: 800, frameHeight: 336 });//Fondo volcan
         this.load.spritesheet('Explosion', '/assets/img/explosionFB.png', { frameWidth: 247, frameHeight: 240 });//explosion bola de fuego
         this.load.spritesheet('Trevornormalattack', '/assets/img/Trevor/ataqueLanza.png', { frameWidth: 150, frameHeight: 150 });
         this.load.spritesheet('Trevorstrongattack', '/assets/img/Trevor/ataquePorra.png', { frameWidth: 150, frameHeight: 150 });

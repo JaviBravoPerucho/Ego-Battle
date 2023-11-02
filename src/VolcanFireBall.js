@@ -39,15 +39,13 @@ export default class VolcanFireBall extends Phaser.GameObjects.Sprite {
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
        
-        if (this.body.position.y > 380 || this.hit === true) {//Llega al suelo   
-            this.play('hitExplosion')
-            this.body.velocity.y = 0;   
+        if (this.body.position.y > 380 || this.hit === true) {//Llega al suelo            
+            this.body.velocity.y = 0;
+            this.play('hitExplosion');
         }
         else this.body.velocity.y = 200;//Cae
 
-       
       
-
         if (this.eliminate) {//Elimina
             this.destroy();
         }  

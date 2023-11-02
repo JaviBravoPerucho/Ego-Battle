@@ -23,6 +23,7 @@ export class MainScene extends Phaser.Scene {
         this.time = undefined;//Tiempo en el juego para poder pasarselo a otros objetos
         this.WIDTH = undefined; 
         this.HEIGHT = undefined; 
+        this.HUD = undefined;
         
     }
     
@@ -66,9 +67,11 @@ export class MainScene extends Phaser.Scene {
         this.score2 = 0;//Marcador de la partida
         //this.player1 = new Trevor(this, 500, 300, this.player, this.platforms);  
         this.player2 = new Arturo(this, this.WIDTH - this.WIDTH / 4, this.HEIGHT / 2, this.platforms);
-        this.player1 = new Azazel(this, this.WIDTH / 4, this.HEIGHT / 2, this.platforms, this.player2);
+        this.player1 = new Azazel(this, this.WIDTH / 4, this.HEIGHT / 2, this.platforms, this.player2, this.HUD);
         
-        new HUD(this, 0, 0, this.player1, this.player2);
+        this.HUD = new HUD(this, 0, 0, this.player1, this.player2);
+
+        this.player1.HUD = this.HUD;
     }
     update(t) {
         this.time = t;

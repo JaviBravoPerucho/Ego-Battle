@@ -12,6 +12,9 @@
     width: 1000px;
     height: 400px;
 }
+.logo{
+    margin-top: 10px;
+}
 
 .contenedor{
     background-color: grey;

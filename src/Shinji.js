@@ -1,8 +1,8 @@
 
 
-export default class Trevor extends Phaser.GameObjects.Sprite {
+export default class Shinji extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, player,floor) {//Habra que pasarle player1 y player2 para que colisione con ellos 
-        super(scene, x, y, 'Tnormalattack','Tstrongattack', 'Trevoridle', 'Trevorjump', 'Trevorwalk');
+        super(scene, x, y, 'Snormalattack','Sstrongattack', 'Shinjiidle', 'Shinjijump', 'Shinjiwalk');
         scene.add.existing(this).setScale(1.5, 1.5);
 
         scene.physics.add.existing(this);
@@ -16,52 +16,54 @@ export default class Trevor extends Phaser.GameObjects.Sprite {
         this.nattacking = false;
         this.moving = false;
         this.jumping = false;
-        this.left=false
+        this.left = false
+        this.name = 'Shinji';
+
         scene.anims.create({//Anim basica
-            key: 'Tidle',
-            frames: scene.anims.generateFrameNumbers('Trevoridle', { start: 0, end: 7 }),
+            key: 'Sidle',
+            frames: scene.anims.generateFrameNumbers('Shinjiidle', { start: 0, end: 7 }),
+            frameRate: 9,
+            repeat: -1
+        });
+        scene.anims.create({//Anim explosion
+            key: 'Swalk',
+            frames: scene.anims.generateFrameNumbers('Shinjiwalk', { start: 0, end: 7 }),
             frameRate: 15,
             repeat: -1
         });
         scene.anims.create({//Anim explosion
-            key: 'Twalk',
-            frames: scene.anims.generateFrameNumbers('Trevorwalk', { start: 0, end: 7 }),
-            frameRate: 15,
-            repeat: -1
-        });
-        scene.anims.create({//Anim explosion
-            key: 'Tjump',
-            frames: scene.anims.generateFrameNumbers('Trevorjump', { start: 0, end: 1 }),
+            key: 'Sjump',
+            frames: scene.anims.generateFrameNumbers('Shinjijump', { start: 0, end: 1 }),
             frameRate: 15,
             repeat: 0
         });
         scene.anims.create({//Anim explosion
-            key: 'Tstrongattack',
-            frames: scene.anims.generateFrameNumbers('Trevorstrongattack', { start: 0, end: 3 }),
+            key: 'Sstrongattack',
+            frames: scene.anims.generateFrameNumbers('Shinjistrongattack', { start: 0, end: 3 }),
             frameRate: 10,
             repeat: 0
         });
         scene.anims.create({//Anim explosion
-            key: 'Tnormalattack',
-            frames: scene.anims.generateFrameNumbers('Trevornormalattack', { start: 0, end: 3 }),
+            key: 'Snormalattack',
+            frames: scene.anims.generateFrameNumbers('Shinjinormalattack', { start: 0, end: 3 }),
             frameRate: 15,
             repeat: 0
         });
         this.on('animationcomplete', end => {//Detecta que ha finalizado la explosion
-            if (this.anims.currentAnim.key === 'Tnormalattack') {
+            if (this.anims.currentAnim.key === 'Snormalattack') {
                // this.body.setVelocityX(0);
                 this.attacking = false;
                 this.nattacking = false;
             }
         })
         this.on('animationcomplete', end => {//Detecta que ha finalizado la explosion
-            if (this.anims.currentAnim.key === 'Tstrongattack') {
+            if (this.anims.currentAnim.key === 'Sstrongattack') {
                // this.body.setVelocityX(0);
                 this.attacking = false;
             }
         })
         this.on('animationcomplete', end => {//Detecta que ha finalizado la explosion
-            if (this.anims.currentAnim.key === 'Tjump') {
+            if (this.anims.currentAnim.key === 'Sjump') {
                // this.body.setVelocityX(0);
 
             }
@@ -69,7 +71,7 @@ export default class Trevor extends Phaser.GameObjects.Sprite {
 
 
 
-        this.play('Tidle');
+        this.play('Sidle');
         this.wKey = this.scene.input.keyboard.addKey('W'); 
         this.aKey = this.scene.input.keyboard.addKey('A'); 
         this.dKey = this.scene.input.keyboard.addKey('D'); 
@@ -86,16 +88,16 @@ export default class Trevor extends Phaser.GameObjects.Sprite {
         if (this.aKey.isDown && this.dKey.isDown) {
             this.body.setVelocityX(0);
             if (!this.attacking && !this.jumping) {
-                if (this.anims.currentAnim.key !== 'Tidle') {
-                    this.play('Tidle');
+                if (this.anims.currentAnim.key !== 'Sidle') {
+                    this.play('Sidle');
                 }
             }
         }
         else if (this.aKey.isDown) {
-            if (this.anims.currentAnim.key !== 'Twalk') {
+            if (this.anims.currentAnim.key !== 'Swalk') {
                 this.setFlip(true, false)
                 if (!this.jumping && !this.attacking) {
-                    this.play('Twalk');
+                    this.play('Swalk');
                 }
                 if (!this.nattacking&&!this.attacking) {
                     this.body.setVelocityX(-125);
@@ -105,10 +107,10 @@ export default class Trevor extends Phaser.GameObjects.Sprite {
             }
         }
         else if (this.dKey.isDown) {
-            if (this.anims.currentAnim.key !== 'Twalk') {
+            if (this.anims.currentAnim.key !== 'Swalk') {
                 this.setFlip(false, false)
                 if (!this.jumping && !this.attacking) {
-                    this.play('Twalk');
+                    this.play('Swalk');
                 }
                 if (!this.nattacking && !this.attacking) {
                     this.body.setVelocityX(125);
@@ -119,8 +121,8 @@ export default class Trevor extends Phaser.GameObjects.Sprite {
         }
         else {
             if (!this.attacking && !this.jumping) {
-                if (this.anims.currentAnim.key !== 'Tidle') {
-                    this.play('Tidle');
+                if (this.anims.currentAnim.key !== 'Sidle') {
+                    this.play('Sidle');
                 }
             }
           
@@ -128,21 +130,21 @@ export default class Trevor extends Phaser.GameObjects.Sprite {
         if (Phaser.Input.Keyboard.JustDown(this.wKey) &&this.jumps<2) {
             this.jumps++;
             this.body.setVelocityY(-375);
-            if (this.anims.currentAnim.key !== 'Tjump') {
-                this.play('Tjump');
+            if (this.anims.currentAnim.key !== 'Sjump') {
+                this.play('Sjump');
                 this.jumping = true;
             }
         }
         if (Phaser.Input.Keyboard.JustDown(this.gKey)) {
-            if (this.anims.currentAnim.key !== 'Tstrongattack') {
-                this.play('Tstrongattack');
+            if (this.anims.currentAnim.key !== 'Sstrongattack') {
+                this.play('Sstrongattack');
                 this.attacking = true;
                 if (!this.jumping) this.body.setVelocityX(0);
             }
         }
         if (Phaser.Input.Keyboard.JustDown(this.hKey)) {
-            if (this.anims.currentAnim.key !== 'Tnormalattack') {
-                this.play('Tnormalattack');
+            if (this.anims.currentAnim.key !== 'Snormalattack') {
+                this.play('Snormalattack');
                 if (!this.left) this.body.setVelocityX(500);
                 else this.body.setVelocityX(-500);
                 this.attacking = true;

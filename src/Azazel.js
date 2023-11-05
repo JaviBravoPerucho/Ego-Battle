@@ -19,6 +19,7 @@ export default class Azazel extends Phaser.GameObjects.Sprite {
         this.jumps = 0
         this.vida = 196;
         this.HUD = HUD;
+        this.name = 'Azazel';
 
         scene.anims.create({//Anim idle
             key: 'Azidle',

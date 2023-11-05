@@ -3,7 +3,7 @@ import Volcan from '../src/Volcan.js';
 import Sword from '../src/Sword.js';
 import Coconut from '../src/Coconut.js';
 import Fish from '../src/Fish.js';
-import Trevor from '../src/Personaje1.js';
+import Trevor from '../src/Trevor.js';
 import Arturo from '../src/Arturo.js';
 import Azazel from '../src/Azazel.js';
 import HUD from '../src/HUD.js';
@@ -24,17 +24,23 @@ export class MainScene extends Phaser.Scene {
         this.WIDTH = undefined; 
         this.HEIGHT = undefined; 
         this.HUD = undefined;
+        this.score1 = undefined;
+        this.score2 = undefined;
         
     }
     
     preload() {//Dependiendo de lo seleccionado cargamos una cosa u otra (mas adelante) 
+        this.load.image('Arturo', '/assets/img/Arturo/arthur.png');
+        this.load.image('Trevor', '/assets/img/Trevor/trevor.png');
+        this.load.image('Azazel', '/assets/img/Azazel/azazzel.png');
+        this.load.image('Shinji', '/assets/img/Shinji/shinji.png');
         this.load.image('background', '/assets/img/fondos/castillo.jpg');//Fondo castillo
         this.load.image(PLATFORM, '/assets/img/lavaPlat.png');//Plataforma lava
         this.load.image('Sword', '/assets/img/Sword.png');//Espada
         this.load.image('Coconut', '/assets/img/coco.png');//Coco
         this.load.spritesheet(PLAYER, '/assets/img/dude.png', { frameWidth: 32, frameHeight: 48 });//Player prueba
         this.load.spritesheet('VFB', '/assets/img/VFB.png', { frameWidth: 32, frameHeight: 67 });//Bola de fuego volcan
-        this.load.spritesheet('Fish', '/assets/img/Pez.png', { frameWidth: 500, frameHeight: 659 });//Bola de fuego volcan
+        this.load.spritesheet('Fish', '/assets/img/Pez.png', { frameWidth: 500, frameHeight: 659 });//Pez
         this.load.spritesheet('Volcan', '/assets/img/fondos/Volcan.png', { frameWidth: 800, frameHeight: 336 });//Fondo volcan
         this.load.spritesheet('Explosion', '/assets/img/explosionFB.png', { frameWidth: 247, frameHeight: 240 });//explosion bola de fuego
         this.load.spritesheet('Trevornormalattack', '/assets/img/Trevor/ataqueLanza.png', { frameWidth: 150, frameHeight: 150 });
@@ -68,7 +74,7 @@ export class MainScene extends Phaser.Scene {
         this.player2 = new Arturo(this, this.WIDTH - this.WIDTH / 4, this.HEIGHT / 2, this.platforms);
         this.player1 = new Azazel(this, this.WIDTH / 4, this.HEIGHT / 2, this.platforms, this.player2, this.HUD);
         
-        this.HUD = new HUD(this, 0, 0, this.player1, this.player2);
+        this.HUD = new HUD(this, 0, 0, this.player1, this.player2, this.score1, this.score2);
 
         this.player1.HUD = this.HUD;
     }
@@ -80,8 +86,8 @@ export class MainScene extends Phaser.Scene {
             this.creaObjeto();
         }
         
-
-       this.add.text(this.WIDTH/2-50, 30, this.score1 + "-" + this.score2, { fontFamily: 'ka1', fontSize: 80 });
+        this.HUD.update();
+       
     }
     createPlatforms() {//Crea la plataforma
         let platforms = this.physics.add.staticGroup();

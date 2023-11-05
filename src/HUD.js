@@ -49,8 +49,15 @@ class HealthBar extends Phaser.GameObjects.Graphics {
     }
 }
 
+class Marco extends Phaser.GameObjects.Image {
+    constructor(scene, x, y, personaje) {
+        super(scene, x, y, personaje);
+        scene.add.existing(this).setScale(1, 1);
+    }
+}
+
 export default class HUD extends Phaser.GameObjects.Container {
-    constructor(scene, x, y, player1, player2) {
+    constructor(scene, x, y, player1, player2, score1, score2) {
         super(scene, x, y);
 
         this.player1 = player1;
@@ -60,7 +67,27 @@ export default class HUD extends Phaser.GameObjects.Container {
         this.add(this.BarraDeVida1);
         this.add(this.BarraDeVida2);
 
+        this.MarcoPlayer1 = new Marco(scene, 0, 0, player1.name);
+        this.MarcoPlayer2 = new Marco(scene, scene.WIDTH - 20, 0, player2.name);
+        this.add(this.MarcoPlayer1);
+        this.add(this.MarcoPlayer2);
+        this.MarcoPlayer1.x += this.MarcoPlayer1.width / 2;
+        this.MarcoPlayer2.x -= this.MarcoPlayer2.width / 2;
+        this.MarcoPlayer1.y += this.MarcoPlayer1.height;
+        this.MarcoPlayer2.y += this.MarcoPlayer2.height;
+        this.MarcoPlayer2.flipX = true;
+
+
+        this.score = this.scene.add.text(this.scene.WIDTH / 2 - 20, 30, score1 + "-" + score2, { fontFamily: 'ka1', fontSize: 80 });
+        this.score1 = score1;
+        this.score2 = score2;
+
+        this.add(this.score);
+     
         this.scene.add.existing(this);
     }
 
+    update() {
+        this.score.setText(this.score1 + "-" + this.score2);
+    }
 }

@@ -8,7 +8,7 @@ import Arturo from '../src/Arturo.js';
 import Azazel from '../src/Azazel.js';
 import HUD from '../src/HUD.js';
 
-const PLATFORM = 'platform'
+const PLATFORMLAVA = 'platform'
 const PLAYER = 'player'
 var time = 3000;//Tiempo para caer primer objeto
 
@@ -37,13 +37,17 @@ export class MainScene extends Phaser.Scene {
         this.load.image('Azazel', '/assets/img/Azazel/azazzel.png');
         this.load.image('Shinji', '/assets/img/Shinji/shinji.png');
         this.load.image('background', '/assets/img/fondos/castillo.jpg');//Fondo castillo
-        this.load.image(PLATFORM, '/assets/img/lavaPlat.png');//Plataforma lava
+        this.load.image(PLATFORMLAVA, '/assets/img/lavaPlat.png');//Plataforma lava
         this.load.image('Sword', '/assets/img/Sword.png');//Espada
         this.load.image('Coconut', '/assets/img/coco.png');//Coco
         this.load.spritesheet(PLAYER, '/assets/img/dude.png', { frameWidth: 32, frameHeight: 48 });//Player prueba
         this.load.spritesheet('VFB', '/assets/img/VFB.png', { frameWidth: 32, frameHeight: 67 });//Bola de fuego volcan
         this.load.spritesheet('Fish', '/assets/img/Pez.png', { frameWidth: 500, frameHeight: 659 });//Pez
         this.load.spritesheet('Volcan', '/assets/img/fondos/Volcan.png', { frameWidth: 800, frameHeight: 336 });//Fondo volcan
+        this.load.spritesheet('Castillo', '/assets/img/fondos/castillo.jpg', { frameWidth: 1071, frameHeight: 600 });//Fondo castillo
+       /* this.load.spritesheet('Espacio', '/assets/img/fondos/Espacio.png', { frameWidth: 768, frameHeight: 432 });//Fondo Espacio*/
+        /*this.load.spritesheet('Muelle', '/assets/img/fondos/fondo.png', { frameWidth: 720, frameHeight: 405 });//Fondo Muelle*/
+        this.load.spritesheet('Jungla', '/assets/img/fondos/jungla.png', { frameWidth: 800, frameHeight: 650 });//Fondo Jungla
         this.load.spritesheet('Explosion', '/assets/img/explosionFB.png', { frameWidth: 247, frameHeight: 240 });//explosion bola de fuego
         this.load.spritesheet('Trevornormalattack', '/assets/img/Trevor/ataqueLanza.png', { frameWidth: 150, frameHeight: 150 });
         this.load.spritesheet('Trevorstrongattack', '/assets/img/Trevor/ataquePorra.png', { frameWidth: 150, frameHeight: 150 });
@@ -66,7 +70,8 @@ export class MainScene extends Phaser.Scene {
     create() {//asignamos player1 y player 2
         this.HEIGHT = this.sys.game.canvas.height;
         this.WIDTH = this.sys.game.canvas.width;
-        new Volcan(this, 600, 300).setScale(1.7, 1.8);
+        /*new Volcan(this, 600, 300).setScale(1.7, 1.8);*/       
+        this.add.existing(new Phaser.GameObjects.Sprite(this, 600, 300, 'Castillo')).setScale(1.2, 1);
         //this.background = this.add.image(400, 300, 'background');
         this.platforms = this.createPlatforms();
         this.cursors = this.input.keyboard.createCursorKeys();//Teclas
@@ -93,9 +98,9 @@ export class MainScene extends Phaser.Scene {
     }
     createPlatforms() {//Crea la plataforma
         let platforms = this.physics.add.staticGroup();
-        platforms.create(this.WIDTH / 2, this.HEIGHT - (this.HEIGHT / 10), PLATFORM).setScale(2, 2).refreshBody();
-        platforms.create(this.WIDTH - this.WIDTH / 5, this.HEIGHT - (this.HEIGHT / 15), PLATFORM).setScale(2, 2).refreshBody();
-        platforms.create(this.WIDTH / 5, this.HEIGHT - (this.HEIGHT / 15), PLATFORM).setScale(2, 2).refreshBody();
+        platforms.create(this.WIDTH / 2, this.HEIGHT - (this.HEIGHT / 10), PLATFORMLAVA).setScale(2, 2).refreshBody();
+        platforms.create(this.WIDTH - this.WIDTH / 5, this.HEIGHT - (this.HEIGHT / 15), PLATFORMLAVA).setScale(2, 2).refreshBody();
+        platforms.create(this.WIDTH / 5, this.HEIGHT - (this.HEIGHT / 15), PLATFORMLAVA).setScale(2, 2).refreshBody();
         return platforms;
 
     }

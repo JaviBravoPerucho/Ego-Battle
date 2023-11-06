@@ -11,7 +11,7 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
         this.eliminate = false;
         this.attacking = false;
         this.jumps = 0;
-        this.vida = 196;
+        this.vida = 300;
         this.name = 'Arturo';
 
         scene.anims.create({//Anim idle

@@ -24,9 +24,9 @@
 
 - Si te pegan mientras atacas se cancela el ataque.
 
-- Durante cada partida, cada personaje tiene 3 vidas. Al morir (acabarse la barra de vida o caer al vacío) un personaje pierde una vida, y si pierde las 3 aparece una pantalla final donde se declara al ganador de la partida.
+- Durante cada partida, cada personaje tiene una barra con 300 de vida. Al morir (acabarse la barra de vida o caer al vacío) un personaje pierde una ronda, y si pierde las 3 aparece una pantalla final donde se declara al ganador de la partida.
 
-- Cuando pierdes la vida sale la animación de muerte y vuelves a aparecer en un punto de aparición con 3s de invulnerabilidad. Si ataca antes de los 3s se desactiva la invulnerabilidad.
+- Cuando pierdes la ronda sale la animación de muerte y vuelves a aparecer en un punto de aparición con 3s de invulnerabilidad. Si ataca antes de los 3s se desactiva la invulnerabilidad.
 
 - Cada personaje tiene una barra de poder que se va llenando en función de una mecánica relacionada con su personalidad, y al llenarse al completo los personajes tienen una habilidad (activa o pasiva). Las habilidades activas se realizan con la tecla del ataque.
 Si muere no se reinicia la barra.
@@ -34,7 +34,7 @@ Si muere no se reinicia la barra.
 - Los ataques provocan un empuje contra el oponente, que es mayor cuanta menos vida tenga.
 
 ### Escenarios:
- Caen objetos (dependen del mapa elegido) cada cierto tiempo desde arriba hacia la arena, si da a un jugador en el aire le empuja hacia un lado(un poco). Al llegar al suelo genera una onda que empuja a los jugadores y les hace daño. Si un jugador lo golpea en cualquier momento lo lanza en la dirección del golpe, pudiendo causar daño a los jugadores.
+ Caen objetos (dependen del mapa elegido) cada cierto tiempo desde arriba hacia la arena, si da a un jugador en el aire le empuja hacia un lado(un poco). Al llegar al suelo genera una onda que empuja a los jugadores y les hace daño(3 de daño). Si un jugador lo golpea en cualquier momento lo lanza en la dirección del golpe, pudiendo causar daño a los jugadores.
 
 Los escenarios tienen una plataforma grande principal donde los personajes pelean y algunas plataformas más pequeñas colocadas estratégicamente. Algunas de las plataformas pequeñas se mueven hacia los lados y otras de arriba abajo.
 
@@ -51,37 +51,37 @@ Los jugadores escogen su personaje en función de la personalidad que más les g
 ## Personajes:
 - **Arturo**: Es orgulloso y carismático, se guía por sus sentimientos. Tiene un aspecto heroico con una corona y una capa.\
 
-    - Ataque principal: espadazo imponente(daño alto y alcance medio)\
-    - Ataque secundario: espadazo corto y rápido de corto alcance\
+    - Ataque principal: espadazo imponente(10 de daño y alcance medio)\
+    - Ataque secundario: espadazo corto y rápido de corto alcance(5 de daño)\
     - Barra de poder: mientras no recibe daño carga la barra, ya que mantiene su orgullo y gana confianza.\
-    - Poder: Con su voz de líder y manipulador convence al oponente a rendirse ante él y hacerse daño a sí mismo.
+    - Poder: Con su voz de líder y manipulador convence al oponente a rendirse ante él y hacerse daño a sí mismo(40 de daño).
 
 ![Arturo](assets/img/Arturo/arthur.png)
 
 - **Azazel**: Es un maestro táctico y juzga muy bien sus acciones.  Tiene un estilo de combate con el que gana a su oponente de forma estratégica.
 
-    - Ataque principal: llamarada que paraliza a los oponentes durante un tiempo y tiene rango suficiente para que la mayoría de ataques de los otros personajes no le lleguen a dañar, pero es un ataque que tarda bastante tiempo y puede castigar bastante si se falla. Por eso el jugador debe pensar bien cuándo usar este ataque estratégicamente para maximizar su valor.\
-    - Ataque secundario: lanza una bola de fuego que puede hacerle daño a él también si está demasiado cerca, por lo que debe tener cuidado de dónde la lanza.\
+    - Ataque principal: llamarada que paraliza a los oponentes durante un tiempo(2s, 10 de daño) y tiene rango suficiente para que la mayoría de ataques de los otros personajes no le lleguen a dañar, pero es un ataque que tarda bastante tiempo y puede castigar bastante si se falla. Por eso el jugador debe pensar bien cuándo usar este ataque estratégicamente para maximizar su valor.\
+    - Ataque secundario: lanza una bola de fuego que puede hacerle daño (10 de daño) a él también si está demasiado cerca, por lo que debe tener cuidado de dónde la lanza.\
     - Barra de poder: Mientras está quieto llena poder, ya que está pensando un plan y considerando todas las opciones.\
-    - Poder: Ha averiguado los puntos débiles del oponente y hace más daño con sus ataques durante un tiempo.
+    - Poder: Ha averiguado los puntos débiles del oponente y hace más daño con sus ataques durante un tiempo(+10 en cada ataque, durante 10 segundos).
 
 ![Azazel](assets/img/Azazel/azazzel.png) 
 
 - **Trevor**: Es un personaje agresivo y directo. Realiza combate cuerpo a cuerpo y se lanza a sus oponentes con furia, guiándose por sus instintos.
 
-    - Ataque principal: Dash con una lanza hacia delante causando daño(medio)
-    - Ataque secundario: golpea con la maza(daño + empuje)
+    - Ataque principal: Dash con una lanza hacia delante causando daño(10 de daño)
+    - Ataque secundario: golpea con la maza(7 daño + empuje)
     - Barra de poder: se recarga recibiendo daño
-    - Poder: al haber recibido bastante daño su furia se ha acumulado y se vuelve loco, corriendo hacia su oponente como una bestia y realizando muchos ataques en poco tiempo.
+    - Poder: al haber recibido bastante daño su furia se ha acumulado y se vuelve loco, corriendo hacia su oponente como una bestia y realizando muchos ataques en poco tiempo(0.2 s por ataque).
 
 ![Trevor](assets/img/Trevor/trevor.png) 
 
 - **Shinji**: Es introvertido. Por eso no realiza combate cuerpo a cuerpo, solo lanza proyectiles desde lejos.
 
-    - Ataque principal: lanza shurikens(largo alcance(no les afecta la gravedad))\
-    - Ataque secundario: lanza bombas pegajosas(corto alcance en forma de parábola(explotan empujando a los rivales(daño si se pegan alto, si no bajo)))\
+    - Ataque principal: lanza shurikens(5 daño, largo alcance(no les afecta la gravedad))\
+    - Ataque secundario: lanza bombas pegajosas(corto alcance en forma de parábola(explotan empujando a los rivales(daño si se pegan 15, si no 5)))\
     - Barra de poder: se rellena mientras más tiempo esté lejos del oponente ya que de esta forma gana confianza y se prepara para un ataque fuerte.\
-    - Poder: se teletransporta detrás del rival, realizando un ataque fuerte por la espalda.
+    - Poder: se teletransporta detrás del rival, realizando un ataque fuerte por la espalda(40 de daño).
 
  ![Shinji](assets/img/Shinji/shinji.png) 
 
@@ -92,8 +92,11 @@ Los jugadores escogen su personaje en función de la personalidad que más les g
 
 ![Volcán](assets/img/fondos/vulcan.gif) 
 
+![PlataformasVolcan](assets/img/fondos/capturadeljuego.png)
+*Volcán con plataformas*
 
-- **Castillo medieval**: Formado por torres y patios. Caen espadas que aplican sangrado
+
+- **Castillo medieval**: Formado por torres y patios. Caen espadas.
 
 ![Castillo](assets/img/fondos/castillo.jpg) 
 
@@ -101,9 +104,14 @@ Los jugadores escogen su personaje en función de la personalidad que más les g
 
 ![Nave](assets/img/fondos/Espacio.gif) 
 
+![PlataformasNave](assets/img/fondos/bocetomapa.png)
+*Idea de plataformas para la nave*
+
 - **Jungla**: Lianas y vegetación alrededor. Caen cocos que rebotan por el mapa
 
 ![Jungla](assets/img/fondos/jungla.png) 
+![PlataformasJungla](assets/img/fondos/selvabocet.png)
+*Idea para plataformas de la jungla*
 
 - **Muelle**: Diferentes alturas para pelear. Saltan peces del agua y al caer golpean a los jugadores.
 

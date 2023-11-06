@@ -1,5 +1,5 @@
 import { MainScene } from "./mainScene.js";
-import {Menu } from "./mainMenu.js"
+import { Menu } from "./mainMenu.js";
 
 
 var config = {

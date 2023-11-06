@@ -16,7 +16,8 @@ export default class Trevor extends Phaser.GameObjects.Sprite {
         this.nattacking = false;
         this.moving = false;
         this.jumping = false;
-        this.left = false
+        this.left = false;
+        this.vida = 300;
         this.name = 'Trevor';
 
         scene.anims.create({//Anim basica

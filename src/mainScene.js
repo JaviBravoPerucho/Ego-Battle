@@ -30,6 +30,8 @@ export class MainScene extends Phaser.Scene {
     }
     
     preload() {//Dependiendo de lo seleccionado cargamos una cosa u otra (mas adelante) 
+        this.load.image('Borde', '/assets/img/border.png');
+        this.load.image('BordePoder', '/assets/img/barrapoder.png');
         this.load.image('Arturo', '/assets/img/Arturo/arthur.png');
         this.load.image('Trevor', '/assets/img/Trevor/trevor.png');
         this.load.image('Azazel', '/assets/img/Azazel/azazzel.png');

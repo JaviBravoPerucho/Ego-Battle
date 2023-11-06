@@ -17,7 +17,7 @@ export default class Azazel extends Phaser.GameObjects.Sprite {
         this.fireDuration = 3;
         this.fire = 0;
         this.jumps = 0
-        this.vida = 196;
+        this.vida = 300;
         this.HUD = HUD;
         this.name = 'Azazel';
 
@@ -147,7 +147,7 @@ export class AzazelBall extends Phaser.GameObjects.Sprite {
         scene.physics.add.collider(this, floor);
         this.delete = false;
         this.elapsed = 0;
-        this.damage = 20;
+        this.damage = 10;
         this.HUD = HUD;
         scene.physics.add.collider(this, player2, end => {
             if (player2.name == HUD.player2.name) HUD.BarraDeVida2.decrease(this.damage);

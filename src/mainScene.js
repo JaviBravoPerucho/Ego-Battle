@@ -64,7 +64,7 @@ export class MainScene extends Phaser.Scene {
         game.load.spritesheet('Azazelidle', '../assets/img/Azazel/Idle.png', { frameWidth: 150, frameHeight: 150 });
         game.load.spritesheet('Azazelwalk', '../assets/img/Azazel/Move.png', { frameWidth: 150, frameHeight: 150 });
         game.load.spritesheet('AzazelBall', '../assets/img/AzazelBall.png', { frameWidth: 498, frameHeight: 498 });
-        //this.loadFont('font', 'fonts/ka1.ttf');//Font del marcador  
+        //game.loadFont('font', 'fonts/ka1.ttf');//Font del marcador  
     }
 
     create() {//asignamos player1 y player 2

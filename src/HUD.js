@@ -49,7 +49,7 @@ class HealthBarInside extends Phaser.GameObjects.Graphics {
 }
 
 class PowerBar extends Phaser.GameObjects.Graphics {
-    constructor(scene, x, y, value, right) {
+    constructor(scene, x, y, value, right, personaje) {
         super(scene);
         this.x = x;
         this.y = y;
@@ -126,8 +126,8 @@ export default class HUD extends Phaser.GameObjects.Container {
         this.BarraDeVida2 = new HealthBarInside(scene, 440, 10, player2.vida, 1);
         this.BordeBarraDeVida1 = new HealthBarBorder(scene, 173, 33, 'Borde');
         this.BordeBarraDeVida2 = new HealthBarBorder(scene, 1030, 33, 'Borde');
-        this.BarraDePoder1 = new PowerBar(scene, 60, 25, 200, 0);
-        this.BarraDePoder2 = new PowerBar(scene, 440, 25, 200, 1);
+        this.BarraDePoder1 = new PowerBar(scene, 60, 25, 0, 0, player1.name);
+        this.BarraDePoder2 = new PowerBar(scene, 440, 25, 0, 1, player2.name);
         this.add(this.BarraDeVida1);
         this.add(this.BarraDeVida2);
         this.add(this.BordeBarraDeVida1);

@@ -15,15 +15,15 @@ export class Menu extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('Arturo', '/assets/img/Arturo/arthur.png');
-        this.load.image('Trevor', '/assets/img/Trevor/trevor.png');
-        this.load.image('Azazel', '/assets/img/Azazel/azazzel.png');
-        this.load.image('Shinji', '/assets/img/Shinji/shinji.png');
-        this.load.image('start', '/assets/img/Startbutton.png');
-        this.load.spritesheet('MenuFondo', '/assets/img/fondos/MenuFondo.png', { frameWidth: 960, frameHeight: 540 });
-        this.load.image('nameImage', '/assets/img/Menu/marcoNombre.png');
+        this.load.image('Arturo', '../assets/img/Arturo/arthur.png');
+        this.load.image('Trevor', '../assets/img/Trevor/trevor.png');
+        this.load.image('Azazel', '../assets/img/Azazel/azazzel.png');
+        this.load.image('Shinji', '../assets/img/Shinji/shinji.png');
+        this.load.image('start', '../assets/img/Startbutton.png');
+        this.load.spritesheet('MenuFondo', '../assets/img/fondos/MenuFondo.png', { frameWidth: 960, frameHeight: 540 });
+        this.load.image('nameImage', '../assets/img/Menu/marcoNombre.png');
         this.load.image('text', '/assets/img/Menu/textoMarco.png');
-        this.load.image('textomarco', '/assets/img/Menu/MarcosTexto.png');
+        this.load.image('textomarco', '../assets/img/Menu/MarcosTexto.png');
     }
 
     create() {

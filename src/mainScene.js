@@ -30,18 +30,18 @@ export class MainScene extends Phaser.Scene {
     }
     
     preload() {//Dependiendo de lo seleccionado cargamos una cosa u otra (mas adelante) 
-        this.load.image('Borde', '/assets/img/border.png');
-        this.load.image('BordePoder', '/assets/img/barrapoder.png');
-        this.load.image('Arturo', '/assets/img/Arturo/arthur.png');
-        this.load.image('Trevor', '/assets/img/Trevor/trevor.png');
-        this.load.image('Azazel', '/assets/img/Azazel/azazzel.png');
-        this.load.image('Shinji', '/assets/img/Shinji/shinji.png');
-        this.load.image('background', '/assets/img/fondos/castillo.jpg');//Fondo castillo
-        this.load.image(PLATFORMLAVA, '/assets/img/lavaPlat.png');//Plataforma lava
-        this.load.image('Sword', '/assets/img/Sword.png');//Espada
-        this.load.image('Coconut', '/assets/img/coco.png');//Coco
-        this.load.spritesheet(PLAYER, '/assets/img/dude.png', { frameWidth: 32, frameHeight: 48 });//Player prueba
-        this.load.spritesheet('VFB', '/assets/img/VFB.png', { frameWidth: 32, frameHeight: 67 });//Bola de fuego volcan
+        this.load.image('Borde', '../assets/img/border.png');
+        this.load.image('BordePoder', '../assets/img/barrapoder.png');
+        this.load.image('Arturo', '../assets/img/Arturo/arthur.png');
+        this.load.image('Trevor', '../assets/img/Trevor/trevor.png');
+        this.load.image('Azazel', '../assets/img/Azazel/azazzel.png');
+        this.load.image('Shinji', '../assets/img/Shinji/shinji.png');
+        this.load.image('background', '../assets/img/fondos/castillo.jpg');//Fondo castillo
+        this.load.image(PLATFORMLAVA, '../assets/img/lavaPlat.png');//Plataforma lava
+        this.load.image('Sword', '../assets/img/Sword.png');//Espada
+        this.load.image('Coconut', '../assets/img/coco.png');//Coco
+        this.load.spritesheet(PLAYER, '../assets/img/dude.png', { frameWidth: 32, frameHeight: 48 });//Player prueba
+        this.load.spritesheet('VFB', '../assets/img/VFB.png', { frameWidth: 32, frameHeight: 67 });//Bola de fuego volcan
         this.load.spritesheet('Fish', '/assets/img/Pez.png', { frameWidth: 500, frameHeight: 659 });//Pez
         this.load.spritesheet('Volcan', '/assets/img/fondos/Volcan.png', { frameWidth: 800, frameHeight: 336 });//Fondo volcan
         this.load.spritesheet('Castillo', '/assets/img/fondos/castillo.jpg', { frameWidth: 1071, frameHeight: 600 });//Fondo castillo

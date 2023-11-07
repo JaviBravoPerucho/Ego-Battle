@@ -15,12 +15,17 @@
 .logo{
     margin-top: 10px;
 }
+@font-face {
+    font-family: 'Pixels';
+    src: '/assets/fonts/PixelifySans-Bold.ttf';
+}
+
 
 .contenedor{
     background-color: grey;
     max-width: 120em;
     width: 90%;
-    height: 800px;
+    height: 100%;
     padding: 1em;
 }
 .contenedor .ul{
@@ -44,22 +49,23 @@
 }
     .contenedor .subcontenedor {
         min-height: 10vh;
-        height: 750px;
+        height: 90%;
         position: relative;
         background: #000000; /* fallback for old browsers */
         background: -webkit-linear-gradient(to right, #434343, #000000); /* Chrome 10-25, Safari 5.1-6 */
         background: linear-gradient(to right, #434343, #000000);
     }
-.contenedor .bloque{
-    background-color: crimson;
-    margin: 1em;
-    padding: 1em;
-    position: absolute;
-    top:1em;
-    opacity: 0;
-    transition: all .5s ease;
-    
-}
+    .contenedor .bloque {
+        background-image: radial-gradient(circle at 50% 47.45%, #ff57d2 0, #ff4edb 12.5%, #f046e3 25%, #d63feb 37.5%, #b53cf2 50%, #8c3df9 62.5%, #4f40ff 75%, #0046ff 87.5%, #004bff 100%);
+        margin: 1em;
+        padding: 1em;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 1em;
+        opacity: 0;
+        transition: all .5s ease;
+    }
 .contenedor .bloque.activo{
     opacity: 1;
 }

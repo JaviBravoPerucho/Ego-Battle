@@ -6,6 +6,9 @@ export default class Arma extends Phaser.GameObjects.Sprite {
         scene.add.existing(this).setScale(0.2, 0.2);
         scene.physics.add.existing(this);
         scene.physics.add.collider(this, floor);
+        this.delete = false;
+        this.tiempo = undefined;
+        this.tiempoRetardo = undefined;
         this.HUD = HUD;
         this.daño = daño;
 
@@ -16,7 +19,17 @@ export default class Arma extends Phaser.GameObjects.Sprite {
         });       
     }
     init(t) {
-       
+        if (this.arma === 'Espada1') {
+            this.tiempo = 0.5;
+            this.tiempoRetardo = 0.2;
+
+        } else if (this.arma === 'Espada2') {
+
+        } else if (this.arma === 'Lanza') {
+
+        } else if (this.arma === 'Maza') {
+
+        }
     }
 
     preUpdate(t) {      

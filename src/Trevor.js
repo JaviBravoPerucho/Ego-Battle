@@ -19,6 +19,8 @@ export default class Trevor extends Phaser.GameObjects.Sprite {
         this.left = false;
         this.vida = 300;
         this.name = 'Trevor';
+        this.arma1 = 'Lanza';
+        this.arma2 = 'Maza';
 
         scene.anims.create({//Anim basica
             key: 'Tidle',

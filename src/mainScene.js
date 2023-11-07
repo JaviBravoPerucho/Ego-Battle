@@ -1,4 +1,4 @@
-import VolcanFireBall from '../src/VolcanFireball.js';
+import VolcanFireBall from '../src/VolcanFireBall.js';
 import Volcan from '../src/Volcan.js';
 import Sword from '../src/Sword.js';
 import Coconut from '../src/Coconut.js';

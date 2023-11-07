@@ -1,5 +1,7 @@
+import Arma from '../src/Arma.js';
+
 export default class Arturo extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, floor) {//Habra que pasarle player2 para que colisione con ellos 
+    constructor(scene, x, y, floor, HUD, playerOpuesto) {//Habra que pasarle player2 para que colisione con ellos 
         super(scene, x, y);
         scene.add.existing(this).setScale(2, 2);
         scene.physics.add.existing(this);
@@ -15,6 +17,9 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
         this.name = 'Arturo';
         this.arma1 = 'Espada1';
         this.arma2 = 'Espada2';
+        this.direction = 0;
+        this.HUD = HUD;
+        this.playerOpuesto = playerOpuesto;
 
         scene.anims.create({//Anim idle
             key: 'Aidle',
@@ -75,6 +80,7 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
             else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Ajump') { this.play('Ajump'); }
         }
         else if (this.aKey.isDown) {
+            this.direction = 0;
             if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(-160); }
             else { this.body.setVelocityX(0); }
             if (this.anims.currentAnim.key !== 'Awalk') {
@@ -84,15 +90,17 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
             }
         }
         else if (this.dKey.isDown) {
+            this.direction = 1;
             if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(160); }
             else { this.body.setVelocityX(0); }
+
             if (this.anims.currentAnim.key !== 'Awalk') {
-                this.setFlip(false, false)
+                this.setFlip(false, false);
                 if (!this.attacking && !this.onAir) { this.play('Awalk'); }
                 else if (!this.attacking) { this.play('Ajump'); }
             }
         }
-        else {
+        else {   
             this.body.setVelocityX(0);
             if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Aidle') { this.play('Aidle'); }
             else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Ajump') { this.play('Ajump'); }
@@ -111,12 +119,14 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
                 this.play('ASA');
                 this.attacking = true;
             }
+            new Arma(x, y, this.arma1, this.direction, this, this.playerOpuesto, 10, this.HUD, 100, 100); 
         }
         if (Phaser.Input.Keyboard.JustDown(this.hKey) && !this.attacking) {
             if (this.anims.currentAnim.key !== 'ANA') {
                 this.play('ANA');
                 this.attacking = true;
             }
+            new Arma(x, y, this.arma2, this.direction, this, this.playerOpuesto, 10, this.HUD, 100, 100);
         }
     }
 }

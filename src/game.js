@@ -21,7 +21,7 @@ var config = {
         },
         zoom: 2
     },
-    scene: [Menu, MainScene],
+    scene: [MainScene, Menu],
     physics: {
         default: 'arcade',
         checkCollision: {
@@ -32,7 +32,7 @@ var config = {
         },
         arcade: {
             gravity: { y: 700 },
-            debug: false
+            debug: true
         }
     }
 }

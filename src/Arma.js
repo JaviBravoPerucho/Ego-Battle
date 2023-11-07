@@ -1,11 +1,10 @@
 
 
-export default class Arma extends Phaser.GameObjects.Sprite {
+export default class Arma extends Phaser.GameObjects.Container {
     constructor(scene, x, y, arma, direction, player, playerOpuesto, daño, HUD) {
         super(scene, x, y);
         scene.add.existing(this).setScale(0.2, 0.2);
         scene.physics.add.existing(this);
-        scene.physics.add.collider(this, floor);
         this.delete = false;
         this.tiempo = undefined;
         this.tiempoRetardo = undefined;

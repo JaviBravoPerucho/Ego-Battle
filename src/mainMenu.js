@@ -23,16 +23,17 @@ export class Menu extends Phaser.Scene {
         this.load.spritesheet('MenuFondo', '/assets/img/fondos/MenuFondo.png', { frameWidth: 960, frameHeight: 540 });
         this.load.image('nameImage', '/assets/img/Menu/marcoNombre.png');
         this.load.image('text', '/assets/img/Menu/textoMarco.png');
+        this.load.image('textomarco', '/assets/img/Menu/MarcosTexto.png');
     }
 
     create() {
         this.HEIGHT = this.sys.game.canvas.height;
         this.WIDTH = this.sys.game.canvas.width;
-        this.textY = -300;
+        this.textY = -100;
         let style = { fontFamily: 'Pixels', fill: "orange", fontSize: 100};
         new MenuBackground(this, this.WIDTH / 2, this.HEIGHT /2).setScale(1.35, 1.2);
         this.text = this.add.text(25, this.textY, 'EGOBATTLE', style)
-        this.add.image(this.WIDTH / 2, this.HEIGHT/1.1, 'start').setScale(0.2, 0.2);
+        this.add.image(this.WIDTH / 2, this.HEIGHT/2.2, 'start').setScale(0.2, 0.2);
         this.player1 = new CharacterSelector(this, this.WIDTH / 12, this.HEIGHT / 7, 'Arturo');
         this.player2 = new CharacterSelector(this, this.WIDTH / 2.17, this.HEIGHT / 7, 'Shinji');
         this.player1 = new CharacterSelector(this, this.WIDTH / 2.85, this.HEIGHT / 7, 'Trevor');

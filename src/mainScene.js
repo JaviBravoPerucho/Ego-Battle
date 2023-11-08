@@ -8,6 +8,7 @@ import Arturo from './Arturo.js';
 import Azazel from './Azazel.js';
 import HUD from './HUD.js';
 import OVNI from './OVNI.js';
+import Shinji from './Shinji.js';
 
 const PLATFORMLAVA = 'platform'
 const PLAYER = 'player'
@@ -65,6 +66,13 @@ export class MainScene extends Phaser.Scene {
         this.load.spritesheet('Azazelidle', './assets/img/Azazel/Idle.png', { frameWidth: 150, frameHeight: 150 });
         this.load.spritesheet('Azazelwalk', './assets/img/Azazel/Move.png', { frameWidth: 150, frameHeight: 150 });
         this.load.spritesheet('AzazelBall', './assets/img/AzazelBall.png', { frameWidth: 498, frameHeight: 498 });
+        this.load.spritesheet('Shinjiidle', './assets/img/Shinji/Idle.png', { frameWidth: 59, frameHeight: 103 });
+        this.load.spritesheet('Shinjiwalk', './assets/img/Shinji/run.png', { frameWidth: 46, frameHeight: 85 });
+        this.load.spritesheet('Shinjijump', './assets/img/Shinji/Jump.png', { frameWidth: 61, frameHeight: 77 });
+        this.load.spritesheet('Shinjistrongattack', './assets/img/Shinji/Strong.png', { frameWidth: 63, frameHeight: 87 });
+        this.load.spritesheet('Shinjinormalattack', './assets/img/Shinji/Normal.png', { frameWidth: 63, frameHeight: 87 });
+
+        
         //this.loadFont('font', 'fonts/ka1.ttf');//Font del marcador
     }
 
@@ -78,10 +86,10 @@ export class MainScene extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();//Teclas
         this.score1 = 2;
         this.score2 = 1;//Marcador de la partida
-        //this.player1 = new Trevor(this, 500, 300, this.player, this.platforms);  
-        this.player2 = new Arturo(this, this.WIDTH - this.WIDTH / 4, this.HEIGHT / 2, this.platforms, this.HUD, this.player1);
+        //this.player1 = new Trevor(this, 500, 300, this.player2, this.platforms);  
+        //this.player2 = new Arturo(this, this.WIDTH - this.WIDTH / 4, this.HEIGHT / 2, this.platforms, this.HUD, this.player1);
         this.player1 = new Azazel(this, this.WIDTH / 4, this.HEIGHT / 2, this.platforms, this.player2, this.HUD);
-        
+        this.player2 = new Shinji(this, this.WIDTH / 4, this.HEIGHT / 2, this.player1, this.platforms);
         this.HUD = new HUD(this, 0, 0, this.player1, this.player2, this.score1, this.score2);
 
         this.player1.HUD = this.HUD;

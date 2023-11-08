@@ -3,12 +3,12 @@
 export default class Shinji extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, player,floor) {//Habra que pasarle player1 y player2 para que colisione con ellos 
         super(scene, x, y, 'Snormalattack','Sstrongattack', 'Shinjiidle', 'Shinjijump', 'Shinjiwalk');
-        scene.add.existing(this).setScale(1.5, 1.5);
+        scene.add.existing(this).setScale(1.2, 1.2);
 
         scene.physics.add.existing(this);
         scene.physics.add.collider(this, floor);
-        this.body.setSize(25, 35);
-        this.body.setOffset(65, 60);
+        this.body.setSize(35, 65);
+        this.body.setOffset(15, 30);
         this.hit = false;
         this.eliminate = false;
         this.jumps = 0
@@ -22,31 +22,31 @@ export default class Shinji extends Phaser.GameObjects.Sprite {
 
         scene.anims.create({//Anim basica
             key: 'Sidle',
-            frames: scene.anims.generateFrameNumbers('Shinjiidle', { start: 0, end: 7 }),
-            frameRate: 9,
+            frames: scene.anims.generateFrameNumbers('Shinjiidle', { start: 0, end: 1 }),
+            frameRate: 2,
             repeat: -1
         });
         scene.anims.create({//Anim explosion
             key: 'Swalk',
-            frames: scene.anims.generateFrameNumbers('Shinjiwalk', { start: 0, end: 7 }),
+            frames: scene.anims.generateFrameNumbers('Shinjiwalk', { start: 0, end: 4 }),
             frameRate: 15,
             repeat: -1
         });
         scene.anims.create({//Anim explosion
             key: 'Sjump',
-            frames: scene.anims.generateFrameNumbers('Shinjijump', { start: 0, end: 1 }),
+            frames: scene.anims.generateFrameNumbers('Shinjijump', { start: 0, end: 0 }),
             frameRate: 15,
             repeat: 0
         });
         scene.anims.create({//Anim explosion
             key: 'Sstrongattack',
-            frames: scene.anims.generateFrameNumbers('Shinjistrongattack', { start: 0, end: 3 }),
+            frames: scene.anims.generateFrameNumbers('Shinjistrongattack', { start: 0, end: 2 }),
             frameRate: 10,
             repeat: 0
         });
         scene.anims.create({//Anim explosion
             key: 'Snormalattack',
-            frames: scene.anims.generateFrameNumbers('Shinjinormalattack', { start: 0, end: 3 }),
+            frames: scene.anims.generateFrameNumbers('Shinjinormalattack', { start: 0, end: 2 }),
             frameRate: 15,
             repeat: 0
         });
@@ -73,9 +73,9 @@ export default class Shinji extends Phaser.GameObjects.Sprite {
 
 
         this.play('Sidle');
-        this.wKey = this.scene.input.keyboard.addKey('W'); 
-        this.aKey = this.scene.input.keyboard.addKey('A'); 
-        this.dKey = this.scene.input.keyboard.addKey('D'); 
+        this.wKey = this.scene.input.keyboard.addKey('up'); 
+        this.aKey = this.scene.input.keyboard.addKey('left'); 
+        this.dKey = this.scene.input.keyboard.addKey('right'); 
         this.gKey = this.scene.input.keyboard.addKey('ctrl');
         this.hKey = this.scene.input.keyboard.addKey('shift'); 
     }
@@ -91,6 +91,7 @@ export default class Shinji extends Phaser.GameObjects.Sprite {
             if (!this.attacking && !this.jumping) {
                 if (this.anims.currentAnim.key !== 'Sidle') {
                     this.play('Sidle');
+                    this.body.setOffset(15, -20);
                 }
             }
         }
@@ -101,7 +102,8 @@ export default class Shinji extends Phaser.GameObjects.Sprite {
                     this.play('Swalk');
                 }
                 if (!this.nattacking&&!this.attacking) {
-                    this.body.setVelocityX(-125);
+                    this.body.setVelocityX(-200);
+                    this.body.setOffset(15, 20);
                 }               
                 this.moving = true;
                 this.left = true;
@@ -114,7 +116,8 @@ export default class Shinji extends Phaser.GameObjects.Sprite {
                     this.play('Swalk');
                 }
                 if (!this.nattacking && !this.attacking) {
-                    this.body.setVelocityX(125);
+                    this.body.setVelocityX(200);
+                    this.body.setOffset(15, 20);
                 }    
                 this.moving = true;
                 this.left = false;

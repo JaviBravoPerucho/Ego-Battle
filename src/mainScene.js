@@ -7,6 +7,7 @@ import Trevor from './Trevor.js';
 import Arturo from './Arturo.js';
 import Azazel from './Azazel.js';
 import HUD from './HUD.js';
+import OVNI from './OVNI.js';
 
 const PLATFORMLAVA = 'platform'
 const PLAYER = 'player'
@@ -40,6 +41,7 @@ export class MainScene extends Phaser.Scene {
         this.load.image(PLATFORMLAVA, './assets/img/lavaPlat.png');//Plataforma lava
         this.load.image('Sword', './assets/img/Sword.png');//Espada
         this.load.image('Coconut', './assets/img/coco.png');//Coco
+        this.load.image('OVNI', './assets/img/OVNI.png');
         this.load.spritesheet('VFB', './assets/img/VFB.png', { frameWidth: 32, frameHeight: 67 });//Bola de fuego volcan
         this.load.spritesheet('Fish', './assets/img/Pez.png', { frameWidth: 500, frameHeight: 659 });//Pez
         this.load.spritesheet('Volcan', './assets/img/fondos/Volcan.png', { frameWidth: 800, frameHeight: 336 });//Fondo volcan
@@ -85,6 +87,7 @@ export class MainScene extends Phaser.Scene {
         this.player1.HUD = this.HUD;
         this.player2.HUD = this.HUD;
         this.player2.playerOpuesto = this.player1;
+        this.OVNI = new OVNI(this, this.WIDTH / 3, this.HEIGHT / 10, this.player1, this.player2);
     }
     update(t) {
         this.time = t;
@@ -108,6 +111,7 @@ export class MainScene extends Phaser.Scene {
     creaObjeto() {//Funcion para crear los objetos que caen, se pondran ifs dentro para luego seleccionar el correspondiente de la escena
         var value = Phaser.Math.Between(2, 12) * 100;//posicion desde donde cae
         new VolcanFireBall(this, value, -300, value, this.player);//Bolas de fuego
+       // this.OVNI = new OVNI(this, this.WIDTH / 3, this.HEIGHT / 10, this.player1, this.player2);
        // value = Phaser.Math.Between(2, 7) * 100;//posicion desde donde cae
        // new Sword(this, value, -100, this.player, this.platforms, this.time);//Espadas
        // value = Phaser.Math.Between(2, 7) * 100;//posicion desde donde cae

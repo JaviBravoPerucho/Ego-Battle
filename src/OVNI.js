@@ -16,25 +16,32 @@ class Laser extends Phaser.GameObjects.Image {
 
 export default class OVNI extends Phaser.GameObjects.Image {
     constructor(scene, x, y, player, player2) {
-        super(scene, x, y, 'Sword');
-        scene.add.existing(this).setScale(0.05,0.05);
+        super(scene, x, y, 'OVNI');
+        scene.add.existing(this).setScale(0.3,0.3);
         scene.physics.add.existing(this);
+        this.body.setBounce(1, 0);
         this.eliminate = false; 
         this.init();
         this.flipY = true;
+        this.scene = scene;
+        this.x = x;
+        this.y = y;
+        this.player = player;
+        this.player2 = player2;
     }
+   
+
 
     init() {
         this.body.setVelocityX(100);
     }
     shoot() {
-
+        new Laser(this.scene, this.x, this.y, this.player, this.player2);
     }
 
     preUpdate(t) {      
-        
-        this.body.velocity.y = 300;//Cae   
-        if (this.eliminate) {//Elimina
+        this.body.setVelocityY(-10);
+        if (this.delete) {//Elimina
             this.destroy();
         }  
     }

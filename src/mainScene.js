@@ -30,39 +30,39 @@ export class MainScene extends Phaser.Scene {
     }
     
     preload() {//Dependiendo de lo seleccionado cargamos una cosa u otra (mas adelante) 
-        this.load.image('Borde', './assets/img/border.png');
-        this.load.image('BordePoder', './assets/img/barrapoder.png');
-        this.load.image('Arturo', './assets/img/Arturo/arthur.png');
-        this.load.image('Trevor', './assets/img/Trevor/trevor.png');
-        this.load.image('Azazel', './assets/img/Azazel/azazzel.png');
-        this.load.image('Shinji', './assets/img/Shinji/shinji.png');
-        this.load.image('background', './assets/img/fondos/castillo.jpg');//Fondo castillo
-        this.load.image(PLATFORMLAVA, './assets/img/lavaPlat.png');//Plataforma lava
-        this.load.image('Sword', './assets/img/Sword.png');//Espada
-        this.load.image('Coconut', './assets/img/coco.png');//Coco
-        this.load.spritesheet('VFB', './assets/img/VFB.png', { frameWidth: 32, frameHeight: 67 });//Bola de fuego volcan
-        this.load.spritesheet('Fish', './assets/img/Pez.png', { frameWidth: 500, frameHeight: 659 });//Pez
-        this.load.spritesheet('Volcan', './assets/img/fondos/Volcan.png', { frameWidth: 800, frameHeight: 336 });//Fondo volcan
-        this.load.spritesheet('Castillo', './assets/img/fondos/castillo.jpg', { frameWidth: 1071, frameHeight: 600 });//Fondo castillo
+        this.load.image('Borde', './Ego-Battle/assets/img/border.png');
+        this.load.image('BordePoder', './Ego-Battle/assets/img/barrapoder.png');
+        this.load.image('Arturo', './Ego-Battle/assets/img/Arturo/arthur.png');
+        this.load.image('Trevor', './Ego-Battle/assets/img/Trevor/trevor.png');
+        this.load.image('Azazel', './Ego-Battle/assets/img/Azazel/azazzel.png');
+        this.load.image('Shinji', './Ego-Battle/assets/img/Shinji/shinji.png');
+        this.load.image('background', './Ego-Battle/assets/img/fondos/castillo.jpg');//Fondo castillo
+        this.load.image(PLATFORMLAVA, './Ego-Battle/assets/img/lavaPlat.png');//Plataforma lava
+        this.load.image('Sword', './Ego-Battle/assets/img/Sword.png');//Espada
+        this.load.image('Coconut', './Ego-Battle/assets/img/coco.png');//Coco
+        this.load.spritesheet('VFB', './Ego-Battle/assets/img/VFB.png', { frameWidth: 32, frameHeight: 67 });//Bola de fuego volcan
+        this.load.spritesheet('Fish', './Ego-Battle/assets/img/Pez.png', { frameWidth: 500, frameHeight: 659 });//Pez
+        this.load.spritesheet('Volcan', './Ego-Battle/assets/img/fondos/Volcan.png', { frameWidth: 800, frameHeight: 336 });//Fondo volcan
+        this.load.spritesheet('Castillo', './Ego-Battle/assets/img/fondos/castillo.jpg', { frameWidth: 1071, frameHeight: 600 });//Fondo castillo
        /* this.load.spritesheet('Espacio', '../assets/img/fondos/Espacio.png', { frameWidth: 768, frameHeight: 432 });//Fondo Espacio*/
         /*this.load.spritesheet('Muelle', '../assets/img/fondos/fondo.png', { frameWidth: 720, frameHeight: 405 });//Fondo Muelle*/
-        this.load.spritesheet('Jungla', './assets/img/fondos/jungla.png', { frameWidth: 800, frameHeight: 650 });//Fondo Jungla
-        this.load.spritesheet('Explosion', './assets/img/explosionFB.png', { frameWidth: 247, frameHeight: 240 });//explosion bola de fuego
-        this.load.spritesheet('Trevornormalattack', './assets/img/Trevor/ataqueLanza.png', { frameWidth: 150, frameHeight: 150 });
-        this.load.spritesheet('Trevorstrongattack', './assets/img/Trevor/ataquePorra.png', { frameWidth: 150, frameHeight: 150 });
-        this.load.spritesheet('Trevoridle', './assets/img/Trevor/Idle.png', { frameWidth: 150, frameHeight: 150 });
-        this.load.spritesheet('Trevorjump', './assets/img/Trevor/Jump.png', { frameWidth: 150, frameHeight: 150 });
-        this.load.spritesheet('Trevorwalk', './assets/img/Trevor/Run.png', { frameWidth: 150, frameHeight: 150 });
-        this.load.spritesheet('Arturonormalattack', './assets/img/Arturo/ANA.png', { frameWidth: 160, frameHeight: 111 });
-        this.load.spritesheet('Arturostrongattack', './assets/img/Arturo/ASA.png', { frameWidth: 160, frameHeight: 111 });
-        this.load.spritesheet('Arturoidle', './assets/img/Arturo/Aidle.png', { frameWidth: 160, frameHeight: 111 });
-        this.load.spritesheet('Arturojump', './assets/img/Arturo/Ajump.png', { frameWidth: 160, frameHeight: 111 });
-        this.load.spritesheet('Arturowalk', './assets/img/Arturo/Arun.png', { frameWidth: 160, frameHeight: 111 });
-        this.load.spritesheet('Azazelnormalattack', './assets/img/Azazel/Attack.png', { frameWidth: 150, frameHeight: 150 });
-        this.load.spritesheet('Azazelstrongattack', './assets/img/Azazel/Attack.png', { frameWidth: 150, frameHeight: 150 });
-        this.load.spritesheet('Azazelidle', './assets/img/Azazel/Idle.png', { frameWidth: 150, frameHeight: 150 });
-        this.load.spritesheet('Azazelwalk', './assets/img/Azazel/Move.png', { frameWidth: 150, frameHeight: 150 });
-        this.load.spritesheet('AzazelBall', './assets/img/AzazelBall.png', { frameWidth: 498, frameHeight: 498 });
+        this.load.spritesheet('Jungla', './Ego-Battle/assets/img/fondos/jungla.png', { frameWidth: 800, frameHeight: 650 });//Fondo Jungla
+        this.load.spritesheet('Explosion', './Ego-Battle/assets/img/explosionFB.png', { frameWidth: 247, frameHeight: 240 });//explosion bola de fuego
+        this.load.spritesheet('Trevornormalattack', './Ego-Battle/assets/img/Trevor/ataqueLanza.png', { frameWidth: 150, frameHeight: 150 });
+        this.load.spritesheet('Trevorstrongattack', './Ego-Battle/assets/img/Trevor/ataquePorra.png', { frameWidth: 150, frameHeight: 150 });
+        this.load.spritesheet('Trevoridle', './Ego-Battle/assets/img/Trevor/Idle.png', { frameWidth: 150, frameHeight: 150 });
+        this.load.spritesheet('Trevorjump', './Ego-Battle/assets/img/Trevor/Jump.png', { frameWidth: 150, frameHeight: 150 });
+        this.load.spritesheet('Trevorwalk', './Ego-Battle/assets/img/Trevor/Run.png', { frameWidth: 150, frameHeight: 150 });
+        this.load.spritesheet('Arturonormalattack', './Ego-Battle/assets/img/Arturo/ANA.png', { frameWidth: 160, frameHeight: 111 });
+        this.load.spritesheet('Arturostrongattack', './Ego-Battle/assets/img/Arturo/ASA.png', { frameWidth: 160, frameHeight: 111 });
+        this.load.spritesheet('Arturoidle', './Ego-Battle/assets/img/Arturo/Aidle.png', { frameWidth: 160, frameHeight: 111 });
+        this.load.spritesheet('Arturojump', './Ego-Battle/assets/img/Arturo/Ajump.png', { frameWidth: 160, frameHeight: 111 });
+        this.load.spritesheet('Arturowalk', './Ego-Battle/assets/img/Arturo/Arun.png', { frameWidth: 160, frameHeight: 111 });
+        this.load.spritesheet('Azazelnormalattack', './Ego-Battle/assets/img/Azazel/Attack.png', { frameWidth: 150, frameHeight: 150 });
+        this.load.spritesheet('Azazelstrongattack', './Ego-Battle/assets/img/Azazel/Attack.png', { frameWidth: 150, frameHeight: 150 });
+        this.load.spritesheet('Azazelidle', './Ego-Battle/assets/img/Azazel/Idle.png', { frameWidth: 150, frameHeight: 150 });
+        this.load.spritesheet('Azazelwalk', './Ego-Battle/assets/img/Azazel/Move.png', { frameWidth: 150, frameHeight: 150 });
+        this.load.spritesheet('AzazelBall', './Ego-Battle/assets/img/AzazelBall.png', { frameWidth: 498, frameHeight: 498 });
         //this.loadFont('font', 'fonts/ka1.ttf');//Font del marcador
     }
 

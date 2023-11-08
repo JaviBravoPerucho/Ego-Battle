@@ -5,12 +5,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>EGO BATTLE</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
     <link href="src/styles.css" rel="stylesheet" />
-    <script src="src/game.js" type="module"></script>
-    <script src="src/mainScene.js" type="module"></script>
-    <script src="src/mainMenu.js" type="module"></script>
     <script src="src/lib/phaser.js"></script>
+    <title>EGO BATTLE</title>
     <script defer src="src/htmlController.js"></script>
 </head>
 <body>
@@ -31,7 +29,9 @@
 
         <div class="subcontenedor">
             <div class="bloque activo">
-                <div id='juego'></div>
+                <div id='juego'>
+                    <script src="src/game.js" type="module"></script>
+                </div>
             </div>
             <div class="bloque">
                 <img class="imagen" src="assets/img/teclado.jpg">

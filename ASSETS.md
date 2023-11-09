@@ -11,6 +11,8 @@ src- https://www.deviantart.com/rockeyrolley/art/Afro-Samurai-Sprite-Sheet-78116
 Volcan-pixel art
 https://www.pinterest.es/pin/6896205652450226/?_url=https%3A%2F%2Fwww.pinterest.es%2Famp%2Fpin%2F560416747359372102%2F&amp_client_id=CLIENT_ID(_)&mweb_unauth_id=%7B%7Bdefault.session%7D%7D
 Muelle, espacio, castillo  y jungla sacados tambien de https://www.pinterest.es
+-Fondo Menu:
+src- https://www.pinterest.es/pin/446771225546427017/
 -Objetos
 Bola de fuego Azazel
 src- https://www.pinterest.es/pin/883690758107031330/

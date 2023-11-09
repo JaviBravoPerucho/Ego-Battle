@@ -66,11 +66,11 @@ export class MainScene extends Phaser.Scene {
         this.load.spritesheet('Azazelidle', './assets/img/Azazel/Idle.png', { frameWidth: 150, frameHeight: 150 });
         this.load.spritesheet('Azazelwalk', './assets/img/Azazel/Move.png', { frameWidth: 150, frameHeight: 150 });
         this.load.spritesheet('AzazelBall', './assets/img/AzazelBall.png', { frameWidth: 498, frameHeight: 498 });
-        this.load.spritesheet('Shinjiidle', './assets/img/Shinji/Idle.png', { frameWidth: 59, frameHeight: 103 });
-        this.load.spritesheet('Shinjiwalk', './assets/img/Shinji/run.png', { frameWidth: 46, frameHeight: 85 });
+        this.load.spritesheet('Shinjiidle', './assets/img/Shinji/Idle.png', { frameWidth: 59, frameHeight: 85 });
+        this.load.spritesheet('Shinjiwalk', './assets/img/Shinji/run.png', { frameWidth: 44, frameHeight: 85 });
         this.load.spritesheet('Shinjijump', './assets/img/Shinji/Jump.png', { frameWidth: 61, frameHeight: 77 });
         this.load.spritesheet('Shinjistrongattack', './assets/img/Shinji/Strong.png', { frameWidth: 63, frameHeight: 87 });
-        this.load.spritesheet('Shinjinormalattack', './assets/img/Shinji/Normal.png', { frameWidth: 63, frameHeight: 87 });
+        this.load.spritesheet('Shinjinormalattack', './assets/img/Shinji/Normal.png', { frameWidth: 62, frameHeight: 69 });
 
         
         //this.loadFont('font', 'fonts/ka1.ttf');//Font del marcador

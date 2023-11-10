@@ -26,7 +26,7 @@ export default class Shinji extends Phaser.GameObjects.Sprite {
         scene.anims.create({//Anim explosion
             key: 'Swalk',
             frames: scene.anims.generateFrameNumbers('Shinjiwalk', { start: 0, end: 4 }),
-            frameRate: 15,
+            frameRate: 40,
             repeat: -1
         });
         scene.anims.create({//Anim explosion
@@ -38,13 +38,13 @@ export default class Shinji extends Phaser.GameObjects.Sprite {
         scene.anims.create({//Anim explosion
             key: 'Sstrongattack',
             frames: scene.anims.generateFrameNumbers('Shinjistrongattack', { start: 0, end: 2 }),
-            frameRate: 10,
+            frameRate: 8,
             repeat: 0
         });
         scene.anims.create({//Anim explosion
             key: 'Snormalattack',
             frames: scene.anims.generateFrameNumbers('Shinjinormalattack', { start: 0, end: 2 }),
-            frameRate: 15,
+            frameRate: 8,
             repeat: 0
         });
         this.on('animationcomplete', end => {//Detecta que ha finalizado la explosion
@@ -73,39 +73,40 @@ export default class Shinji extends Phaser.GameObjects.Sprite {
 
         if (this.dKey.isDown && this.aKey.isDown) {
             this.body.setVelocityX(0);
-            if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Sidle') { this.play('Sidle'); this.body.setOffset(15, 20); this.setPosition(this.x, this.y - 20); }
+            if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Sidle') { this.play('Sidle'); this.body.setOffset(15, 20); this.setPosition(this.x, this.y - 15); }
             else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Sjump') { this.play('Sjump'); this.body.setOffset(10, 5); }
         }
         else if (this.aKey.isDown) {
             this.direction = 0;
-            if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(-160); }
+            if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(-350); }
             else { this.body.setVelocityX(0); }
             if (this.anims.currentAnim.key !== 'Swalk') {
                 this.setFlip(true, false)
-                if (!this.attacking && !this.onAir) { this.play('Swalk'); this.body.setOffset(0, 15); if (this.anims.currentAnim.key !== 'Sidle') this.setPosition(this.x, this.y - 20); }
+                if (!this.attacking && !this.onAir) { this.play('Swalk'); this.body.setOffset(0, 15); if (this.anims.currentAnim.key !== 'Sidle') this.setPosition(this.x, this.y - 15); }
                 else if (!this.attacking) { this.play('Sjump'); this.body.setOffset(10, 5); }
             }
         }
         else if (this.dKey.isDown) {
             this.direction = 1;
-            if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(160); }
+            if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(350); }
             else { this.body.setVelocityX(0); }
 
             if (this.anims.currentAnim.key !== 'Swalk') {
                 this.setFlip(false, false);
-                if (!this.attacking && !this.onAir) { this.play('Swalk'); this.body.setOffset(0, 15); if (this.anims.currentAnim.key !== 'Sidle') this.setPosition(this.x, this.y - 20); }
+                if (!this.attacking && !this.onAir) { this.play('Swalk'); this.body.setOffset(0, 15); if (this.anims.currentAnim.key !== 'Sidle') this.setPosition(this.x, this.y - 15); }
                 else if (!this.attacking) { this.play('Sjump'); this.body.setOffset(10, 5); }
             }
         }
         else {
             this.body.setVelocityX(0);
-            if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Sidle') { this.play('Sidle'); this.body.setOffset(15, 20); this.setPosition(this.x, this.y - 20); }
+            if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Sidle') { this.play('Sidle'); this.body.setOffset(15, 20); this.setPosition(this.x, this.y - 15); }
             else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Sjump') { this.play('Sjump'); this.body.setOffset(10, 5); }
         }
 
         if (Phaser.Input.Keyboard.JustDown(this.wKey) && this.jumps < 2) {
             this.jumps++;
-            this.body.setVelocityY(-400);
+            this.setPosition(this.x, this.y - 20);
+            this.body.setVelocityY(-350);
             this.onAir = true;
             if (this.anims.currentAnim.key !== 'Sjump' && !this.attacking) {
                 this.play('Sjump');
@@ -123,10 +124,12 @@ export default class Shinji extends Phaser.GameObjects.Sprite {
         if (Phaser.Input.Keyboard.JustDown(this.hKey) && !this.attacking) {
             /* new Arma(this.x, this.y, this.arma2, this.direction, this, this.playerOpuesto, 10, this.HUD, 100, 100);*/
             if (this.anims.currentAnim.key !== 'Snormalattack') {
+                this.body.setOffset(15, 0);
                 this.play('Snormalattack');
                 this.attacking = true;
             }
         }
+      
 
     }
 }

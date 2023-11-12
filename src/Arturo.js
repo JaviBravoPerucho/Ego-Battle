@@ -1,6 +1,6 @@
-class Arma extends Phaser.GameObjects.Zone {
+class Arma extends Phaser.GameObjects.Rectangle {
     constructor(scene, x, y, arma, direction, player, playerOpuesto, damage, HUD, width, height) {
-        super(scene, x, y, width, height);
+        super(scene, x, y, width, height, 0xf0000);
         scene.add.existing(this).setScale(0.2, 0.2);
         scene.physics.add.existing(this);
         this.delete = false;
@@ -76,6 +76,7 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
         this.direction = 0;
         this.HUD = HUD;
         this.playerOpuesto = playerOpuesto;
+        this.rect = undefined;
 
         scene.anims.create({//Anim idle
             key: 'Aidle',
@@ -172,6 +173,14 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
         }
         if (Phaser.Input.Keyboard.JustDown(this.gKey) && !this.attacking) {
             /*new Arma(this.x, this.y, this.arma1, this.direction, this, this.playerOpuesto, 10, this.HUD, 100, 100); */
+            this.rect = this.scene.add.rectangle(this.x, this.y, 100, 100, 0xff0000);
+            this.rect.collider = this.scene.physics.add.collider(this.rect, this.playerOpuesto, end => {
+                if (this.playerOpuesto.name == this.HUD.player2.name) this.HUD.BarraDeVida2.decrease(10);
+                else if (this.playerOpuesto.name = this.HUD.player1.name) this.HUD.BarraDeVida1.decrease(10);
+                this.playerOpuesto.vida -= 10;
+            });
+
+
             if (this.anims.currentAnim.key !== 'ASA') {
                 this.play('ASA');
                 this.attacking = true;
@@ -179,7 +188,7 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
           
         }
         if (Phaser.Input.Keyboard.JustDown(this.hKey) && !this.attacking) {
-           /* new Arma(this.x, this.y, this.arma2, this.direction, this, this.playerOpuesto, 10, this.HUD, 100, 100);*/
+            /*new Arma(this.x, this.y, this.arma2, this.direction, this, this.playerOpuesto, 10, this.HUD, 100, 100);*/
             if (this.anims.currentAnim.key !== 'ANA') {
                 this.play('ANA');
                 this.attacking = true;

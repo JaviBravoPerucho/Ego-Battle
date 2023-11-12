@@ -99,6 +99,8 @@ Los jugadores escogen su personaje en función de la personalidad que más les g
 - **Castillo medieval**: Formado por torres y patios. Caen espadas.
 
 ![Castillo](assets/img/fondos/castillo.jpg) 
+![PlataformasCastillo](assets/img/fondos/castilloboceto.png)
+*Idea de plataformas para el castillo*
 
 - **Nave espacial**: En medio del espacio, con planetas y alienígenas. Hay un ovni moviéndose de un lado al otro disparando rayos láser.
 
@@ -116,6 +118,8 @@ Los jugadores escogen su personaje en función de la personalidad que más les g
 - **Muelle**: Diferentes alturas para pelear. Saltan peces del agua y al caer golpean a los jugadores.
 
 ![Muelle](assets/img/fondos/fondo.gif) 
+![PlataformasMuelle](assets/img/fondos/muelle.png)
+*Idea para plataformas del muelle*
 
 ## UML
 
@@ -123,9 +127,9 @@ Los jugadores escogen su personaje en función de la personalidad que más les g
 
 ## UI:
 
-- Barra de vida a cada lado con imagen del personajes\
+- Barra de vida verde a cada lado con imagen del personajes\
 - La puntuación en el centro. Ejemplo:   2-2\
-- Barra de poder, debajo de la barra de vida y más corta\
+- Barra de poder morada, debajo de la barra de vida y más corta\
 - No hay botón de pausa para que nadie pare la partida.\
 - Indicador de combo de golpes, se reinician si fallas un ataque o si pasa 1s. Ejemplo: x1
 
@@ -139,16 +143,22 @@ Botón jugar\
 ## Sonido
 
 - Frase al seleccionar a cada personaje
+Ar: "Conquistaré el mundo!" Az: "Todo va acorde con el plan" T: "AAAAGH(Como una especie de rugido)" S: "..."
 - Frase principal de cada personaje al iniciar la ronda(primero la dice uno y luego el otro) 
+Ar: "Te vas a comer mi espada" Az: "Hay un 80% de probabilidad de que gane yo" T: "Te voy a matar" S: "A ver qué tal"
 - Frase al quitarle una vida al oponente(2 frases(random))
+Ar: "Bastardo!" "Noo!" Az: "No caculé esto" "Ah!" T: "AAAAAAA!" "Me cago en tus muertos" S: "Vaya..." "Me... muero..."
 - Frase al ganar la partida.
+Ar:"Soy el mejor" Az: "Mis cálculos nunca fallan" T: "RUAAAA" S: "Vamos!"
 - Frase al activar el poder.
+Ar:"Ríndete ante mi!" Az:"Ya sé tu punto débil" T:"AAAAA!" S:"Santoryu"
 - Música en cada mapa.
 - Sonidos al hacer los ataques.
 - Sonido al caer los barriles, al pegarles y al caer al suelo.
 - Al seleccionar un personaje en el menú hace un sonido.
 - Sonido característico al recibir daño(no si siempre suena)
 Diálogos graciosos en momentos random de la partida.
+Ar:"Ja ja ja ja, no tienes nada que hacer" Az:"La revolución industrial condenó a los humanos" T: "Auuuuuu (aulla como un lobo)" S: "Mis padres estan divorciados"
 
 ## Juegos similares
 - Smash Bros

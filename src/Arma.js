@@ -1,5 +1,5 @@
 
-export default class Arma extends Phaser.GameObjects.Zone {
+export default class Arma extends Phaser.GameObjects.Rectangle {
     constructor(scene, x, y, arma, direction, player, playerOpuesto, damage, HUD, width, height) {
         super(scene, x, y, width, height);
         scene.add.existing(this).setScale(0.2, 0.2);

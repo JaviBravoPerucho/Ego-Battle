@@ -9,6 +9,7 @@ import Azazel from './Azazel.js';
 import HUD from './HUD.js';
 import OVNI from './OVNI.js';
 import Shinji from './Shinji.js';
+import Arma from './Arma.js';
 
 const PLATFORMLAVA = 'platform'
 const PLAYER = 'player'
@@ -87,9 +88,9 @@ export class MainScene extends Phaser.Scene {
         this.score1 = 2;
         this.score2 = 1;//Marcador de la partida
         //this.player1 = new Trevor(this, 500, 300, this.player2, this.platforms);  
-        //this.player2 = new Arturo(this, this.WIDTH - this.WIDTH / 4, this.HEIGHT / 2, this.platforms, this.HUD, this.player1);
+        this.player2 = new Arturo(this, this.WIDTH - this.WIDTH / 4, this.HEIGHT / 2, this.platforms, this.HUD, this.player1);
         this.player1 = new Azazel(this, this.WIDTH / 4, this.HEIGHT / 2, this.platforms, this.player2, this.HUD);
-        this.player2 = new Shinji(this, this.WIDTH / 4, this.HEIGHT / 2, this.player1, this.platforms);
+        /*this.player2 = new Shinji(this, this.WIDTH / 4, this.HEIGHT / 2, this.player1, this.platforms);*/
         this.HUD = new HUD(this, 0, 0, this.player1, this.player2, this.score1, this.score2);
 
         this.player1.HUD = this.HUD;

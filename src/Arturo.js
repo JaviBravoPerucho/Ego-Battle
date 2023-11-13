@@ -14,13 +14,12 @@ class Arma extends Phaser.GameObjects.Rectangle {
         this.direction = direction;
         this.player = player;
         this.yPos = y;
-
+        this.init();
 
     }
 
-    init(t) {
-        this.body.setSize(width, height);
-        this.collider.active = false;
+    init() {
+     
         if (this.arma === 'Espada1') {
             this.tiempo = 500;
             this.tiempoRetardo = 200;
@@ -34,20 +33,32 @@ class Arma extends Phaser.GameObjects.Rectangle {
 
         }
 
-        if (direction === 0) {
-            this.body.x -= 20;
-        } else this.body.x += 20;
+        if (this.direction === 0) {
+            this.setPosition(this.x - 60, this.y);
+        }
+        else {
+            this.setPosition(this.x + 60, this.y);
+        }
     }
 
+    followPlayer(speed, y) {
+        this.body.setVelocityX(this.player.body.velocityX);
+        this.y = this.player.y - 60;
+    }
+
+
     preUpdate(t, dt) {
+        this.followPlayer();
         this.body.setVelocityY(-11);
         this.contRetardo += dt;
-        if (this.contRetardo > this.tiempoRetardo) {
-            this.contAtaque += dt;
-            if (this.contAtaque > this.tiempo) {
-                this.destroy();
-            }
+        this.contAtaque += dt;
+        if (this.contRetardo > 100) {
+            this.contRetardo = 0;
         }
+        if (this.contAtaque > 500) {
+            this.destroy();
+        }
+        
     }
 }
 
@@ -131,6 +142,7 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
             this.playerOpuesto.vida -= this.arma.damage;
             this.arma.destroy();
         });
+       
     }
 
     preUpdate(t, dt) {

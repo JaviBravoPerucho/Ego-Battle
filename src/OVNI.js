@@ -28,6 +28,8 @@ export default class OVNI extends Phaser.GameObjects.Image {
         this.y = y;
         this.player = player;
         this.player2 = player2;
+        this.body.setCollideWorldBounds(true);
+        this.setFlip(true, false);
     }
    
 

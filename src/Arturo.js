@@ -13,23 +13,20 @@ class Arma extends Phaser.GameObjects.Rectangle {
         this.arma = arma;
         this.direction = direction;
         this.player = player;
+        this.yPos = y;
 
 
-        this.collider = scene.physics.add.collider(this, playerOpuesto, end => {
-            if (playerOpuesto.name == HUD.player2.name) HUD.BarraDeVida2.decrease(this.damage);
-            else if (playerOpuesto.name = HUD.player1.name) HUD.BarraDeVida1.decrease(this.damage);
-            playerOpuesto.vida -= this.damage;
-        });
     }
+
     init(t) {
         this.body.setSize(width, height);
         this.collider.active = false;
         if (this.arma === 'Espada1') {
-            this.tiempo = 0.5;
-            this.tiempoRetardo = 0.2;
+            this.tiempo = 500;
+            this.tiempoRetardo = 200;
 
         } else if (this.arma === 'Espada2') {
-            this.tiempo = 0.3;
+            this.tiempo = 300;
             this.tiempoRetardo = 0;
         } else if (this.arma === 'Lanza') {
 
@@ -42,11 +39,11 @@ class Arma extends Phaser.GameObjects.Rectangle {
         } else this.body.x += 20;
     }
 
-    preUpdate(t) {
-        this.contRetardo++;
+    preUpdate(t, dt) {
+        this.body.setVelocityY(-11);
+        this.contRetardo += dt;
         if (this.contRetardo > this.tiempoRetardo) {
-            this.collider.active = true;
-            this.contAtaque++;
+            this.contAtaque += dt;
             if (this.contAtaque > this.tiempo) {
                 this.destroy();
             }
@@ -71,12 +68,14 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
         this.jumps = 0;
         this.vida = 300;
         this.name = 'Arturo';
+        this.arma = undefined;
         this.arma1 = 'Espada1';
         this.arma2 = 'Espada2';
         this.direction = 0;
         this.HUD = HUD;
         this.playerOpuesto = playerOpuesto;
         this.rect = undefined;
+        this.scene = scene;
 
         scene.anims.create({//Anim idle
             key: 'Aidle',
@@ -121,6 +120,17 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
         this.dKey = this.scene.input.keyboard.addKey('right');
         this.gKey = this.scene.input.keyboard.addKey('P');
         this.hKey = this.scene.input.keyboard.addKey('O');
+    }
+
+    createWeapon() {
+        this.arma = new Arma(this.scene, this.x , this.y + 60,'Espada1', this.direction, this, this.playerOpuesto, 20, this.HUD, 500, 100);
+        this.arma.parent = this;
+        this.scene.physics.add.overlap(this.arma, this.playerOpuesto, end => {
+            if (this.playerOpuesto.name == this.HUD.player2.name) this.HUD.BarraDeVida2.decrease(this.arma.damage);
+            else if (this.playerOpuesto.name = this.HUD.player1.name) this.HUD.BarraDeVida1.decrease(this.arma.damage);
+            this.playerOpuesto.vida -= this.arma.damage;
+            this.arma.destroy();
+        });
     }
 
     preUpdate(t, dt) {
@@ -172,15 +182,7 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
             }           
         }
         if (Phaser.Input.Keyboard.JustDown(this.gKey) && !this.attacking) {
-            /*new Arma(this.x, this.y, this.arma1, this.direction, this, this.playerOpuesto, 10, this.HUD, 100, 100); */
-            this.rect = this.scene.add.rectangle(this.x, this.y, 100, 100, 0xff0000);
-            this.rect.collider = this.scene.physics.add.collider(this.rect, this.playerOpuesto, end => {
-                if (this.playerOpuesto.name == this.HUD.player2.name) this.HUD.BarraDeVida2.decrease(10);
-                else if (this.playerOpuesto.name = this.HUD.player1.name) this.HUD.BarraDeVida1.decrease(10);
-                this.playerOpuesto.vida -= 10;
-            });
-
-
+            this.createWeapon();
             if (this.anims.currentAnim.key !== 'ASA') {
                 this.play('ASA');
                 this.attacking = true;

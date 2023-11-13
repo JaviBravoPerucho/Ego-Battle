@@ -26,11 +26,11 @@ export default class Arma extends Phaser.GameObjects.Rectangle {
         this.body.setSize(width, height);
         this.collider.active = false;
         if (this.arma === 'Espada1') {
-            this.tiempo = 0.5;
-            this.tiempoRetardo = 0.2;
+            this.tiempo = 500;
+            this.tiempoRetardo = 200;
 
         } else if (this.arma === 'Espada2') {
-            this.tiempo = 0.3;
+            this.tiempo = 300;
             this.tiempoRetardo = 0;
         } else if (this.arma === 'Lanza') {
 
@@ -43,8 +43,8 @@ export default class Arma extends Phaser.GameObjects.Rectangle {
         } else this.body.x += 20;
     }
 
-    preUpdate(t) {      
-        this.contRetardo++;
+    preUpdate(t, dt) {      
+        this.contRetardo += dt;
         if (this.contRetardo > this.tiempoRetardo) {
             this.collider.active = true;
             this.contAtaque++;

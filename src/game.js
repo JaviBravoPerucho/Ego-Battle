@@ -21,7 +21,7 @@ var config = {
         },
         zoom: 2
     },
-    scene: [MainScene, Menu],
+    scene: [Menu, MainScene],
     physics: {
         default: 'arcade',
         checkCollision: {

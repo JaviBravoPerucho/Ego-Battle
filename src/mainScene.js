@@ -43,6 +43,7 @@ export class MainScene extends Phaser.Scene {
         this.load.image(PLATFORMLAVA, './assets/img/lavaPlat.png');//Plataforma lava
         this.load.image('Sword', './assets/img/Sword.png');//Espada
         this.load.image('Coconut', './assets/img/coco.png');//Coco
+        this.load.image('laser', './assets/img/lAser.png');//laser
         this.load.image('OVNI', './assets/img/OVNI.png');
         this.load.spritesheet('VFB', './assets/img/VFB.png', { frameWidth: 32, frameHeight: 67 });//Bola de fuego volcan
         this.load.spritesheet('Fish', './assets/img/Pez.png', { frameWidth: 500, frameHeight: 659 });//Pez
@@ -96,7 +97,8 @@ export class MainScene extends Phaser.Scene {
         this.player1.HUD = this.HUD;
         this.player2.HUD = this.HUD;
         this.player2.playerOpuesto = this.player1;
-        this.OVNI = new OVNI(this, this.WIDTH / 3, this.HEIGHT / 10, this.player1, this.player2);
+        this.OVNI = new OVNI(this, this.WIDTH / 3, this.HEIGHT / 10, this.player1, this.player2, 4000);
+        new OVNI(this, this.WIDTH, this.HEIGHT / 10, this.player1, this.player2, 3500);
     }
     update(t) {
         this.time = t;
@@ -108,6 +110,12 @@ export class MainScene extends Phaser.Scene {
         
         this.HUD.update();
        
+    }
+
+    hitPlayer(player, damage) {
+        if (player.name == this.HUD.player2.name) this.HUD.BarraDeVida2.decrease(damage);
+        else if (player.name = this.HUD.player1.name) this.HUD.BarraDeVida1.decrease(damage);
+        player.vida -= damage;
     }
     createPlatforms() {//Crea la plataforma
         let platforms = this.physics.add.staticGroup();

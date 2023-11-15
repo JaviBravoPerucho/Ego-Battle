@@ -62,6 +62,7 @@ class Arma extends Phaser.GameObjects.Rectangle {
             this.destroy();
         }
         
+        
     }
 }
 

@@ -45,6 +45,7 @@ export class MainScene extends Phaser.Scene {
         this.load.image('Coconut', './assets/img/coco.png');//Coco
         this.load.image('laser', './assets/img/lAser.png');//laser
         this.load.image('OVNI', './assets/img/OVNI.png');
+        this.load.atlas('flares', 'assets/img/flares.png', 'assets/img/flares.json');//particulas
         this.load.spritesheet('VFB', './assets/img/VFB.png', { frameWidth: 32, frameHeight: 67 });//Bola de fuego volcan
         this.load.spritesheet('Fish', './assets/img/Pez.png', { frameWidth: 500, frameHeight: 659 });//Pez
         this.load.spritesheet('Volcan', './assets/img/fondos/Volcan.png', { frameWidth: 800, frameHeight: 336 });//Fondo volcan
@@ -81,8 +82,8 @@ export class MainScene extends Phaser.Scene {
     create() {//asignamos player1 y player 2
         this.HEIGHT = this.sys.game.canvas.height;
         this.WIDTH = this.sys.game.canvas.width;
-        /*new Volcan(this, 600, 300).setScale(1.7, 1.8);*/       
-        this.add.existing(new Phaser.GameObjects.Sprite(this, 600, 300, 'Castillo')).setScale(1.2, 1);
+        new Volcan(this, 600, 300).setScale(1.7, 1.8); 
+        //this.add.existing(new Phaser.GameObjects.Sprite(this, 600, 300, 'Castillo')).setScale(1.2, 1);
         //this.background = this.add.image(400, 300, 'background');
         this.platforms = this.createPlatforms();
         this.cursors = this.input.keyboard.createCursorKeys();//Teclas

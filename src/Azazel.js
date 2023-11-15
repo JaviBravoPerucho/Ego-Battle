@@ -150,9 +150,7 @@ export class AzazelBall extends Phaser.GameObjects.Sprite {
         this.damage = 10;
         this.HUD = HUD;
         scene.physics.add.collider(this, player2, end => {
-            if (player2.name == HUD.player2.name) HUD.BarraDeVida2.decrease(this.damage);
-            else if (player2.name = HUD.player1.name) HUD.BarraDeVida1.decrease(this.damage);
-            player2.vida -= this.damage;
+            scene.hitPlayer(player2, this.damage);
             this.delete = true;
         });
         this.body.setSize(130, 130);

@@ -20,6 +20,11 @@ export default class Azazel extends Phaser.GameObjects.Sprite {
         this.vida = 300;
         this.HUD = HUD;
         this.name = 'Azazel';
+        this.boolPoder = false;
+        this.poder = 0; 
+        this.poderPorFrame = 0.1;
+        this.stop = false;
+        this.idleKey = 'Azidle';
 
         scene.anims.create({//Anim idle
             key: 'Azidle',
@@ -79,56 +84,69 @@ export default class Azazel extends Phaser.GameObjects.Sprite {
         }
         else { this.onAir = true;}
 
-        if (this.aKey.isDown && this.dKey.isDown) {
-            this.body.setVelocityX(0);
-            if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Azidle') { this.play('Azidle'); }
-           // else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Ajump') { this.play('Ajump'); }
-        }
-        else if (this.aKey.isDown) {
-            if (this.right) { this.setFlip(true, false); this.right = false; }
-            if (this.attacking) { this.body.setVelocityX(-60); }
-            else { this.body.setVelocityX(-150);}         
-            if (this.anims.currentAnim.key !== 'Azwalk') {
-                if (!this.attacking) { this.play('Azwalk'); }
-               // else if (!this.attacking) { this.play('Ajump');}
+        if (!this.stop) {
+            if (this.aKey.isDown && this.dKey.isDown) {
+                this.body.setVelocityX(0);
+                if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Azidle') { this.play('Azidle'); }
+                // else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Ajump') { this.play('Ajump'); }
             }
-        }
-        else if (this.dKey.isDown) {
-            if (!this.right) { this.setFlip(false, false); this.right = true;}           
-            if (this.attacking) { this.body.setVelocityX(60); }
-            else { this.body.setVelocityX(150); }
-            if (this.anims.currentAnim.key !== 'Azwalk') {                         
-                if (!this.attacking) { this.play('Azwalk'); }
-               // else if (!this.attacking) { this.play('Ajump'); }
+            else if (this.aKey.isDown) {
+                if (this.right) { this.setFlip(true, false); this.right = false; }
+                if (this.attacking) { this.body.setVelocityX(-60); }
+                else { this.body.setVelocityX(-150); }
+                if (this.anims.currentAnim.key !== 'Azwalk') {
+                    if (!this.attacking) { this.play('Azwalk'); }
+                    // else if (!this.attacking) { this.play('Ajump');}
+                }
             }
-        }
-        else {         
-            this.body.setVelocityX(0);
-            if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Azidle') { this.play('Azidle'); }
-            //else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Ajump') { this.play('Ajump');}
-        }
+            else if (this.dKey.isDown) {
+                if (!this.right) { this.setFlip(false, false); this.right = true; }
+                if (this.attacking) { this.body.setVelocityX(60); }
+                else { this.body.setVelocityX(150); }
+                if (this.anims.currentAnim.key !== 'Azwalk') {
+                    if (!this.attacking) { this.play('Azwalk'); }
+                    // else if (!this.attacking) { this.play('Ajump'); }
+                }
+            }
+            else {
+                this.body.setVelocityX(0);
+                if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Azidle') { this.play('Azidle'); }
+                //else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Ajump') { this.play('Ajump');}
+            }
 
-        if (Phaser.Input.Keyboard.JustDown(this.wKey) && this.jumps < 2) {
-            this.jumps++;
-            this.body.setVelocityY(-320);
-            if (this.anims.currentAnim.key !== 'Azwalk' && !this.attacking) {
-                this.play('Azwalk');
+            if (Phaser.Input.Keyboard.JustDown(this.wKey) && this.jumps < 2) {
+                this.jumps++;
+                this.body.setVelocityY(-320);
+                if (this.anims.currentAnim.key !== 'Azwalk' && !this.attacking) {
+                    this.play('Azwalk');
+                }
             }
-        }
-        if (Phaser.Input.Keyboard.JustDown(this.gKey) && !this.attacking) {
-            if (this.anims.currentAnim.key !== 'AzSA') {
-                this.play('AzSA');
-                this.throwFireBall();
-                this.attacking = true;
+            if (Phaser.Input.Keyboard.JustDown(this.gKey) && !this.attacking) {
+                if (this.anims.currentAnim.key !== 'AzSA') {
+                    this.play('AzSA');
+                    this.throwFireBall();
+                    this.attacking = true;
+                }
             }
-        }
-        if (Phaser.Input.Keyboard.JustDown(this.hKey) && !this.attacking) {
-            if (this.anims.currentAnim.key !== 'AzNA') {
-                this.play('AzNA');
-                this.attacking = true;
+            if (Phaser.Input.Keyboard.JustDown(this.hKey) && !this.attacking) {
+                if (this.anims.currentAnim.key !== 'AzNA') {
+                    this.play('AzNA');
+                    this.attacking = true;
+                }
             }
-        }
+
+            if (this.poder < this.HUD.maxPoder && this.boolPoder) {
+                this.poder += this.poderPorFrame;
+                if (this.HUD.player1 === this) this.HUD.BarraDePoder1.increase(this.poderPorFrame);
+                else if (this.HUD.player2 === this) this.HUD.BarraDePoder2.increase(this.poderPorFrame);
+            }
+
+            if (this.body.velocity.x === 0 && !this.onAir) this.boolPoder = true;
+            else this.boolPoder = false;
+        } else this.body.setVelocityX(0);
+        
     }
+
     throwFireBall() {
 
         let dir, x, y;

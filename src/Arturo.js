@@ -60,9 +60,7 @@ class Arma extends Phaser.GameObjects.Rectangle {
         }
         if (this.contAtaque > 500) {
             this.destroy();
-        }
-        
-        
+        }  
     }
 }
 
@@ -91,6 +89,15 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
         this.playerOpuesto = playerOpuesto;
         this.rect = undefined;
         this.scene = scene;
+        this.poder = 0;
+        this.contPoder = 0;
+        this.tiempoPoder = 5000;
+        this.boolPoder = true;
+        this.poderPorFrame = 0.1;
+        this.danoUlti = 80;
+        this.contUlti = 0;
+        this.tiempoUlti = 3000;
+        this.stop = false;
 
         scene.anims.create({//Anim idle
             key: 'Aidle',
@@ -149,6 +156,15 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
        
     }
 
+    ulti() {
+        this.stop = true;
+        this.playerOpuesto.stop = true;
+        this.body.setVelocityX(0);
+        this.playerOpuesto.body.setVelocityX(0);
+        this.play('Aidle');
+        this.playerOpuesto.play(this.playerOpuesto.idleKey);
+    }
+
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
         if (this.body.onFloor()) {
@@ -157,61 +173,94 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
         }
         else { this.onAir = true; }
 
-        if (this.aKey.isDown && this.dKey.isDown) {
-            this.body.setVelocityX(0);
-            if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Aidle') { this.play('Aidle'); }
-            else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Ajump') { this.play('Ajump'); }
-        }
-        else if (this.aKey.isDown) {
-            this.direction = 0;
-            if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(-160); }
-            else { this.body.setVelocityX(0); }
-            if (this.anims.currentAnim.key !== 'Awalk') {
-                this.setFlip(true, false)
-                if (!this.attacking && !this.onAir) { this.play('Awalk'); }
-                else if (!this.attacking) { this.play('Ajump'); }
+        if (!this.stop) {
+            if (this.aKey.isDown && this.dKey.isDown) {
+                this.body.setVelocityX(0);
+                if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Aidle') { this.play('Aidle'); }
+                else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Ajump') { this.play('Ajump'); }
             }
-        }
-        else if (this.dKey.isDown) {
-            this.direction = 1;
-            if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(160); }
-            else { this.body.setVelocityX(0); }
+            else if (this.aKey.isDown) {
+                this.direction = 0;
+                if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(-160); }
+                else { this.body.setVelocityX(0); }
+                if (this.anims.currentAnim.key !== 'Awalk') {
+                    this.setFlip(true, false)
+                    if (!this.attacking && !this.onAir) { this.play('Awalk'); }
+                    else if (!this.attacking) { this.play('Ajump'); }
+                }
+            }
+            else if (this.dKey.isDown) {
+                this.direction = 1;
+                if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(160); }
+                else { this.body.setVelocityX(0); }
 
-            if (this.anims.currentAnim.key !== 'Awalk') {
-                this.setFlip(false, false);
-                if (!this.attacking && !this.onAir) { this.play('Awalk'); }
-                else if (!this.attacking) { this.play('Ajump'); }
+                if (this.anims.currentAnim.key !== 'Awalk') {
+                    this.setFlip(false, false);
+                    if (!this.attacking && !this.onAir) { this.play('Awalk'); }
+                    else if (!this.attacking) { this.play('Ajump'); }
+                }
             }
-        }
-        else {   
-            this.body.setVelocityX(0);
-            if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Aidle') { this.play('Aidle'); }
-            else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Ajump') { this.play('Ajump'); }
-        }
+            else {
+                this.body.setVelocityX(0);
+                if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Aidle') { this.play('Aidle'); }
+                else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Ajump') { this.play('Ajump'); }
+            }
 
-        if (Phaser.Input.Keyboard.JustDown(this.wKey) && this.jumps < 2) {
-            this.jumps++;
-            this.body.setVelocityY(-400);
-            this.onAir = true;
-            if (this.anims.currentAnim.key !== 'Ajump' && !this.attacking) {
-                this.play('Ajump');
-            }           
-        }
-        if (Phaser.Input.Keyboard.JustDown(this.gKey) && !this.attacking) {
-            this.createWeapon(500, 100, 'Espada1');
-            if (this.anims.currentAnim.key !== 'ASA') {
-                this.play('ASA');
-                this.attacking = true;
+            if (Phaser.Input.Keyboard.JustDown(this.wKey) && this.jumps < 2) {
+                this.jumps++;
+                this.body.setVelocityY(-400);
+                this.onAir = true;
+                if (this.anims.currentAnim.key !== 'Ajump' && !this.attacking) {
+                    this.play('Ajump');
+                }
             }
-          
+            if (Phaser.Input.Keyboard.JustDown(this.gKey) && !this.attacking) {
+                this.createWeapon(500, 100, 'Espada1');
+                if (this.anims.currentAnim.key !== 'ASA') {
+                    this.play('ASA');
+                    this.attacking = true;
+                }
+
+            }
+            if (Phaser.Input.Keyboard.JustDown(this.hKey) && !this.attacking) {
+                this.createWeapon(650, 400, 'Espada2');
+                if (this.anims.currentAnim.key !== 'ANA') {
+                    this.play('ANA');
+                    this.attacking = true;
+                }
+            }
+
+            if (this.poder < this.HUD.maxPoder && this.boolPoder) {
+                this.poder += this.poderPorFrame;
+                if (this.HUD.player1 === this) this.HUD.BarraDePoder1.increase(this.poderPorFrame);
+                else if (this.HUD.player2 === this) this.HUD.BarraDePoder2.increase(this.poderPorFrame);
+            }
+
+            if (this.poder == this.HUD.maxPoder) {
+                this.ulti();
+                this.poder = 0;
+            }
+
+            if (!this.boolPoder) {
+                this.contPoder += dt;
+                if (this.contPoder > this.tiempoPoder) {
+                    this.boolPoder = true;
+                    this.contPoder = 0;
+                }
+            }
+        } else {
+            this.contUlti += dt;
+            this.body.setVelocityX(0);
+            if (this.contUlti >= this.tiempoUlti) {
+                this.scene.hitPlayer(this.playerOpuesto, this.danoUlti);
+                this.stop = false;
+                this.playerOpuesto.stop = false;
+                this.contUlti = 0;
+                if (this.HUD.player1 === this) this.HUD.BarraDePoder1.value = 0;
+                else if (this.HUD.player2 === this) this.HUD.BarraDePoder2.value = 0;
+                console.log("ULTI");
+            }
         }
-        if (Phaser.Input.Keyboard.JustDown(this.hKey) && !this.attacking) {
-            this.createWeapon(650, 400, 'Espada2');
-            /*new Arma(this.x, this.y, this.arma2, this.direction, this, this.playerOpuesto, 10, this.HUD, 100, 100);*/
-            if (this.anims.currentAnim.key !== 'ANA') {
-                this.play('ANA');
-                this.attacking = true;
-            }    
-        }
+        
     }
 }

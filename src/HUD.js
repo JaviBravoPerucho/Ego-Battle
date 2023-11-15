@@ -150,6 +150,8 @@ export default class HUD extends Phaser.GameObjects.Container {
         this.score1 = score1;
         this.score2 = score2;
 
+        this.maxPoder = 200;
+
         this.add(this.score);
      
         this.scene.add.existing(this);

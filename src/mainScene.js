@@ -116,6 +116,7 @@ export class MainScene extends Phaser.Scene {
     hitPlayer(player, damage) {
         if (player.name == this.HUD.player2.name) this.HUD.BarraDeVida2.decrease(damage);
         else if (player.name = this.HUD.player1.name) this.HUD.BarraDeVida1.decrease(damage);
+        if (player.name === 'Arturo') player.boolPoder = 0;
         player.vida -= damage;
     }
     createPlatforms() {//Crea la plataforma

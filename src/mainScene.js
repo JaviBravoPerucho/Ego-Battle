@@ -149,13 +149,13 @@ export class MainScene extends Phaser.Scene {
 
     }
     creaObjeto() {//Funcion para crear los objetos que caen, se pondran ifs dentro para luego seleccionar el correspondiente de la escena
-        var value = Phaser.Math.Between(2, 12) * 100;//posicion desde donde cae
+        var value = Phaser.Math.Between(2, 11) * 100;//posicion desde donde cae
        // new VolcanFireBall(this, value, -300, value, this.player);//Bolas de fuego
        // this.OVNI = new OVNI(this, this.WIDTH / 3, this.HEIGHT / 10, this.player1, this.player2);
        // value = Phaser.Math.Between(2, 7) * 100;//posicion desde donde cae
-       // new Sword(this, value, -100, this.player, this.platforms, this.time);//Espadas
-       // value = Phaser.Math.Between(2, 7) * 100;//posicion desde donde cae
-       // new Coconut(this, value, -100, this.player, this.platforms, this.time);//Espadas
+        new Sword(this, value, -300, this.player1, this.player2, this.platforms, this.time);//Espadas
+        //value = Phaser.Math.Between(2, 7) * 100;//posicion desde donde cae
+        //new Coconut(this, value, -300, this.player1, this.player2, this.platforms, this.time);//Espadas
         new Fish(this, value, 800, this.player1, this.player2, this.time);//Peces
 
     }

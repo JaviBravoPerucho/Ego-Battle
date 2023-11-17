@@ -1,12 +1,18 @@
 
 
 export default class Coconut extends Phaser.GameObjects.Image {
-    constructor(scene, x, y, player, floor, time) {//Habra que pasarle player1 y player2 para que colisione con ellos 
+    constructor(scene, x, y, player1, player2, floor, time) {//Habra que pasarle player1 y player2 para que colisione con ellos 
         super(scene, x, y, 'Coconut');
         scene.add.existing(this).setScale(0.05,0.05);
         scene.physics.add.existing(this);
+        this.damage = 15;
         this.eliminate = false;   
-        this.colliderSword = scene.physics.add.collider(this, player, collision => {
+        scene.physics.add.collider(this, player1, collision => {
+            scene.hitPlayer(player1, this.damage);
+            this.eliminate = true;
+        });
+        scene.physics.add.collider(this, player2, collision => {
+            scene.hitPlayer(player2, this.damage);
             this.eliminate = true;
         });
         scene.physics.add.collider(this, floor) 

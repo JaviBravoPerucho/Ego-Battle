@@ -131,6 +131,9 @@ export class MainScene extends Phaser.Scene {
         platforms.create(this.WIDTH / 2.5, this.HEIGHT / 1.4, 'wood').setScale(0.4, 0.5).refreshBody();
         platforms.create(this.WIDTH / 1.7, this.HEIGHT / 1.4, 'wood').setScale(0.4, 0.5).refreshBody();
         platforms.create(this.WIDTH / 1.2, this.HEIGHT / 1.4, 'wood').setScale(0.4, 0.5).refreshBody();
+        platforms.create(this.WIDTH / 1.25, this.HEIGHT / 4, 'wood').setScale(0.8, 0.5).refreshBody();
+        platforms.create(this.WIDTH / 1.8, this.HEIGHT / 2.3, 'wood').setScale(0.2, 0.2).refreshBody();
+        platforms.create(this.WIDTH / 2.5, this.HEIGHT / 2, 'wood').setScale(0.2, 0.2).refreshBody();
 
         //ESPACIO
         //platforms.create(this.WIDTH / 2, this.HEIGHT / 0.95, 'platformMetal').setScale(1.5, 1.5).setFlip(true, true).refreshBody();
@@ -153,7 +156,7 @@ export class MainScene extends Phaser.Scene {
        // new Sword(this, value, -100, this.player, this.platforms, this.time);//Espadas
        // value = Phaser.Math.Between(2, 7) * 100;//posicion desde donde cae
        // new Coconut(this, value, -100, this.player, this.platforms, this.time);//Espadas
-        new Fish(this, value, 800, this.player, this.time);//Peces
+        new Fish(this, value, 800, this.player1, this.player2, this.time);//Peces
 
     }
     

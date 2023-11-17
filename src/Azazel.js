@@ -116,7 +116,7 @@ export default class Azazel extends Phaser.GameObjects.Sprite {
 
             if (Phaser.Input.Keyboard.JustDown(this.wKey) && this.jumps < 2) {
                 this.jumps++;
-                this.body.setVelocityY(-320);
+                this.body.setVelocityY(-350);
                 if (this.anims.currentAnim.key !== 'Azwalk' && !this.attacking) {
                     this.play('Azwalk');
                 }

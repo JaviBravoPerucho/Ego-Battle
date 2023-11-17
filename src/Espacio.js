@@ -3,11 +3,12 @@ export default class Espacio extends Phaser.GameObjects.Sprite {
         super(scene, x, y, 'Espacio');
 
         scene.add.existing(this);
+        
 
         this.scene.anims.create({
             key: 'espacio',
-            frames: scene.anims.generateFrameNumbers('Espacio', { start: 0, end: 59 }),
-            frameRate: 12,
+            frames: scene.anims.generateFrameNumbers('Espacio', { start: 0, end: 56 }),
+            frameRate: 20,
             repeat: -1
         });
 

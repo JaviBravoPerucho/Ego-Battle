@@ -11,7 +11,7 @@ export default class Muelle extends Phaser.GameObjects.Sprite {
             repeat: -1
         });
 
-        this.play('espacio');
+        this.play('muelle');
     }
 
     preUpdate(t, dt) {

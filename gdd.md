@@ -54,7 +54,7 @@ Los jugadores escogen su personaje en función de la personalidad que más les g
     - Ataque principal: espadazo imponente(10 de daño y alcance medio)\
     - Ataque secundario: espadazo corto y rápido de corto alcance(5 de daño)\
     - Barra de poder: mientras no recibe daño carga la barra, ya que mantiene su orgullo y gana confianza.\
-    - Poder: Con su voz de líder y manipulador convence al oponente a rendirse ante él y hacerse daño a sí mismo(40 de daño).
+    - Poder: Con su voz de líder y manipulador convence al oponente a rendirse ante él y hacerse daño a sí mismo(50 de daño).
 
 ![Arturo](assets/img/Arturo/arthur.png)
 
@@ -87,7 +87,7 @@ Los jugadores escogen su personaje en función de la personalidad que más les g
 
 ## Mapas
 
-- **Volcán**: Las plataformas tienen lava y en el fondo hay un volcán. Caen bolas de fuego desde el volcán que explotan al caer al suelo empujando.
+- **Volcán**: Las plataformas tienen lava y en el fondo hay un volcán. Caen bolas de fuego.
 
 
 ![Volcán](assets/img/fondos/vulcan.gif) 
@@ -109,21 +109,29 @@ Los jugadores escogen su personaje en función de la personalidad que más les g
 ![PlataformasNave](assets/img/fondos/bocetomapa.png)
 *Idea de plataformas para la nave*
 
-- **Jungla**: Lianas y vegetación alrededor. Caen cocos que rebotan por el mapa
+- **Jungla**: Lianas y vegetación alrededor. Caen cocos que rebotan por el mapa.
 
 ![Jungla](assets/img/fondos/jungla.png) 
 ![PlataformasJungla](assets/img/fondos/selvabocet.png)
 *Idea para plataformas de la jungla*
 
-- **Muelle**: Diferentes alturas para pelear. Saltan peces del agua y al caer golpean a los jugadores.
+- **Muelle**: Diferentes alturas para pelear. Saltan peces del agua.
 
 ![Muelle](assets/img/fondos/fondo.gif) 
 ![PlataformasMuelle](assets/img/fondos/muelle.png)
 *Idea para plataformas del muelle*
 
-## UML
+## Objetos
+Aparece un objeto en el mapa cada 10 segundos. Dependiendo del mapa caen objetos con la misma temática.
 
-![UML](assets/img/uml.png) 
+- **Bola de fuego**: Las bolas de fuego caen en el mapa del volcán desde una posición X aleatoria y una posición Y fija por encima de la pantalla. Al colisionar con un jugador o con el suelo explotan creando una pequeña onda de empuje y haciendo 3 de daño.
+
+- **Espada**: Las espadas caen en el mapa del castillo desde una posición X aleatoria y una posición Y fija por encima de la pantalla. Al colisionar con un jugador provocan un sangrado que hace 1 de daño cada segundo durante 5 segundos. Si colisionan con el suelo ya no provocan sangrado y se quedan clavadas, pudiendo ser utilizadas como plataforma.
+
+-**Cocos**
+
+-**Peces**: 
+
 
 ## UI:
 

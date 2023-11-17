@@ -144,7 +144,11 @@ export default class Azazel extends Phaser.GameObjects.Sprite {
             if (this.body.velocity.x === 0 && !this.onAir) this.boolPoder = true;
             else this.boolPoder = false;
         } else this.body.setVelocityX(0);
-        
+
+        if (this.vida <= 0) {
+            this.HUD.addScore(this);
+            this.destroy();
+        }
     }
 
     throwFireBall() {

@@ -31,7 +31,11 @@ export class MainScene extends Phaser.Scene {
         this.HUD = undefined;
         this.score1 = undefined;
         this.score2 = undefined;
-        
+        this.posicionInicial1 = undefined; //Posiciones iniciales para llevarlos a esa posicion cuando mueren
+        this.posicionInicial2 = undefined;
+        this.alturaInicial = undefined;
+        this.alturaVacio = undefined; // Altura en la que los personajes mueren por caerse al vacío
+        this.tiempoObjeto = 10000 //Lapso de tiempo de aparicion de objetos
     }
     
     preload() {//Dependiendo de lo seleccionado cargamos una cosa u otra (mas adelante) 
@@ -86,6 +90,10 @@ export class MainScene extends Phaser.Scene {
     create() {//asignamos player1 y player 2
         this.HEIGHT = this.sys.game.canvas.height;
         this.WIDTH = this.sys.game.canvas.width;
+        this.posicionInicial1 = this.WIDTH - this.WIDTH / 4;
+        this.posicionInicial2 = this.WIDTH / 4;
+        this.alturaInicial = this.HEIGHT / 2;
+        this.alturaVacio = this.HEIGHT;
         //new Volcan(this, 600, 300).setScale(1.7, 1.8);
         //new Espacio(this, 600, 300).setScale(1.6, 1.4);
         new Muelle(this, 600, 350).setScale(1.8, 1.7);
@@ -95,8 +103,8 @@ export class MainScene extends Phaser.Scene {
         this.score1 = 2;
         this.score2 = 1;//Marcador de la partida
         //this.player1 = new Trevor(this, 500, 300, this.player2, this.platforms);  
-        this.player2 = new Arturo(this, this.WIDTH - this.WIDTH / 4, this.HEIGHT / 2, this.platforms, this.HUD, this.player1);
-        this.player1 = new Azazel(this, this.WIDTH / 4, this.HEIGHT / 2, this.platforms, this.player2, this.HUD);
+        this.player2 = new Arturo(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player1);
+        this.player1 = new Azazel(this, this.posicionInicial2, this.alturaInicial, this.platforms, this.player2, this.HUD);
         /*this.player2 = new Shinji(this, this.WIDTH / 4, this.HEIGHT / 2, this.player1, this.platforms);*/
         this.HUD = new HUD(this, 0, 0, this.player1, this.player2, this.score1, this.score2);
 
@@ -110,12 +118,15 @@ export class MainScene extends Phaser.Scene {
         this.time = t;
 
         if (t > time) {//Se genera el objeto 
-            time += 3000;
+            time += this.tiempoObjeto;
             this.creaObjeto();
         }
         
         this.HUD.update();
-       
+
+        if (this.score1 === 3 || this.score2 === 3) {
+            this.termina();
+        }
     }
 
     hitPlayer(player, damage) {
@@ -160,7 +171,9 @@ export class MainScene extends Phaser.Scene {
 
     }
     
+    terminaJuego() {
 
+    }
    
    
 }

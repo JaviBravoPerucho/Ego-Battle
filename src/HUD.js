@@ -57,8 +57,7 @@ class PowerBar extends Phaser.GameObjects.Graphics {
         this.height = 20;
         this.value = value;
         this.right = right;
-        //this.border = new Phaser.GameObjects.Image(this.scene, this.x+600, this.y, 'BordePoder');
-        //this.scene.add.existing(this.border).setScale(0.2, 0.2);
+        this.color = 0x800080;
         this.draw();
 
         scene.add.existing(this);
@@ -70,8 +69,8 @@ class PowerBar extends Phaser.GameObjects.Graphics {
         this.fillStyle(0x000000);
         this.fillRect(this.x, this.y, this.width, this.height);//80 16 w h
 
-        //  Health
-        this.fillStyle(0x800080);
+        //  Power
+        this.fillStyle(this.color);
         this.fillRect(this.x + 2, this.y + 2, this.width - 8, this.height - 8);//76 12 w h
 
 
@@ -155,6 +154,11 @@ export default class HUD extends Phaser.GameObjects.Container {
         this.add(this.score);
      
         this.scene.add.existing(this);
+    }
+
+    countScore(player) {
+        if (player === this.player1) this.score2++;
+        else this.score1++;
     }
 
     update() {

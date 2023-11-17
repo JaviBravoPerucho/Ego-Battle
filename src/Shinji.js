@@ -130,6 +130,9 @@ export default class Shinji extends Phaser.GameObjects.Sprite {
             }
         }
       
-
+        if (this.vida <= 0) {
+            this.HUD.countScore(this);
+            this.destroy();
+        }
     }
 }

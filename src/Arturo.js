@@ -1,3 +1,4 @@
+
 class Arma extends Phaser.GameObjects.Rectangle {
     constructor(scene, x, y, arma, direction, player, playerOpuesto, damage, HUD, width, height) {
         super(scene, x, y, width, height, 0xf0000);
@@ -93,11 +94,11 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
         this.contPoder = 0;
         this.tiempoPoder = 5000;
         this.boolPoder = true;
-        this.poderPorFrame = 0.1;
-        this.danoUlti = 80;
+        this.poderPorFrame = 0.5;
+        this.danoUlti = 50;
         this.contUlti = 0;
         this.tiempoUlti = 3000;
-        this.stop = false;
+        this.stop = false;     
 
         scene.anims.create({//Anim idle
             key: 'Aidle',
@@ -239,14 +240,33 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
             if (this.poder == this.HUD.maxPoder) {
                 this.ulti();
                 this.poder = 0;
+                if (this.HUD.player1 === this) {
+                    this.HUD.BarraDePoder1.color = 0xff0000;
+                    this.HUD.BarraDePoder1.increase(this.poderPorFrame);
+                }
+                else if (this.HUD.player2 === this) {
+                    this.HUD.BarraDePoder2.color = 0xff0000;
+                    this.HUD.BarraDePoder2.increase(this.poderPorFrame);
+                }
             }
 
-            if (!this.boolPoder) {
+            if (!this.boolPoder) {              
                 this.contPoder += dt;
                 if (this.contPoder > this.tiempoPoder) {
                     this.boolPoder = true;
                     this.contPoder = 0;
                 }
+            }
+
+            if (this.vida <= 0) {
+                this.HUD.countScore(this);
+                this.destroy();
+            }
+
+            if (this.y >= this.scene.alturaVacio) {
+                this.vida = 0;
+                this.y = this.scene.alturaInicial;
+                this.x = this.scene.posicionInicial;
             }
         } else {
             this.contUlti += dt;
@@ -256,8 +276,14 @@ export default class Arturo extends Phaser.GameObjects.Sprite {
                 this.stop = false;
                 this.playerOpuesto.stop = false;
                 this.contUlti = 0;
-                if (this.HUD.player1 === this) this.HUD.BarraDePoder1.value = 0;
-                else if (this.HUD.player2 === this) this.HUD.BarraDePoder2.value = 0;
+                if (this.HUD.player1 === this) {
+                    this.HUD.BarraDePoder1.value = 0;
+                    this.HUD.BarraDePoder1.color = 0x800080;
+                }
+                else if (this.HUD.player2 === this) {
+                    this.HUD.BarraDePoder2.value = 0;
+                    this.HUD.BarraDePoder2.color = 0x800080;
+                }
                 console.log("ULTI");
             }
         }

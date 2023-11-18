@@ -1,3 +1,5 @@
+import Personaje from './Personaje.js'
+
 export default class Azazel extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, floor, player2, HUD) {//Habra que pasarle player2 para que colisione con ellos 
         super(scene, x, y);
@@ -146,7 +148,7 @@ export default class Azazel extends Phaser.GameObjects.Sprite {
         } else this.body.setVelocityX(0);
 
         if (this.vida <= 0) {
-            this.HUD.addScore(this);
+            this.HUD.countScore(this);
             this.destroy();
         }
     }

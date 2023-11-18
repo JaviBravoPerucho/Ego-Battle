@@ -9,6 +9,7 @@ export default class MenuBackground extends Phaser.GameObjects.Sprite {
             frameRate: 15,
             repeat: -1
         });
+
         this.play('FM');
         this.maxScale = 1.8;
         this.minScale = 1.35;

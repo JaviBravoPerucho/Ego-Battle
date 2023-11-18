@@ -1,5 +1,5 @@
-import MenuBackground from '../src/FondoMenu.js'
-import CharacterSelector from '../src/CharacterSelector.js'
+import MenuBackground from '../ui/FondoMenu.js'
+import CharacterSelector from '../ui/CharacterSelector.js'
 
 export class Menu extends Phaser.Scene {
     constructor() {

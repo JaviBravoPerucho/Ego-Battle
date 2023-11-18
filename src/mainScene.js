@@ -1,18 +1,25 @@
-import VolcanFireBall from './VolcanFireBall.js';
-import Volcan from './Volcan.js';
-import Espacio from './Espacio.js'
-import Muelle from './Muelle.js'
-import Sword from './Sword.js';
-import Coconut from './Coconut.js';
-import Fish from './Fish.js';
-import Trevor from './Trevor.js';
-import Arturo from './Arturo.js';
-import Azazel from './Azazel.js';
-import HUD from './HUD.js';
-import OVNI from './OVNI.js';
-import Shinji from './Shinji.js';
-import Arma from './Arma.js';
- 
+//Entornos
+import Volcan from './environments/Volcan.js';
+import Espacio from './environments/Espacio.js'
+import Muelle from './environments/Muelle.js'
+
+//Objetos
+import Sword from './objects/Sword.js';
+import Coconut from './objects/Coconut.js';
+import Fish from './objects/Fish.js';
+import VolcanFireBall from './objects/VolcanFireBall.js';
+import OVNI from './objects/OVNI.js';
+
+//Personajes
+import Trevor from './characters/Trevor.js';
+import Arturo from './characters/Arturo.js';
+import Azazel from './characters/Azazel.js';
+import Shinji from './characters/Shinji.js';
+import Arma from './characters/Arma.js';
+
+//UI
+import HUD from './ui/HUD.js';
+
 const PLATFORMLAVA = 'platform'
 const PLAYER = 'player'
 var time = 3000;//Tiempo para caer primer objeto
@@ -38,53 +45,59 @@ export class MainScene extends Phaser.Scene {
         this.tiempoObjeto = 10000 //Lapso de tiempo de aparicion de objetos
     }
     
-    preload() {//Dependiendo de lo seleccionado cargamos una cosa u otra (mas adelante) 
-        this.load.image('Borde', './assets/img/border.png');
-        this.load.image('BordePoder', './assets/img/barrapoder.png');
-        this.load.image('Arturo', './assets/img/Arturo/arthur.png');
-        this.load.image('Trevor', './assets/img/Trevor/trevor.png');
-        this.load.image('Azazel', './assets/img/Azazel/azazzel.png');
-        this.load.image('Shinji', './assets/img/Shinji/shinji.png');
-        this.load.image('background', './assets/img/fondos/castillo.jpg');//Fondo castillo
-        this.load.image(PLATFORMLAVA, './assets/img/lavaPlat.png');//Plataforma lava
-        this.load.image('Sword', './assets/img/Sword.png');//Espada
-        this.load.image('Coconut', './assets/img/coco.png');//Coco
-        this.load.image('laser', './assets/img/lAser.png');//laser
-        this.load.image('OVNI', './assets/img/OVNI.png');
-        this.load.image('platformMetal', './assets/img/fondos/Plat2.png');
-        this.load.image('wood', './assets/img/fondos/madera.jpg');
-        this.load.atlas('flares', 'assets/img/flares.png', 'assets/img/flares.json');//particulas
-        this.load.spritesheet('VFB', './assets/img/VFB.png', { frameWidth: 32, frameHeight: 67 });//Bola de fuego volcan
-        this.load.spritesheet('Fish', './assets/img/Pez.png', { frameWidth: 500, frameHeight: 659 });//Pez
-        //this.load.spritesheet('Volcan', './assets/img/fondos/Volcan.png', { frameWidth: 800, frameHeight: 336 });//Fondo volcan
-        //this.load.spritesheet('Castillo', './assets/img/fondos/castillo.jpg', { frameWidth: 1071, frameHeight: 600 });//Fondo castillo
-        //this.load.spritesheet('Espacio', '../assets/img/fondos/espacio.png', { frameWidth: 768, frameHeight: 432 });//Fondo Espacio*/
-        this.load.spritesheet('Muelle', '../assets/img/fondos/lago1.png', { frameWidth: 720, frameHeight: 405 });//Fondo Muelle*/
-        this.load.spritesheet('Jungla', './assets/img/fondos/jungla.png', { frameWidth: 800, frameHeight: 650 });//Fondo Jungla
-        this.load.spritesheet('Explosion', './assets/img/explosionFB.png', { frameWidth: 247, frameHeight: 240 });//explosion bola de fuego
-        this.load.spritesheet('Trevornormalattack', './assets/img/Trevor/ataqueLanza.png', { frameWidth: 150, frameHeight: 150 });
-        this.load.spritesheet('Trevorstrongattack', './assets/img/Trevor/ataquePorra.png', { frameWidth: 150, frameHeight: 150 });
-        this.load.spritesheet('Trevoridle', './assets/img/Trevor/Idle.png', { frameWidth: 150, frameHeight: 150 });
-        this.load.spritesheet('Trevorjump', './assets/img/Trevor/Jump.png', { frameWidth: 150, frameHeight: 150 });
-        this.load.spritesheet('Trevorwalk', './assets/img/Trevor/Run.png', { frameWidth: 150, frameHeight: 150 });
-        this.load.spritesheet('Arturonormalattack', './assets/img/Arturo/ANA.png', { frameWidth: 160, frameHeight: 111 });
-        this.load.spritesheet('Arturostrongattack', './assets/img/Arturo/ASA.png', { frameWidth: 160, frameHeight: 111 });
-        this.load.spritesheet('Arturoidle', './assets/img/Arturo/Aidle.png', { frameWidth: 160, frameHeight: 111 });
-        this.load.spritesheet('Arturojump', './assets/img/Arturo/Ajump.png', { frameWidth: 160, frameHeight: 111 });
-        this.load.spritesheet('Arturowalk', './assets/img/Arturo/Arun.png', { frameWidth: 160, frameHeight: 111 });
-        this.load.spritesheet('Azazelnormalattack', './assets/img/Azazel/Attack.png', { frameWidth: 150, frameHeight: 150 });
-        this.load.spritesheet('Azazelstrongattack', './assets/img/Azazel/Attack.png', { frameWidth: 150, frameHeight: 150 });
-        this.load.spritesheet('Azazelidle', './assets/img/Azazel/Idle.png', { frameWidth: 150, frameHeight: 150 });
-        this.load.spritesheet('Azazelwalk', './assets/img/Azazel/Move.png', { frameWidth: 150, frameHeight: 150 });
-        this.load.spritesheet('AzazelBall', './assets/img/AzazelBall.png', { frameWidth: 498, frameHeight: 498 });
-        this.load.spritesheet('Shinjiidle', './assets/img/Shinji/Idle.png', { frameWidth: 59, frameHeight: 85 });
-        this.load.spritesheet('Shinjiwalk', './assets/img/Shinji/rungood.png', { frameWidth: 44, frameHeight: 85 });
-        this.load.spritesheet('Shinjijump', './assets/img/Shinji/Jump.png', { frameWidth: 61, frameHeight: 77 });
-        this.load.spritesheet('Shinjistrongattack', './assets/img/Shinji/Strong.png', { frameWidth: 63, frameHeight: 87 });
-        this.load.spritesheet('Shinjinormalattack', './assets/img/Shinji/Normal.png', { frameWidth: 62, frameHeight: 69 });
+    preload() {//Dependiendo de lo seleccionado cargamos una cosa u otra (mas adelante)
 
-        
-        //this.loadFont('font', 'fonts/ka1.ttf');//Font del marcador
+        //Personajes
+        this.load.image('Arturo', './assets/img/arturoimages/arthur.png');
+        this.load.image('Trevor', './assets/img/trevorimages/trevor.png');
+        this.load.image('Azazel', './assets/img/azazelimages/azazzel.png');
+        this.load.image('Shinji', './assets/img/shinjiimages/shinji.png');
+        this.load.spritesheet('Trevornormalattack', './assets/img/trevorimages/ataqueLanza.png', { frameWidth: 150, frameHeight: 150 });
+        this.load.spritesheet('Trevorstrongattack', './assets/img/trevorimages/ataquePorra.png', { frameWidth: 150, frameHeight: 150 });
+        this.load.spritesheet('Trevoridle', './assets/img/trevorimages/Idle.png', { frameWidth: 150, frameHeight: 150 });
+        this.load.spritesheet('Trevorjump', './assets/img/trevorimages/Jump.png', { frameWidth: 150, frameHeight: 150 });
+        this.load.spritesheet('Trevorwalk', './assets/img/trevorimages/Run.png', { frameWidth: 150, frameHeight: 150 });
+        this.load.spritesheet('Arturonormalattack', './assets/img/arturoimages/ANA.png', { frameWidth: 160, frameHeight: 111 });
+        this.load.spritesheet('Arturostrongattack', './assets/img/arturoimages/ASA.png', { frameWidth: 160, frameHeight: 111 });
+        this.load.spritesheet('Arturoidle', './assets/img/arturoimages/Aidle.png', { frameWidth: 160, frameHeight: 111 });
+        this.load.spritesheet('Arturojump', './assets/img/arturoimages/Ajump.png', { frameWidth: 160, frameHeight: 111 });
+        this.load.spritesheet('Arturowalk', './assets/img/arturoimages/Arun.png', { frameWidth: 160, frameHeight: 111 });
+        this.load.spritesheet('Azazelnormalattack', './assets/img/azazelimages/Attack.png', { frameWidth: 150, frameHeight: 150 });
+        this.load.spritesheet('Azazelstrongattack', './assets/img/azazelimages/Attack.png', { frameWidth: 150, frameHeight: 150 });
+        this.load.spritesheet('Azazelidle', './assets/img/azazelimages/Idle.png', { frameWidth: 150, frameHeight: 150 });
+        this.load.spritesheet('Azazelwalk', './assets/img/azazelimages/Move.png', { frameWidth: 150, frameHeight: 150 });
+        this.load.spritesheet('AzazelBall', './assets/img/azazelimages/AzazelBall.png', { frameWidth: 498, frameHeight: 498 });
+        this.load.spritesheet('Shinjiidle', './assets/img/shinjiimages/Idle.png', { frameWidth: 59, frameHeight: 85 });
+        this.load.spritesheet('Shinjiwalk', './assets/img/shinjiimages/rungood.png', { frameWidth: 44, frameHeight: 85 });
+        this.load.spritesheet('Shinjijump', './assets/img/shinjiimages/Jump.png', { frameWidth: 61, frameHeight: 77 });
+        this.load.spritesheet('Shinjistrongattack', './assets/img/shinjiimages/Strong.png', { frameWidth: 63, frameHeight: 87 });
+        this.load.spritesheet('Shinjinormalattack', './assets/img/shinjiimages/Normal.png', { frameWidth: 62, frameHeight: 69 });
+
+        //Objetos
+        this.load.image('Sword', './assets/img/objimages/swordimage.png');//Espada
+        this.load.image('Coconut', './assets/img/objimages/cocoimage.png');//Coco
+        this.load.image('laser', './assets/img/objimages/laser.png');//laser
+        this.load.image('OVNI', './assets/img/objimages/ovniimage.png');//Ovni volador
+        this.load.spritesheet('VFB', './assets/img/objimages/VFB.png', { frameWidth: 32, frameHeight: 67 });//Bola de fuego volcan
+        this.load.spritesheet('Fish', './assets/img/objimages/pezimage.png', { frameWidth: 500, frameHeight: 659 });//Pez
+        this.load.spritesheet('Explosion', './assets/img/objimages/explosionFB.png', { frameWidth: 247, frameHeight: 240 });//explosion bola de fuego
+
+        //Entornos
+        //this.load.spritesheet('Volcan', './assets/img/fondosimages/Volcan.png', { frameWidth: 800, frameHeight: 336 });//Fondo volcan
+        //this.load.spritesheet('Castillo', './assets/img/fondosimages/castillo.jpg', { frameWidth: 1071, frameHeight: 600 });//Fondo castillo
+        //this.load.spritesheet('Espacio', '../assets/img/fondosimages/espacio.png', { frameWidth: 768, frameHeight: 432 });//Fondo Espacio
+        this.load.spritesheet('Muelle', '../assets/img/fondosimages/lago1.png', { frameWidth: 720, frameHeight: 405 });//Fondo Muelle
+        this.load.spritesheet('Jungla', './assets/img/fondosimages/jungla.png', { frameWidth: 800, frameHeight: 650 });//Fondo Jungla
+        this.load.image('background', './assets/img/fondosimages/castillo.jpg');//Fondo castillo
+        this.load.image(PLATFORMLAVA, './assets/img/fondosimages/lavaPlat.png');//Plataforma lava
+        this.load.image('wood', './assets/img/fondosimages/madera.jpg');
+        this.load.atlas('flares', 'assets/img/flares.png', 'assets/img/flares.json');//particulas
+        this.load.image('platformMetal', './assets/img/fondosimages/Plat2.png');
+
+        //UI
+        this.load.image('Borde', './assets/img/uiimages/border.png');
+        this.load.image('BordePoder', './assets/img/uiimages/barrapoder.png');
+
     }
 
     create() {//asignamos player1 y player 2

@@ -1,5 +1,5 @@
 import Personaje from './Personaje.js'
-
+import Arma from './Arma.js'
 export default class Azazel extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, floor, player2, HUD) {//Habra que pasarle player2 para que colisione con ellos 
         super(scene, x, y);

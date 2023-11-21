@@ -1,4 +1,5 @@
-
+import Personaje from './Personaje.js'
+import Arma from './Arma.js'
 
 export default class Shinji extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, player,floor) {//Habra que pasarle player1 y player2 para que colisione con ellos 

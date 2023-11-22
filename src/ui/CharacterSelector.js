@@ -21,10 +21,10 @@ class Look extends Phaser.GameObjects.Image {
     constructor(scene, x, y, personaje) {
         super(scene, x, y, personaje);
         scene.add.existing(this)
-        if (personaje === 'Arturo') { this.setScale(1.7, 1.7); }
-        else if (personaje === 'Shinji') { this.setScale(1.3, 1.3); }
+        if (personaje === 'Arturo') { this.setScale(0.11, 0.11); }
+        else if (personaje === 'Shinji') { this.setScale(0.11, 0.11); }
         else if (personaje === 'Trevor') { this.setScale(1.4, 1.4); }
-        else if (personaje === 'Azazel') { this.setScale(1.7, 1.7); }
+        else if (personaje === 'Azazel') { this.setScale(0.11, 0.11); }
     }
 }
 export default class CharacterSelector extends Phaser.GameObjects.Container {

@@ -24,10 +24,10 @@ export class Menu extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('Arturo', '../assets/img/arturoimages/arthur.png');
+        this.load.image('Arturo', '../assets/img/arturoimages/arturo.png');
         this.load.image('Trevor', '../assets/img/trevorimages/trevor.png');
-        this.load.image('Azazel', '../assets/img/azazelimages/azazzel.png');
-        this.load.image('Shinji', '../assets/img/shinjiimages/shinji.png');
+        this.load.image('Azazel', '../assets/img/azazelimages/azazelportrait.png');
+        this.load.image('Shinji', '../assets/img/shinjiimages/shinjiportrait.png');
         this.load.image('start', '../assets/img/uiimages/Startbutton.png');
         this.load.spritesheet('MenuFondo', '../assets/img/fondosimages/MenuFondo.png', { frameWidth: 960, frameHeight: 540 });
         this.load.image('nameImage', '../assets/img/uiimages//marcoNombre.png');
@@ -62,6 +62,7 @@ export class Menu extends Phaser.Scene {
         this.player2 = new CharacterSelector(this, this.WIDTH / 2.17, this.HEIGHT / 7, 'Shinji');
         this.player3 = new CharacterSelector(this, this.WIDTH / 2.85, this.HEIGHT / 7, 'Trevor');
         this.player4 = new CharacterSelector(this, this.WIDTH / 5.1, this.HEIGHT / 7, 'Azazel');
+        this.cursors = this.input.keyboard.createCursorKeys();
         //this.akey = this.input.keyboard.addkey('A');
         //this.dkey = this.input.keyboard.addkey('d');
         //this.leftkey = this.input.keyboard.addkey('left');

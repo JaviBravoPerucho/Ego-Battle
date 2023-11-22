@@ -1,5 +1,6 @@
 import MenuBackground from '../ui/FondoMenu.js'
 import CharacterSelector from '../ui/CharacterSelector.js'
+import MainScene from '../mainScene.js'
 
 export class Menu extends Phaser.Scene {
     constructor() {
@@ -18,6 +19,8 @@ export class Menu extends Phaser.Scene {
         this.positionP1 = 0;
         this.positionP2 = 3;
         this.elapsed = 0;
+        this.p1selected = false;
+        this.p2selected = false;
     }
 
     preload() {
@@ -49,7 +52,11 @@ export class Menu extends Phaser.Scene {
         this.Selector3 = new Selector2(this, (this.WIDTH / 2.17) + 492, (this.HEIGHT / 7) + 65);
 
         this.startButton.on('pointerdown', () => {
+            //if (this.p1selected && this.p2selected) {
+            //    this.scene.start('mainScene',map,this.positionP1,this.positionP2);
+            //}
             this.scene.start('mainScene');
+
         });
         this.player1 = new CharacterSelector(this, this.WIDTH / 12, this.HEIGHT / 7, 'Arturo');
         this.player2 = new CharacterSelector(this, this.WIDTH / 2.17, this.HEIGHT / 7, 'Shinji');
@@ -59,6 +66,8 @@ export class Menu extends Phaser.Scene {
         //this.dkey = this.input.keyboard.addkey('d');
         //this.leftkey = this.input.keyboard.addkey('left');
         //this.rightkey = this.input.keyboard.addkey('right');
+        //this.spacekey = this.input.keyboard.addkey('space');
+        //this.enterkey = this.input.keyboard.addkey('enter');
         console.log(this.Selector1);
     }
             
@@ -68,38 +77,43 @@ export class Menu extends Phaser.Scene {
             this.textY += 1;
             this.text.setPosition(this.WIDTH/4, this.textY);
         } 
-        //console.log(this.positionP1)
-        //this.elapsed += dt;
+        //if (phaser.input.keyboard.justdown(this.spacekey)) {
+        //    this.p1selected = true;
+        //}
+        //if (phaser.input.keyboard.justdown(this.enterkey)) {
+        //    this.p2selected = true;
+        //}
+        //if (!this.p1selected) {
+        //    if (phaser.input.keyboard.justdown(this.akey)) {
+        //        if (this.positionp1 > 0) {
+        //            this.positionp1--;
+        //            this.Selector1.move(false);
 
-        //        this.positionp1++;
-                
-                
-        //if (phaser.input.keyboard.justdown(this.akey)) {
-        //    if (this.positionp1 > 0) {
-        //        this.positionp1--;
-        //        this.Selector1.move(false);
+        //        }
+        //    }
+        //    if (phaser.input.keyboard.justdown(this.dkey)) {
+        //        if (this.positionp1 < 3) {
+        //            this.positionp1++;
+        //            this.Selector1.move(true);
+        //        }
+        //    }
+        //}
+        //if (!this.player1) {
+        //    if (phaser.input.keyboard.justdown(this.leftkey)) {
+        //        if (this.positionp2 > 0) {
+        //            this.positionp2--;
+        //            this.Selector2.move(false);
 
+        //        }
+        //    }
+        //    if (phaser.input.keyboard.justdown(this.rightkey)) {
+        //        if (this.positionp2 < 3) {
+        //            this.positionp2++;
+        //            this.Selector2.move(true);
+        //        }
         //    }
         //}
-        //if (phaser.input.keyboard.justdown(this.dkey)) {
-        //    if (this.positionp1 < 3) {
-        //        this.positionp1++;
-        //        this.Selector1.move(true);
-        //    }
-        //}
-        //if (phaser.input.keyboard.justdown(this.leftkey)) {
-        //    if (this.positionp2 > 0) {
-        //        this.positionp2--;
-        //        this.Selector2.move(false);
 
-        //    }
-        //}
-        //if (phaser.input.keyboard.justdown(this.rightkey)) {
-        //    if (this.positionp2 < 3) {
-        //        this.positionp2++;
-        //        this.Selector2.move(true);
-        //    }
-        //}
         //if (this.positionP1 == this.positionP2) {
         //    this.Selector1.setVisble(false);
         //    this.Selector2.setVisble(false);
@@ -109,6 +123,9 @@ export class Menu extends Phaser.Scene {
         //    this.Selector1.setVisble(true);
         //    this.Selector2.setVisble(true);
         //    this.Selector3.setVisble(false);
+        //}
+        //if (this.p1selected && this.p2selected) {
+        //    MainScene(map,this.positionP1,this.positionP2)
         //}
         
     }

@@ -56,7 +56,7 @@ Los jugadores escogen su personaje en función de la personalidad que más les g
     - Barra de poder: mientras no recibe daño carga la barra, ya que mantiene su orgullo y gana confianza.\
     - Poder: Con su voz de líder y manipulador convence al oponente a rendirse ante él y hacerse daño a sí mismo(50 de daño).
 
-![Arturo](assets/img/Arturo/arthur.png)
+![Arturo](assets/img/arturoimages/arthur.png)
 
 - **Azazel**: Es un maestro táctico y juzga muy bien sus acciones.  Tiene un estilo de combate con el que gana a su oponente de forma estratégica.
 
@@ -65,7 +65,7 @@ Los jugadores escogen su personaje en función de la personalidad que más les g
     - Barra de poder: Mientras está quieto llena poder, ya que está pensando un plan y considerando todas las opciones.\
     - Poder: Ha averiguado los puntos débiles del oponente y hace más daño con sus ataques durante un tiempo(+10 en cada ataque, durante 10 segundos).
 
-![Azazel](assets/img/Azazel/azazzel.png) 
+![Azazel](assets/img/azazelimages/azazzel.png) 
 
 - **Trevor**: Es un personaje agresivo y directo. Realiza combate cuerpo a cuerpo y se lanza a sus oponentes con furia, guiándose por sus instintos.
 
@@ -74,7 +74,7 @@ Los jugadores escogen su personaje en función de la personalidad que más les g
     - Barra de poder: se recarga recibiendo daño
     - Poder: al haber recibido bastante daño su furia se ha acumulado y se vuelve loco, corriendo hacia su oponente como una bestia y realizando muchos ataques en poco tiempo(0.2 s por ataque).
 
-![Trevor](assets/img/Trevor/trevor.png) 
+![Trevor](assets/img/trevorimages/trevor.png) 
 
 - **Shinji**: Es introvertido. Por eso no realiza combate cuerpo a cuerpo, solo lanza proyectiles desde lejos.
 
@@ -83,54 +83,59 @@ Los jugadores escogen su personaje en función de la personalidad que más les g
     - Barra de poder: se rellena mientras más tiempo esté lejos del oponente ya que de esta forma gana confianza y se prepara para un ataque fuerte.\
     - Poder: se teletransporta detrás del rival, realizando un ataque fuerte por la espalda(40 de daño).
 
- ![Shinji](assets/img/Shinji/shinji.png) 
+ ![Shinji](assets/img/shinjiimages/shinji.png) 
 
 ## Mapas
 
 - **Volcán**: Las plataformas tienen lava y en el fondo hay un volcán. Caen bolas de fuego.
 
 
-![Volcán](assets/img/fondos/vulcan.gif) 
+![Volcán](assets/img/fondosimages/vulcan.gif) 
 
-![PlataformasVolcan](assets/img/fondos/capturadeljuego.png)
+![PlataformasVolcan](assets/img/fondosimages/capturadeljuego.png)
 *Volcán con plataformas*
 
 
 - **Castillo medieval**: Formado por torres y patios. Caen espadas.
 
-![Castillo](assets/img/fondos/castillo.jpg) 
-![PlataformasCastillo](assets/img/fondos/castilloboceto.png)
+![Castillo](assets/img/fondosimages/castillo.jpg) 
+![PlataformasCastillo](assets/img/fondosimages/castilloboceto.png)
 *Idea de plataformas para el castillo*
 
 - **Nave espacial**: En medio del espacio, con planetas y alienígenas. Hay un ovni moviéndose de un lado al otro disparando rayos láser.
 
-![Nave](assets/img/fondos/Espacio.gif) 
+![Nave](assets/img/fondosimages/Espacio.gif) 
 
-![PlataformasNave](assets/img/fondos/bocetomapa.png)
+![PlataformasNave](assets/img/fondosimages/bocetomapa.png)
 *Idea de plataformas para la nave*
 
 - **Jungla**: Lianas y vegetación alrededor. Caen cocos que rebotan por el mapa.
 
-![Jungla](assets/img/fondos/jungla.png) 
-![PlataformasJungla](assets/img/fondos/selvabocet.png)
+![Jungla](assets/img/fondosimages/jungla.png) 
+![PlataformasJungla](assets/img/fondosimages/selvabocet.png)
 *Idea para plataformas de la jungla*
 
 - **Muelle**: Diferentes alturas para pelear. Saltan peces del agua.
 
-![Muelle](assets/img/fondos/fondo.gif) 
-![PlataformasMuelle](assets/img/fondos/muelle.png)
+![Muelle](assets/img/fondosimages/fondo.gif) 
+![PlataformasMuelle](assets/img/fondosimages/muelle.png)
 *Idea para plataformas del muelle*
 
 ## Objetos
-Aparece un objeto en el mapa cada 10 segundos. Dependiendo del mapa caen objetos con la misma temática.
+Aparece un objeto en el mapa cada 10 segundos. Dependiendo del mapa caen objetos con la misma temática. No colisionan con las plataformas, solo con los personajes.
 
 - **Bola de fuego**: Las bolas de fuego caen en el mapa del volcán desde una posición X aleatoria y una posición Y fija por encima de la pantalla. Al colisionar con un jugador o con el suelo explotan creando una pequeña onda de empuje y haciendo 3 de daño.
 
 - **Espada**: Las espadas caen en el mapa del castillo desde una posición X aleatoria y una posición Y fija por encima de la pantalla. Al colisionar con un jugador provocan un sangrado que hace 1 de daño cada segundo durante 5 segundos. Si colisionan con el suelo ya no provocan sangrado y se quedan clavadas, pudiendo ser utilizadas como plataforma.
 
--**Cocos**
+-**Cocos**: Los cocos caen en el mapa de la jungla y rebotan por los bordes del mapa como si no tuvieran gravedad durante 5 segundos. Si chocan contra un personaje, hacen 3 de daño y lo paralizan durante 0.5 segundos.
 
--**Peces**: 
+-**Peces**: Los peces aparecen en el mapa del muelle y salen del agua realizando un movimiento parabólico. Si chocan contra un jugador provocan 3 de daño y caen de vuelta en el agua.
+
+## Habilidades de poder
+La barra de poder se va llenando en función de una dinámica propia de cada personaje, que va ligada a su personalidad. Estas son las formas con las que cada personaje ha de llenar su barra:
+
+- Arturo: Debe evitar recibir daño para llenar su barra. Mientras no recibe daño su barra se va llenando, y si es golpeado se pausa el progreso de la barra durante 5 segundos. Esto hace que una estrategia ponderable con Arturo sea  evitar el combate a toda costa, y huir del oponente para cargar su barra de poder y provocarle daño así.
 
 
 ## UI:
@@ -140,6 +145,7 @@ Aparece un objeto en el mapa cada 10 segundos. Dependiendo del mapa caen objetos
 - Barra de poder morada, debajo de la barra de vida y más corta\
 - No hay botón de pausa para que nadie pare la partida.\
 - Indicador de combo de golpes, se reinician si fallas un ataque o si pasa 1s. Ejemplo: x1
+![HUD](assets/img/uiimages/hud.png)
 
 ## Menú
 

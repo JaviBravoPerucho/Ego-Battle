@@ -1,6 +1,6 @@
-import MenuBackground from '../ui/FondoMenu.js'
-import CharacterSelector from '../ui/CharacterSelector.js'
-import MainScene from '../mainScene.js'
+import MenuBackground from './ui/FondoMenu.js'
+import CharacterSelector from './ui/CharacterSelector.js'
+//import MainScene from './mainScene.js'
 
 export class Menu extends Phaser.Scene {
     constructor() {
@@ -24,18 +24,18 @@ export class Menu extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('Arturo', '../assets/img/Arturo/arthur.png');
-        this.load.image('Trevor', '../assets/img/Trevor/trevor.png');
-        this.load.image('Azazel', '../assets/img/Azazel/azazzel.png');
-        this.load.image('Shinji', '../assets/img/Shinji/shinji.png');
-        this.load.image('start', '../assets/img/Startbutton.png');
-        this.load.spritesheet('MenuFondo', '../assets/img/fondos/MenuFondo.png', { frameWidth: 960, frameHeight: 540 });
-        this.load.image('nameImage', '../assets/img/Menu/marcoNombre.png');
-        this.load.image('text', '/assets/img/Menu/textoMarco.png');
-        this.load.image('textomarco', '../assets/img/Menu/MarcosTexto.png');
-        this.load.image('Selector1', '../assets/img/Selector1.png');
-        this.load.image('Selector2', '../assets/img/Selector2.png');
-        this.load.image('Selector3', '../assets/img/Selector3.png');
+        this.load.image('Arturo', '../assets/img/arturoimages/arthur.png');
+        this.load.image('Trevor', '../assets/img/trevorimages/trevor.png');
+        this.load.image('Azazel', '../assets/img/azazelimages/azazzel.png');
+        this.load.image('Shinji', '../assets/img/shinjiimages/shinji.png');
+        this.load.image('start', '../assets/img/uiimages/Startbutton.png');
+        this.load.spritesheet('MenuFondo', '../assets/img/fondosimages/MenuFondo.png', { frameWidth: 960, frameHeight: 540 });
+        this.load.image('nameImage', '../assets/img/uiimages//marcoNombre.png');
+        this.load.image('text', '/assets/img/uiimages//textoMarco.png');
+        this.load.image('textomarco', '../assets/img/uiimages/MarcosTexto.png');
+        this.load.image('Selector1', '../assets/img/uiimages/Selector1.png');
+        this.load.image('Selector2', '../assets/img/uiimages/Selector2.png');
+        this.load.image('Selector3', '../assets/img/uiimages/Selector3.png');
     }
 
 
@@ -60,9 +60,9 @@ export class Menu extends Phaser.Scene {
         });
         this.player1 = new CharacterSelector(this, this.WIDTH / 12, this.HEIGHT / 7, 'Arturo');
         this.player2 = new CharacterSelector(this, this.WIDTH / 2.17, this.HEIGHT / 7, 'Shinji');
-        this.player1 = new CharacterSelector(this, this.WIDTH / 2.85, this.HEIGHT / 7, 'Trevor');
-        this.player2 = new CharacterSelector(this, this.WIDTH / 5.1, this.HEIGHT / 7, 'Azazel');
-        //this.akey = this.input.keyboard.addkey('a');
+        this.player3 = new CharacterSelector(this, this.WIDTH / 2.85, this.HEIGHT / 7, 'Trevor');
+        this.player4 = new CharacterSelector(this, this.WIDTH / 5.1, this.HEIGHT / 7, 'Azazel');
+        //this.akey = this.input.keyboard.addkey('A');
         //this.dkey = this.input.keyboard.addkey('d');
         //this.leftkey = this.input.keyboard.addkey('left');
         //this.rightkey = this.input.keyboard.addkey('right');

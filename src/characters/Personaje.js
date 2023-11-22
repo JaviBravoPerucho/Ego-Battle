@@ -1,7 +1,7 @@
 import Arma from './Arma.js';
 
 export default class Personaje extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, floor, HUD, playerOpuesto, width, height, bodyOffsetX, bodyOffsetY, name, arma1, arma2, arrayAnimaciones, arrayFrameRates, arrayFrames, arrayRepeats) {
+    constructor(scene, x, y, floor, HUD, playerOpuesto, width, height, bodyOffsetX, bodyOffsetY, name, arma1, arma2, indexPlayer, arrayAnimaciones, arrayFrameRates, arrayFrames, arrayRepeats) {
         super(scene, x, y);
 
         scene.add.existing(this).setScale(2, 2);
@@ -19,6 +19,8 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
         this.name = name;
         this.arma1 = arma1;
         this.arma2 = arma2;
+        this.indexPlayer = indexPlayer;
+
         this.arrayAnimaciones = arrayAnimaciones;//Arrays con las caracteristicas de las animaciones del personaje
         this.arrayFrameRates = arrayFrameRates;
         this.arrayFrames = arrayFrames;
@@ -66,21 +68,21 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
 
         this.play(arrayAnimaciones[0]);
 
-        //if (this.HUD.player1.name === this.name) {
-        //    this.wKey = this.scene.input.keyboard.addKey('W');
-        //    this.aKey = this.scene.input.keyboard.addKey('A');
-        //    this.dKey = this.scene.input.keyboard.addKey('D');
-        //    this.gKey = this.scene.input.keyboard.addKey('G');
-        //    this.hKey = this.scene.input.keyboard.addKey('H');
+        if (this.indexPlayer === 1) {
+            this.wKey = this.scene.input.keyboard.addKey('w');
+            this.aKey = this.scene.input.keyboard.addKey('a');
+            this.dKey = this.scene.input.keyboard.addKey('d');
+            this.gKey = this.scene.input.keyboard.addKey('g');
+            this.hKey = this.scene.input.keyboard.addKey('h');
 
-        //} else {
+        } else if (this.indexPlayer === 2) {
             this.wKey = this.scene.input.keyboard.addKey('up');
             this.aKey = this.scene.input.keyboard.addKey('left');
             this.dKey = this.scene.input.keyboard.addKey('right');
             this.gKey = this.scene.input.keyboard.addKey('P');
             this.hKey = this.scene.input.keyboard.addKey('O');
 
-        /*}*/
+        }
     }
     createWeapon(width, height, arma) {
         this.arma = new Arma(this.scene, this.x, this.y + 60, arma, this.direction, this, this.playerOpuesto, 20, this.HUD, width, height);

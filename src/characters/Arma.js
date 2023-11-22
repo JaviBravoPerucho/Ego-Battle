@@ -16,7 +16,7 @@ export default class Arma extends Phaser.GameObjects.Rectangle {
         this.yPos = y;
         this.init();
         this.setVisible(false);
-
+        this.body.setAllowGravity(false);
     }
 
     init() {
@@ -52,7 +52,6 @@ export default class Arma extends Phaser.GameObjects.Rectangle {
 
     preUpdate(t, dt) {
         this.followPlayer();
-        this.body.setVelocityY(-11);
         this.contRetardo += dt;
         this.contAtaque += dt;
         if (this.contRetardo > 100) {

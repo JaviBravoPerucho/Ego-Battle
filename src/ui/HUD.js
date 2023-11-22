@@ -1,4 +1,4 @@
-class HealthBarInside extends Phaser.GameObjects.Graphics {
+    class HealthBarInside extends Phaser.GameObjects.Graphics {
     constructor(scene, x, y, value, right) {
         super(scene);
         this.x = x;

@@ -2,13 +2,13 @@ import Personaje from './Personaje.js'
 import Arma from './Arma.js'
 
 export default class Arturo extends Personaje {
-    constructor(scene, x, y, floor, HUD, playerOpuesto) {
+    constructor(scene, x, y, floor, HUD, playerOpuesto, indexPlayer) {
         let arrayAnimaciones = ['Arturoidle', 'Arturowalk', 'Arturojump', 'Arturostrongattack', 'Arturonormalattack'];
         let arrayFrameRates = [10, 15, 1, 8, 8];
         let arrayFrames = [7, 7, 1, 3, 3];
         let arrayRepeats = [-1, -1, 0, 0, 0];
 
-        super(scene, x, y, floor, HUD, playerOpuesto, 22, 45, 68, 60, 'Arturo', 'Espada1', 'Espada2', arrayAnimaciones, arrayFrameRates, arrayFrames, arrayRepeats);
+        super(scene, x, y, floor, HUD, playerOpuesto, 22, 45, 68, 60, 'Arturo', 'Espada1', 'Espada2', indexPlayer, arrayAnimaciones, arrayFrameRates, arrayFrames, arrayRepeats);
 
         this.poder = 0;
         this.contPoder = 0;
@@ -17,11 +17,7 @@ export default class Arturo extends Personaje {
         this.danoUlti = 50;
         this.contUlti = 0;
         this.tiempoUlti = 3000;
-        
-        this.hit = false;
-        this.onAir = false;
-        this.eliminate = false;
-        this.attacking = false;
+       
         this.boolPoder = true;
     }
 

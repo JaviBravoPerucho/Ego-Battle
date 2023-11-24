@@ -20,6 +20,7 @@ import Arma from './characters/Arma.js';
 //UI
 import HUD from './ui/HUD.js';
 
+
 const PLATFORMLAVA = 'platform'
 const PLAYER = 'player'
 var time = 3000;//Tiempo para caer primer objeto
@@ -43,6 +44,9 @@ export class MainScene extends Phaser.Scene {
         this.alturaInicial = undefined;
         this.alturaVacio = undefined; // Altura en la que los personajes mueren por caerse al vacío
         this.tiempoObjeto = 10000 //Lapso de tiempo de aparicion de objetos
+        this.Mapinfo = 0;
+        this.p1info = 0;
+        this.p2info = 3;
     }
     
     preload() {//Dependiendo de lo seleccionado cargamos una cosa u otra (mas adelante)
@@ -115,12 +119,57 @@ export class MainScene extends Phaser.Scene {
         this.platforms = this.createPlatforms();
         this.score1 = 2;
         this.score2 = 1;//Marcador de la partida
+        //console.log(this.Mapinfo,this.p1info,this.p2info)
+        //switch (this.Mapinfo) {
+        //    case 0:
+        //        new Volcan(this, 600, 300).setScale(1.7, 1.8);
+        //        break
+        //    case 1:
+        //        new Espacio(this, 600, 300).setScale(1.6, 1.4);
+        //        break
+        //    case 2:
+        //        new Muelle(this, 600, 350).setScale(1.8, 1.7);
+        //        break
+        //    case 3:
+        //        this.add.existing(new Phaser.GameObjects.Sprite(this, 600, 300, 'Castillo')).setScale(1.2, 1);
+        //        break
+        //    case 4:
+        //        this.background = this.add.image(400, 300, 'background');
+        //        break
+        //}
+        //switch (this.p1info) {
+        //    case 0:
+        //        this.player1 = new Arturo(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player2, 2);
+        //        break
+        //    case 1:
+        //        this.player1 = new Azazel(this, this.posicionInicial2, this.alturaInicial, this.platforms, this.player2, this.HUD, 1);
+        //        break
+        //    case 2:
+        //        this.player1 = new Trevor(this, 500, 300, this.player2, this.platforms);  
+        //        break
+        //    case 3:
+        //        this.player1 = new Shinji(this, this.WIDTH / 4, this.HEIGHT / 2, this.player2, this.platforms);
+        //        break
+        //}
+        //switch (this.p2info) {
+        //    case 0:
+        //        this.player2 = new Arturo(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player1, 2);
+        //        break
+        //    case 1:
+        //        this.player2 = new Azazel(this, this.posicionInicial2, this.alturaInicial, this.platforms, this.player1, this.HUD, 1);
+        //        break
+        //    case 2:
+        //        this.player2 = new Trevor(this, 500, 300, this.player1, this.platforms);
+        //        break
+        //    case 3:
+        //        this.player2 = new Shinji(this, this.WIDTH / 4, this.HEIGHT / 2, this.player1, this.platforms);
+        //        break
+        //}
         //this.player1 = new Trevor(this, 500, 300, this.player2, this.platforms);  
         this.player2 = new Arturo(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player1, 2);
         this.player1 = new Azazel(this, this.posicionInicial2, this.alturaInicial, this.platforms, this.player2, this.HUD, 1);
         /*this.player2 = new Shinji(this, this.WIDTH / 4, this.HEIGHT / 2, this.player1, this.platforms);*/
         this.HUD = new HUD(this, 0, 0, this.player1, this.player2, this.score1, this.score2);
-
         this.player1.HUD = this.HUD;
         this.player2.HUD = this.HUD;
         this.player2.playerOpuesto = this.player1;

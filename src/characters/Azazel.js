@@ -2,27 +2,31 @@ import Personaje from './Personaje.js'
 import Arma from './Arma.js'
 export default class Azazel extends Personaje {
     constructor(scene, x, y, floor, player2, HUD, indexPlayer) {//Habra que pasarle player2 para que colisione con ellos 
-        let arrayAnimaciones = ['Azazelidle', 'Azazelwalk', 'Azazelstrongattack', 'Azazelnormalattack'];
-        let arrayFrameRates = [10, 12, 15, 8];
-        let arrayFrames = [7, 7, 3, 3];
-        let arrayRepeats = [-1, -1, 0, 0];
+        const mapAnimaciones = {
+            "idle": 'Azazelidle',
+            "walk": 'Azazewalk',
+            "jump": 'Azazejump',
+            "strong": 'Azazestrongattack',
+            "normal": 'Azazelnormalattack'
+        }
+        const arrayFrameRates = [10, 12, 15, 8];
+        const arrayFrames = [7, 7, 3, 3];
+        const arrayRepeats = [-1, -1, 0, 0];
 
-        super(scene, x, y, floor, HUD, player2, 20, 45, 65, 55, 'Azazel', undefined, undefined, indexPlayer, arrayAnimaciones, arrayFrameRates, arrayFrames, arrayRepeats);
+        super(scene, x, y, floor, HUD, player2, 20, 45, 65, 55, 'Azazel', undefined, undefined, undefined, undefined, undefined, undefined, indexPlayer, mapAnimaciones, arrayFrameRates, arrayFrames, arrayRepeats);
 
         this.right = true;
         this.fireDuration = 3;
         this.fire = 0;
         this.boolPoder = false;
         this.poder = 0; 
-        this.poderPorFrame = 0.1;
-        this.stop = false;
+        this.poderPorFrame = 0;
+        this.throwFire = false;
 
 
         this.on('animationcomplete', end => {//Detecta que ha dejado de pegar
-            if (this.anims.currentAnim.key === 'Azazelstrongattack') {
-                this.attacking = false;
-            }
-            else if (this.anims.currentAnim.key === 'Azazelnormalattack') {
+            this.throwFire = true;
+            if (this.anims.currentAnim.key === 'Azazelnormalattack') {
                 if (this.fire < this.fireDuration) {
                     this.fire++;
                     this.play('Azazelnormalattack');
@@ -55,11 +59,9 @@ export default class Azazel extends Personaje {
                 this.body.setVelocityX(0);
             }
 
-            if (Phaser.Input.Keyboard.JustDown(this.gKey) && !this.attacking) {
-                if (this.anims.currentAnim.key !== 'Azazelstrongattack') {
-                    this.throwFireBall();
-                    this.attacking = true;
-                }
+            if (this.anims.currentAnim.key === 'Azazelnormalattack' && this.throwFire) {
+                this.throwFireBall();
+                this.throwFire = false;
             }
 
             if (this.poder < this.HUD.maxPoder && this.boolPoder) {
@@ -94,7 +96,7 @@ export class AzazelBall extends Phaser.GameObjects.Sprite {
         this.elapsed = 0;
         this.damage = 10;
         this.HUD = HUD;
-        scene.physics.add.collider(this, player2, end => {
+        scene.physics.add.overlap(this, player2, end => {
             scene.hitPlayer(player2, this.damage);
             this.delete = true;
         });

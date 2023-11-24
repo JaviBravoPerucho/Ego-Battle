@@ -1,7 +1,7 @@
 import Arma from './Arma.js';
 
 export default class Personaje extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, floor, HUD, playerOpuesto, width, height, bodyOffsetX, bodyOffsetY, name, arma1, arma2, indexPlayer, arrayAnimaciones, arrayFrameRates, arrayFrames, arrayRepeats) {
+    constructor(scene, x, y, floor, HUD, playerOpuesto, width, height, bodyOffsetX, bodyOffsetY, name, arma1, arma1Width, arma1Height, arma2, arma2Width, arma2Height, indexPlayer, arrayAnimaciones, arrayFrameRates, arrayFrames, arrayRepeats) {
         super(scene, x, y);
 
         scene.add.existing(this).setScale(2, 2);
@@ -20,6 +20,13 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
         this.arma1 = arma1;
         this.arma2 = arma2;
         this.indexPlayer = indexPlayer;
+        this.armaName = undefined;
+        this.armaWidth = undefined;
+        this.armaHeight = undefined;
+        this.arma1Width = arma1Width;
+        this.arma1Height = arma1Height;
+        this.arma2Width = arma2Width;
+        this.arma2Height = arma2Height;
 
         this.arrayAnimaciones = arrayAnimaciones;//Arrays con las caracteristicas de las animaciones del personaje
         this.arrayFrameRates = arrayFrameRates;
@@ -56,7 +63,7 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
             });
         }
         this.on('animationcomplete', end => {//Detecta que ha dejado de pegar
-            if (this.anims.currentAnim.key === arrayAnimaciones[arrayAnimaciones.length - 1] || this.anims.currentAnim.key === arrayAnimaciones[arrayAnimaciones.length - 1]) {
+            if (this.anims.currentAnim.key === arrayAnimaciones[arrayAnimaciones.length - 1] || this.anims.currentAnim.key === arrayAnimaciones[arrayAnimaciones.length - 2]) {
                 this.attacking = false;
             }
         })
@@ -79,13 +86,12 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
             this.wKey = this.scene.input.keyboard.addKey('up');
             this.aKey = this.scene.input.keyboard.addKey('left');
             this.dKey = this.scene.input.keyboard.addKey('right');
-            this.gKey = this.scene.input.keyboard.addKey('P');
-            this.hKey = this.scene.input.keyboard.addKey('O');
-
+            this.gKey = this.scene.input.keyboard.addKey('O');
+            this.hKey = this.scene.input.keyboard.addKey('P');
         }
     }
-    createWeapon(width, height, arma) {
-        this.arma = new Arma(this.scene, this.x, this.y + 60, arma, this.direction, this, this.playerOpuesto, 20, this.HUD, width, height);
+    createWeapon() {
+        this.arma = new Arma(this.scene, this.x, this.y + 60, this.armaName, this.direction, this, this.playerOpuesto, 20, this.HUD, this.armaWidth, this.armaHeight);
         this.arma.parent = this;
         this.scene.physics.add.overlap(this.arma, this.playerOpuesto, end => {
             if (this.playerOpuesto.name == this.HUD.player2.name) this.HUD.BarraDeVida2.decrease(this.arma.damage);
@@ -131,7 +137,7 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
                     else if (!this.attacking && this.jump !== undefined) { this.play(this.jump); }
                 }
             }
-            else {
+            else{
                 this.body.setVelocityX(0);
                 if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== this.idle) { this.play(this.idle); }
                 else if (!this.attacking && this.onAir && this.jump !== undefined && this.anims.currentAnim.key !== this.jump) { this.play(this.jump); }
@@ -146,17 +152,27 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
                 }
             }
             if (Phaser.Input.Keyboard.JustDown(this.gKey) && !this.attacking) {
-                if(this.arma1 !== undefined)this.createWeapon(this.arma1.width, this.arma1.height, this.arma1);
-                if (this.anims.currentAnim.key !== this.strongAttack) {
-                    this.play(this.strongAttack);
+                if (this.arma1 !== undefined) {
+                    this.armaName = this.arma1;
+                    this.armaWidth = this.arma1Width;
+                    this.armaHeight = this.arma1Height;
+                    this.createWeapon();
+                }
+                if (this.anims.currentAnim.key !== this.normalAttack) {
+                    this.play(this.normalAttack);
                     this.attacking = true;
                 }
 
             }
             if (Phaser.Input.Keyboard.JustDown(this.hKey) && !this.attacking) {
-                if(this.arma2 !== undefined)this.createWeapon(this.arma2.width, this.arma2.height, this.arma2);
-                if (this.anims.currentAnim.key !== this.normalAttack) {
-                    this.play(this.normalAttack);
+                if (this.arma2 !== undefined) {
+                    this.armaWidth = this.arma2Width;
+                    this.armaHeight = this.arma2Height;
+                    this.armaName = this.arma2;
+                    this.createWeapon();
+                }
+                if (this.anims.currentAnim.key !== this.strongAttack) {
+                    this.play(this.strongAttack);
                     this.attacking = true;
                 }
             }

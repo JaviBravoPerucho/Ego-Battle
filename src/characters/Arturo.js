@@ -8,12 +8,12 @@ export default class Arturo extends Personaje {
         let arrayFrames = [7, 7, 1, 3, 3];
         let arrayRepeats = [-1, -1, 0, 0, 0];
 
-        super(scene, x, y, floor, HUD, playerOpuesto, 22, 45, 68, 60, 'Arturo', 'Espada1', 'Espada2', indexPlayer, arrayAnimaciones, arrayFrameRates, arrayFrames, arrayRepeats);
+        super(scene, x, y, floor, HUD, playerOpuesto, 22, 45, 68, 60, 'Arturo', 'Espada1', 500, 100, 'Espada2', 650, 400, indexPlayer, arrayAnimaciones, arrayFrameRates, arrayFrames, arrayRepeats);
 
         this.poder = 0;
         this.contPoder = 0;
         this.tiempoPoder = 5000;
-        this.poderPorFrame = 0.5;
+        this.poderPorFrame = 0;
         this.danoUlti = 50;
         this.contUlti = 0;
         this.tiempoUlti = 3000;

@@ -76,6 +76,7 @@ export  class Menu extends Phaser.Scene {
         this.Selector2 = undefined;
         this.Selector3 = undefined;
         this.maxp = 3;
+        this.map = 0;
     }
 
     preload() {
@@ -110,7 +111,7 @@ export  class Menu extends Phaser.Scene {
 
         this.startButton.on('pointerdown', () => {
             if (this.p1selected && this.p2selected) {
-                this.scene.start('mainScene', 0, this.positionp1, this.positionp2);
+                this.scene.start('mainScene', {parametro0: this.map, parametro1: this.positionp1, parametro2: this.positionp2 });
                 console.log("sigo vivo")
                 //this.scene.start('mainScene');
             }

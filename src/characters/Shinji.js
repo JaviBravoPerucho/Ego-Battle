@@ -16,7 +16,12 @@ export default class Shinji extends Phaser.GameObjects.Sprite {
         this.attacking = false;
         this.onAir = false;
         this.vida = 300;
+        this.ulti = 0;
+        this.Useulti = false;
         this.name = 'Shinji';
+        this.player2 = player;
+        this.distance = 350;
+        this.maxulti=2000,
 
         scene.anims.create({//Anim basica
             key: 'Sidle',
@@ -64,9 +69,31 @@ export default class Shinji extends Phaser.GameObjects.Sprite {
         this.play('Sidle');
     
     }
-
+    ult() {
+        if (this.x > this.player2.x) {
+            this.setPosition(this.player2.x - 50, this.player2.y-50);
+        }
+        else {
+            this.setPosition(this.player2.x + 50, this.player2.y-50);
+        }
+        
+    }
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
+        if (this.ulti <= this.maxulti) {
+            if (this.x > this.player2.x) {
+                if ((this.x - this.player2.x) >= this.distance) this.ulti += (this.x - this.player2.x) * 0.01;
+            }
+            else {
+                if ((this.player2.x - this.x) >= this.distance) this.ulti += (this.player2.x - this.x) * 0.01;
+            }
+        }
+        else {
+            this.ulti = 0;
+            this.ult();
+        }
+
+        console.log(this.ulti);
         if (this.body.onFloor()) {
             this.jumps = 0;
             this.onAir = false;

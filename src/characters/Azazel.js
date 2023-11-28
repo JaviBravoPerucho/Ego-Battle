@@ -6,7 +6,7 @@ export default class Azazel extends Personaje {
             "idle": 'Azazelidle',
             "walk": 'Azazewalk',
             "jump": 'Azazejump',
-            "strong": 'Azazestrongattack',
+            "strong": 'Azazelstrongattack',
             "normal": 'Azazelnormalattack'
         }
         const arrayFrameRates = [10, 12, 15, 8];
@@ -26,10 +26,10 @@ export default class Azazel extends Personaje {
 
         this.on('animationcomplete', end => {//Detecta que ha dejado de pegar
             this.throwFire = true;
-            if (this.anims.currentAnim.key === 'Azazelnormalattack') {
+            if (this.anims.currentAnim.key === mapAnimaciones["normal"]) {
                 if (this.fire < this.fireDuration) {
                     this.fire++;
-                    this.play('Azazelnormalattack');
+                    this.play(mapAnimaciones["normal"]);
                 }
                 else {
                     this.fire = 0;
@@ -59,7 +59,7 @@ export default class Azazel extends Personaje {
                 this.body.setVelocityX(0);
             }
 
-            if (this.anims.currentAnim.key === 'Azazelnormalattack' && this.throwFire) {
+            if (this.anims.currentAnim.key === mapAnimaciones["normal"] && this.throwFire) {
                 this.throwFireBall();
                 this.throwFire = false;
             }

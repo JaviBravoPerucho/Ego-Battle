@@ -1,7 +1,7 @@
 import Arma from './Arma.js';
 
 export default class Personaje extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, floor, HUD, playerOpuesto, width, height, bodyOffsetX, bodyOffsetY, name, arma1, arma1Width, arma1Height, arma2, arma2Width, arma2Height, indexPlayer, arrayAnimaciones, arrayFrameRates, arrayFrames, arrayRepeats) {
+    constructor(scene, x, y, floor, HUD, playerOpuesto, width, height, bodyOffsetX, bodyOffsetY, name, arma1, arma1Width, arma1Height, arma2, arma2Width, arma2Height, indexPlayer, mapAnimaciones, arrayFrameRates, arrayFrames, arrayRepeats) {
         super(scene, x, y);
 
         scene.add.existing(this).setScale(2, 2);
@@ -28,23 +28,15 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
         this.arma2Width = arma2Width;
         this.arma2Height = arma2Height;
 
-        this.arrayAnimaciones = arrayAnimaciones;//Arrays con las caracteristicas de las animaciones del personaje
+        this.mapAnimaciones = mapAnimaciones;//Mapas con las caracteristicas de las animaciones del personaje
         this.arrayFrameRates = arrayFrameRates;
         this.arrayFrames = arrayFrames;
         this.arrayRepeats = arrayRepeats;
-        this.idle = this.arrayAnimaciones[0];
-        this.walk = this.arrayAnimaciones[1];
-        this.jump = undefined;
-        this.strongAttack = undefined;
-        this.normalAttack = undefined;
-        if (this.arrayAnimaciones.length === 5) {
-            this.jump = this.arrayAnimaciones[2];
-            this.strongAttack = this.arrayAnimaciones[3];
-            this.normalAttack = this.arrayAnimaciones[4];
-        } else {
-            this.strongAttack = this.arrayAnimaciones[2];
-            this.normalAttack = this.arrayAnimaciones[3];//Algunos personajes tienen animacion de salto y otros no
-        }
+        this.idle = this.mapAnimaciones["idle"];
+        this.walk = this.mapAnimaciones["walk"];
+        this.jump = this.mapAnimaciones["jump"];
+        this.strongAttack = this.mapAnimaciones["strong"];
+        this.normalAttack = this.mapAnimaciones["normal"];
 
         this.stop = false;
         this.hit = false;
@@ -63,17 +55,17 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
             });
         }
         this.on('animationcomplete', end => {//Detecta que ha dejado de pegar
-            if (this.anims.currentAnim.key === arrayAnimaciones[arrayAnimaciones.length - 1] || this.anims.currentAnim.key === arrayAnimaciones[arrayAnimaciones.length - 2]) {
+            if (this.anims.currentAnim.key === this.strongAttack || this.anims.currentAnim.key === this.normalAttack) {
                 this.attacking = false;
             }
         })
 
         //Creación de las animaciones
-        for (let i = 0; i < arrayAnimaciones.length; i++) {
-            createAnim(arrayAnimaciones[i], arrayFrameRates[i], arrayFrames[i], arrayRepeats[i]);
+        for (let i = 0; i < mapAnimaciones.length; i++) {
+            createAnim(mapAnimaciones[i], arrayFrameRates[i], arrayFrames[i], arrayRepeats[i]);
         }
 
-        this.play(arrayAnimaciones[0]);
+        this.play(mapAnimaciones["idle"]);
 
         if (this.indexPlayer === 1) {
             this.wKey = this.scene.input.keyboard.addKey('w');
@@ -99,7 +91,6 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
             this.playerOpuesto.vida -= this.arma.damage;
             this.arma.destroy();
         });
-
     }
 
     preUpdate(t, dt) {

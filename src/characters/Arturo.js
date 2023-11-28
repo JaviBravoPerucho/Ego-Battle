@@ -3,12 +3,18 @@ import Arma from './Arma.js'
 
 export default class Arturo extends Personaje {
     constructor(scene, x, y, floor, HUD, playerOpuesto, indexPlayer) {
-        let arrayAnimaciones = ['Arturoidle', 'Arturowalk', 'Arturojump', 'Arturostrongattack', 'Arturonormalattack'];
-        let arrayFrameRates = [10, 15, 1, 8, 8];
-        let arrayFrames = [7, 7, 1, 3, 3];
-        let arrayRepeats = [-1, -1, 0, 0, 0];
+        const mapAnimaciones = {
+            "idle": 'Arturoidle',
+            "walk": 'Arturowalk',
+            "jump": 'Arturojump',
+            "strong": 'Arturostrongattack',
+            "normal": 'Arturonormalattack'
+        }
+        const arrayFrameRates = [10, 15, 1, 8, 8];
+        const arrayFrames = [7, 7, 1, 3, 3];
+        const arrayRepeats = [-1, -1, 0, 0, 0];
 
-        super(scene, x, y, floor, HUD, playerOpuesto, 22, 45, 68, 60, 'Arturo', 'Espada1', 500, 100, 'Espada2', 650, 400, indexPlayer, arrayAnimaciones, arrayFrameRates, arrayFrames, arrayRepeats);
+        super(scene, x, y, floor, HUD, playerOpuesto, 22, 45, 68, 60, 'Arturo', 'Espada1', 500, 100, 'Espada2', 650, 400, indexPlayer, mapAnimaciones, arrayFrameRates, arrayFrames, arrayRepeats);
 
         this.poder = 0;
         this.contPoder = 0;

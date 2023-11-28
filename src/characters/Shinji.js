@@ -1,91 +1,66 @@
 import Personaje from './Personaje.js'
 import Arma from './Arma.js'
 
-export default class Shinji extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, player,floor) {//Habra que pasarle player1 y player2 para que colisione con ellos 
-        super(scene, x, y, 'Shinjinormalattack','Shinjistrongattack', 'Shinjiidle', 'Shinjijump', 'Shinjiwalk');
-        scene.add.existing(this).setScale(1.2, 1.2);
+export default class Shinji extends Personaje {
+    constructor(scene, x, y, floor, HUD, playerOpuesto, indexPlayer) {//Habra que pasarle player1 y player2 para que colisione con ellos
+        //Mapas que describen las animaciones
+        const mapAnimaciones = {
+            "idle": 'Shinjiidle',
+            "walk": 'Shinjiwalk',
+            "jump": 'Shinjijump',
+            "strong": 'Shinjistrongattack',
+            "normal": 'Shinjinormalattack'
+        }
+        const mapFrameRates = {   
+            "idle": 2,
+            "walk": 40,
+            "jump": 15,
+            "strong": 8,
+            "normal": 8
+        }
+        const mapFrames = {
+            "idle": 1,
+            "walk": 4,
+            "jump": 0,
+            "strong": 2,
+            "normal": 2
+        }
+        const mapRepeats = {
+            "idle": -1,
+            "walk": -1,
+            "jump": 0,
+            "strong": 0,
+            "normal": 0
+        }
 
-        scene.physics.add.existing(this);
-        scene.physics.add.collider(this, floor);
-        this.body.setSize(35, 65);
-        this.body.setOffset(15, 20);
-        this.hit = false;
-        this.eliminate = false;
-        this.jumps = 0
-        this.attacking = false;
-        this.onAir = false;
-        this.vida = 300;
+        super(scene, x, y, floor, HUD, playerOpuesto, 35, 65, 15, 20, 'Shinji', undefined, undefined, undefined, undefined, undefined, undefined, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats);
+
+        scene.add.existing(this).setScale(1.2, 1.2);
         this.ulti = 0;
         this.Useulti = false;
-        this.name = 'Shinji';
-        this.player2 = player;
         this.distance = 350;
-        this.maxulti=2000,
-
-        scene.anims.create({//Anim basica
-            key: 'Sidle',
-            frames: scene.anims.generateFrameNumbers('Shinjiidle', { start: 0, end: 1 }),
-            frameRate: 2,
-            repeat: -1
-        });
-        scene.anims.create({//Anim explosion
-            key: 'Swalk',
-            frames: scene.anims.generateFrameNumbers('Shinjiwalk', { start: 0, end: 4 }),
-            frameRate: 40,
-            repeat: -1
-        });
-        scene.anims.create({//Anim explosion
-            key: 'Sjump',
-            frames: scene.anims.generateFrameNumbers('Shinjijump', { start: 0, end: 0 }),
-            frameRate: 15,
-            repeat: 0
-        });
-        scene.anims.create({//Anim explosion
-            key: 'Sstrongattack',
-            frames: scene.anims.generateFrameNumbers('Shinjistrongattack', { start: 0, end: 2 }),
-            frameRate: 8,
-            repeat: 0
-        });
-        scene.anims.create({//Anim explosion
-            key: 'Snormalattack',
-            frames: scene.anims.generateFrameNumbers('Shinjinormalattack', { start: 0, end: 2 }),
-            frameRate: 8,
-            repeat: 0
-        });
-        this.on('animationcomplete', end => {//Detecta que ha finalizado la explosion
-            if (this.anims.currentAnim.key === 'Snormalattack' || this.anims.currentAnim.key === 'Sstrongattack') {
-                this.attacking = false;
-            }
-        })
-        this.wKey = this.scene.input.keyboard.addKey('up');
-        this.aKey = this.scene.input.keyboard.addKey('left');
-        this.dKey = this.scene.input.keyboard.addKey('right');
-        this.gKey = this.scene.input.keyboard.addKey('P');
-        this.hKey = this.scene.input.keyboard.addKey('O'); 
-
-
-
-        this.play('Sidle');
-    
+        this.maxulti = 2000;
+        this.x = x;
+        this.y = y;
+        
     }
     ult() {
-        if (this.x > this.player2.x) {
-            this.setPosition(this.player2.x - 50, this.player2.y-50);
+        if (this.x > this.playerOpuesto.x) {
+            this.setPosition(this.playerOpuesto.x - 50, this.playerOpuesto.y-50);
         }
         else {
-            this.setPosition(this.player2.x + 50, this.player2.y-50);
+            this.setPosition(this.playerOpuesto.x + 50, this.playerOpuesto.y-50);
         }
         
     }
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
         if (this.ulti <= this.maxulti) {
-            if (this.x > this.player2.x) {
-                if ((this.x - this.player2.x) >= this.distance) this.ulti += (this.x - this.player2.x) * 0.01;
+            if (this.x > this.playerOpuesto.x) {
+                if ((this.x - this.playerOpuesto.x) >= this.distance) this.ulti += (this.x - this.playerOpuesto.x) * 0.01;
             }
             else {
-                if ((this.player2.x - this.x) >= this.distance) this.ulti += (this.player2.x - this.x) * 0.01;
+                if ((this.playerOpuesto.x - this.x) >= this.distance) this.ulti += (this.playerOpuesto.x - this.x) * 0.01;
             }
         }
         else {
@@ -94,24 +69,20 @@ export default class Shinji extends Phaser.GameObjects.Sprite {
         }
 
         console.log(this.ulti);
-        if (this.body.onFloor()) {
-            this.jumps = 0;
-            this.onAir = false;
-        }
 
         if (this.dKey.isDown && this.aKey.isDown) {
             this.body.setVelocityX(0);
-            if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Sidle') { this.play('Sidle'); this.body.setOffset(15, 20); this.setPosition(this.x, this.y - 15); }
-            else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Sjump') { this.play('Sjump'); this.body.setOffset(10, 5); }
+            if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Shinjiidle') { this.play('Shinjiidle'); this.body.setOffset(15, 20); this.setPosition(this.x, this.y - 15); }
+            else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Shinjijump') { this.play('Shinjijump'); this.body.setOffset(10, 5); }
         }
         else if (this.aKey.isDown) {
             this.direction = 0;
             if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(-350); }
             else { this.body.setVelocityX(0); }
-            if (this.anims.currentAnim.key !== 'Swalk') {
+            if (this.anims.currentAnim.key !== 'Shinjiwalk') {
                 this.setFlip(true, false)
-                if (!this.attacking && !this.onAir) { this.play('Swalk'); this.body.setOffset(0, 15); if (this.anims.currentAnim.key !== 'Sidle') this.setPosition(this.x, this.y - 15); }
-                else if (!this.attacking) { this.play('Sjump'); this.body.setOffset(10, 5); }
+                if (!this.attacking && !this.onAir) { this.play('Shinjiwalk'); this.body.setOffset(0, 15); if (this.anims.currentAnim.key !== 'Shinjiidle') this.setPosition(this.x, this.y - 15); }
+                else if (!this.attacking) { this.play('Shinjijump'); this.body.setOffset(10, 5); }
             }
         }
         else if (this.dKey.isDown) {
@@ -119,16 +90,16 @@ export default class Shinji extends Phaser.GameObjects.Sprite {
             if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(350); }
             else { this.body.setVelocityX(0); }
 
-            if (this.anims.currentAnim.key !== 'Swalk') {
+            if (this.anims.currentAnim.key !== 'Shinjiwalk') {
                 this.setFlip(false, false);
-                if (!this.attacking && !this.onAir) { this.play('Swalk'); this.body.setOffset(0, 15); if (this.anims.currentAnim.key !== 'Sidle') this.setPosition(this.x, this.y - 15); }
-                else if (!this.attacking) { this.play('Sjump'); this.body.setOffset(10, 5); }
+                if (!this.attacking && !this.onAir) { this.play('Shinjiwalk'); this.body.setOffset(0, 15); if (this.anims.currentAnim.key !== 'Shinjiidle') this.setPosition(this.x, this.y - 15); }
+                else if (!this.attacking) { this.play('Shinjijump'); this.body.setOffset(10, 5); }
             }
         }
         else {
             this.body.setVelocityX(0);
-            if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Sidle') { this.play('Sidle'); this.body.setOffset(15, 20); this.setPosition(this.x, this.y - 15); }
-            else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Sjump') { this.play('Sjump'); this.body.setOffset(10, 5); }
+            if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Shinjiidle') { this.play('Shinjiidle'); this.body.setOffset(15, 20); this.setPosition(this.x, this.y - 15); }
+            else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Shinjijump') { this.play('Shinjijump'); this.body.setOffset(10, 5); }
         }
 
         if (Phaser.Input.Keyboard.JustDown(this.wKey) && this.jumps < 2) {
@@ -136,31 +107,19 @@ export default class Shinji extends Phaser.GameObjects.Sprite {
             this.setPosition(this.x, this.y - 20);
             this.body.setVelocityY(-350);
             this.onAir = true;
-            if (this.anims.currentAnim.key !== 'Sjump' && !this.attacking) {
-                this.play('Sjump');
+            if (this.anims.currentAnim.key !== 'Shinjijump' && !this.attacking) {
+                this.play('Shinjijump');
                 this.body.setOffset(10, 5);
             }
         }
-        if (Phaser.Input.Keyboard.JustDown(this.gKey) && !this.attacking) {
-            /*new Arma(this.x, this.y, this.arma1, this.direction, this, this.playerOpuesto, 10, this.HUD, 100, 100); */
-            if (this.anims.currentAnim.key !== 'Sstrongattack') {
-                this.play('Sstrongattack');
-                this.attacking = true;
-            }
-
-        }
+       
         if (Phaser.Input.Keyboard.JustDown(this.hKey) && !this.attacking) {
             /* new Arma(this.x, this.y, this.arma2, this.direction, this, this.playerOpuesto, 10, this.HUD, 100, 100);*/
-            if (this.anims.currentAnim.key !== 'Snormalattack') {
+            if (this.anims.currentAnim.key !== 'Shinjinormalattack') {
                 this.body.setOffset(15, 0);
-                this.play('Snormalattack');
+                this.play('Shinjinormalattack');
                 this.attacking = true;
             }
-        }
-      
-        if (this.vida <= 0) {
-            this.HUD.countScore(this);
-            this.destroy();
         }
     }
 }

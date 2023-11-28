@@ -3,6 +3,7 @@ import Arma from './Arma.js'
 
 export default class Arturo extends Personaje {
     constructor(scene, x, y, floor, HUD, playerOpuesto, indexPlayer) {
+        //Mapas que describen las animaciones
         const mapAnimaciones = {
             "idle": 'Arturoidle',
             "walk": 'Arturowalk',
@@ -31,9 +32,6 @@ export default class Arturo extends Personaje {
             "strong": 0,
             "normal": 0
         }
-        const arrayFrameRates = [10, 15, 1, 8, 8];
-        const arrayFrames = [7, 7, 1, 3, 3];
-        const arrayRepeats = [-1, -1, 0, 0, 0];
 
         super(scene, x, y, floor, HUD, playerOpuesto, 22, 45, 68, 60, 'Arturo', 'Espada1', 500, 100, 'Espada2', 650, 400, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats);
 
@@ -44,6 +42,7 @@ export default class Arturo extends Personaje {
         this.danoUlti = 50;
         this.contUlti = 0;
         this.tiempoUlti = 3000;
+        this.x = x;
        
         this.boolPoder = true;
     }

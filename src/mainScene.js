@@ -158,32 +158,32 @@ export class MainScene extends Phaser.Scene {
         }
         switch (this.p1info) {
             case 0:
-                this.player1 = new Arturo(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player2, 2);
+                this.player1 = new Arturo(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player2, 1);
                 break
             case 1:
-                this.player1 = new Azazel(this, this.posicionInicial2, this.alturaInicial, this.platforms, this.player2, this.HUD, 1);
+                this.player1 = new Azazel(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player2, 1);
                 break
             case 2:
                 this.player1 = new Trevor(this, 500, 300, this.player2, this.platforms);  
                 break
             case 3:
-                this.player1 = new Shinji(this, this.WIDTH / 4, this.HEIGHT / 2, this.player2, this.platforms);
+                this.player1 = new Shinji(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player2, 1);
                 break
             default:
                 break;
         }
         switch (this.p2info) {
             case 0:
-                this.player2 = new Arturo(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player1, 2);
+                this.player2 = new Arturo(this, this.posicionInicial2, this.alturaInicial, this.platforms, this.HUD, this.player1, 2);
                 break
             case 1:
-                this.player2 = new Azazel(this, this.posicionInicial2, this.alturaInicial, this.platforms, this.player1, this.HUD, 1);
+                this.player2 = new Azazel(this, this.posicionInicial2, this.alturaInicial, this.platforms, this.HUD, this.player1, 2);
                 break
             case 2:
                 this.player2 = new Trevor(this, 500, 300, this.player1, this.platforms);
                 break
             case 3:
-                this.player2 = new Shinji(this, this.WIDTH / 4, this.HEIGHT / 2, this.player1, this.platforms);
+                this.player2 = new Shinji(this, this.posicionInicial2, this.alturaInicial, this.platforms, this.HUD, this.player1, 2);
                 break
             default:
             break;

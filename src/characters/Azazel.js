@@ -1,7 +1,8 @@
 import Personaje from './Personaje.js'
 import Arma from './Arma.js'
 export default class Azazel extends Personaje {
-    constructor(scene, x, y, floor, player2, HUD, indexPlayer) {//Habra que pasarle player2 para que colisione con ellos 
+    constructor(scene, x, y, floor, HUD, player2, indexPlayer) {//Habra que pasarle player2 para que colisione con ellos
+        //Mapas que describen las animaciones
         const mapAnimaciones = {
             "idle": 'Azazelidle',
             "walk": 'Azazelwalk',

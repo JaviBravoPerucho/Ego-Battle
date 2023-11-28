@@ -9,17 +9,20 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
         scene.physics.add.collider(this, floor);
         this.body.setSize(width, height);
         this.body.setOffset(bodyOffsetX, bodyOffsetY);
+        this.x = x;
+        this.y = y;
         this.jumps = 0;
         this.vida = 300;
-        this.arma = undefined;
-        this.direction = 0;//0 izquierda 1 derecha
-        this.rect = undefined;//Rectangulo para crear la colision del arma con el player opuesto
         this.HUD = HUD;
         this.playerOpuesto = playerOpuesto;
         this.name = name;
+        this.direction = 0;//0 izquierda 1 derecha
+        this.indexPlayer = indexPlayer;
+
+        this.arma = undefined;
+        this.rect = undefined;//Rectangulo para crear la colision del arma con el player opuesto
         this.arma1 = arma1;
         this.arma2 = arma2;
-        this.indexPlayer = indexPlayer;
         this.armaName = undefined;
         this.armaWidth = undefined;
         this.armaHeight = undefined;

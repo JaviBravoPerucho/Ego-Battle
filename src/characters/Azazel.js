@@ -4,16 +4,30 @@ export default class Azazel extends Personaje {
     constructor(scene, x, y, floor, player2, HUD, indexPlayer) {//Habra que pasarle player2 para que colisione con ellos 
         const mapAnimaciones = {
             "idle": 'Azazelidle',
-            "walk": 'Azazewalk',
-            "jump": 'Azazejump',
+            "walk": 'Azazelwalk',
             "strong": 'Azazelstrongattack',
             "normal": 'Azazelnormalattack'
         }
-        const arrayFrameRates = [10, 12, 15, 8];
-        const arrayFrames = [7, 7, 3, 3];
-        const arrayRepeats = [-1, -1, 0, 0];
+        const mapFrameRates = {
+            "idle": 10,
+            "walk": 12,
+            "strong": 15,
+            "normal": 8
+        }
+        const mapFrames = {
+            "idle": 7,
+            "walk": 7,
+            "strong": 3,
+            "normal": 3
+        }
+        const mapRepeats = {
+            "idle": -1,
+            "walk": -1,
+            "strong": 0,
+            "normal": 0
+        }
 
-        super(scene, x, y, floor, HUD, player2, 20, 45, 65, 55, 'Azazel', undefined, undefined, undefined, undefined, undefined, undefined, indexPlayer, mapAnimaciones, arrayFrameRates, arrayFrames, arrayRepeats);
+        super(scene, x, y, floor, HUD, player2, 20, 45, 65, 55, 'Azazel', undefined, undefined, undefined, undefined, undefined, undefined, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats);
 
         this.right = true;
         this.fireDuration = 3;
@@ -22,7 +36,6 @@ export default class Azazel extends Personaje {
         this.poder = 0; 
         this.poderPorFrame = 0;
         this.throwFire = false;
-
 
         this.on('animationcomplete', end => {//Detecta que ha dejado de pegar
             this.throwFire = true;
@@ -59,7 +72,7 @@ export default class Azazel extends Personaje {
                 this.body.setVelocityX(0);
             }
 
-            if (this.anims.currentAnim.key === mapAnimaciones["normal"] && this.throwFire) {
+            if (this.anims.currentAnim.key === 'Azazelnormalattack' && this.throwFire) {
                 this.throwFireBall();
                 this.throwFire = false;
             }

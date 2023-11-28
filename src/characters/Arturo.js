@@ -10,11 +10,32 @@ export default class Arturo extends Personaje {
             "strong": 'Arturostrongattack',
             "normal": 'Arturonormalattack'
         }
+        const mapFrameRates = {
+            "idle": 10,
+            "walk": 15,
+            "jump": 1,
+            "strong": 8,
+            "normal": 8
+        }
+        const mapFrames = {
+            "idle": 7,
+            "walk": 7,
+            "jump": 1,
+            "strong": 3,
+            "normal": 3
+        }
+        const mapRepeats = {
+            "idle": -1,
+            "walk": -1,
+            "jump": 0,
+            "strong": 0,
+            "normal": 0
+        }
         const arrayFrameRates = [10, 15, 1, 8, 8];
         const arrayFrames = [7, 7, 1, 3, 3];
         const arrayRepeats = [-1, -1, 0, 0, 0];
 
-        super(scene, x, y, floor, HUD, playerOpuesto, 22, 45, 68, 60, 'Arturo', 'Espada1', 500, 100, 'Espada2', 650, 400, indexPlayer, mapAnimaciones, arrayFrameRates, arrayFrames, arrayRepeats);
+        super(scene, x, y, floor, HUD, playerOpuesto, 22, 45, 68, 60, 'Arturo', 'Espada1', 500, 100, 'Espada2', 650, 400, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats);
 
         this.poder = 0;
         this.contPoder = 0;

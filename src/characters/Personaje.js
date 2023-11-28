@@ -1,7 +1,7 @@
 import Arma from './Arma.js';
 
 export default class Personaje extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, floor, HUD, playerOpuesto, width, height, bodyOffsetX, bodyOffsetY, name, arma1, arma1Width, arma1Height, arma2, arma2Width, arma2Height, indexPlayer, mapAnimaciones, arrayFrameRates, arrayFrames, arrayRepeats) {
+    constructor(scene, x, y, floor, HUD, playerOpuesto, width, height, bodyOffsetX, bodyOffsetY, name, arma1, arma1Width, arma1Height, arma2, arma2Width, arma2Height, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats) {
         super(scene, x, y);
 
         scene.add.existing(this).setScale(2, 2);
@@ -29,9 +29,9 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
         this.arma2Height = arma2Height;
 
         this.mapAnimaciones = mapAnimaciones;//Mapas con las caracteristicas de las animaciones del personaje
-        this.arrayFrameRates = arrayFrameRates;
-        this.arrayFrames = arrayFrames;
-        this.arrayRepeats = arrayRepeats;
+        this.mapFrameRates = mapFrameRates;
+        this.mapFrames = mapFrames;
+        this.mapRepeats = mapRepeats;
         this.idle = this.mapAnimaciones["idle"];
         this.walk = this.mapAnimaciones["walk"];
         this.jump = this.mapAnimaciones["jump"];
@@ -61,11 +61,13 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
         })
 
         //Creación de las animaciones
-        for (let i = 0; i < mapAnimaciones.length; i++) {
-            createAnim(mapAnimaciones[i], arrayFrameRates[i], arrayFrames[i], arrayRepeats[i]);
-        }
+        createAnim(this.idle, mapFrameRates["idle"], mapFrames["idle"], mapRepeats["idle"]);
+        createAnim(this.walk, mapFrameRates["walk"], mapFrames["walk"], mapRepeats["walk"]);
+        if (this.jump !== undefined) createAnim(this.jump, mapFrameRates["jump"], mapFrames["jump"], mapRepeats["jump"]);
+        createAnim(this.strongAttack, mapFrameRates["strong"], mapFrames["strong"], mapRepeats["strong"]);
+        createAnim(this.normalAttack, mapFrameRates["normal"], mapFrames["normal"], mapRepeats["normal"]);
 
-        this.play(mapAnimaciones["idle"]);
+        this.play(this.idle);
 
         if (this.indexPlayer === 1) {
             this.wKey = this.scene.input.keyboard.addKey('w');

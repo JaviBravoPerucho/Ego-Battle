@@ -177,9 +177,8 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
                 this.attacking = true;
             }
 
-            if (this.vida <= 0) {
-                this.HUD.countScore(this);
-                //this.destroy();
+            if (this.vida <= 0) {              
+                this.scene.playerDied(this);
             }
 
             if (this.y >= this.scene.alturaVacio) {

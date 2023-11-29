@@ -22,12 +22,12 @@ export default class Arma extends Phaser.GameObjects.Rectangle {
     init() {
 
         if (this.arma === 'Espada1') {
-            this.damage = 10;
+            this.damage = 25;
             this.tiempo = 500;
             this.tiempoRetardo = 200;
 
         } else if (this.arma === 'Espada2') {
-            this.damage = 25;
+            this.damage = 10;
             this.tiempo = 300;
             this.tiempoRetardo = 0;
         } else if (this.arma === 'Lanza') {

@@ -18,6 +18,7 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
         this.name = name;
         this.direction = 0;//0 izquierda 1 derecha
         this.indexPlayer = indexPlayer;
+        this.scene = scene;
 
         this.arma = undefined;
         this.rect = undefined;//Rectangulo para crear la colision del arma con el player opuesto
@@ -178,7 +179,7 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
 
             if (this.vida <= 0) {
                 this.HUD.countScore(this);
-                this.destroy();
+                //this.destroy();
             }
 
             if (this.y >= this.scene.alturaVacio) {

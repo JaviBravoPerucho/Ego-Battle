@@ -76,7 +76,7 @@ export  class Menu extends Phaser.Scene {
         this.Selector2 = undefined;
         this.Selector3 = undefined;
         this.maxp = 3;
-        this.map = 0;
+        this.map = 1;
         this.changeSize = true;
         this.changeSize2 = true;
         this.elapsedSize = 0;

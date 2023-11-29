@@ -145,7 +145,7 @@ export default class HUD extends Phaser.GameObjects.Container {
         this.MarcoPlayer2.flipX = true;
 
 
-        this.score = this.scene.add.text(this.scene.WIDTH / 2 - 20, 30, score1 + "-" + score2, { fontFamily: 'ka1', fontSize: 80 });
+        this.score = this.scene.add.text(this.scene.WIDTH / 2 - 50, 0, score1 + "-" + score2, { fontFamily: 'ka1', fontSize: 80 });
         this.score1 = score1;
         this.score2 = score2;
 

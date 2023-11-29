@@ -131,9 +131,9 @@ export class MainScene extends Phaser.Scene {
         //new Muelle(this, 600, 350).setScale(1.8, 1.7);
         //this.add.existing(new Phaser.GameObjects.Sprite(this, 600, 300, 'Castillo')).setScale(1.2, 1);
         //this.background = this.add.image(400, 300, 'background');
-        this.platforms = this.createPlatforms();
-        this.score1 = 2;
-        this.score2 = 1;//Marcador de la partida
+  
+        this.score1 = 0;
+        this.score2 = 0;//Marcador de la partida
         console.log(this.Mapinfo,this.p1info,this.p2info)
         switch (this.Mapinfo) {
             case 0:
@@ -156,6 +156,7 @@ export class MainScene extends Phaser.Scene {
             default:
                 break;
         }
+        this.platforms = this.createPlatforms();
         switch (this.p1info) {
             case 0:
                 this.player1 = new Arturo(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player2, 1);
@@ -188,6 +189,7 @@ export class MainScene extends Phaser.Scene {
             default:
             break;
         }
+        
         //this.player1 = new Trevor(this, 500, 300, this.player2, this.platforms);  
         //this.player2 = new Arturo(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player1, 2);
         //this.player1 = new Azazel(this, this.posicionInicial2, this.alturaInicial, this.platforms, this.player2, this.HUD, 1);

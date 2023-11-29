@@ -12,7 +12,7 @@ export default class Azazel extends Personaje {
         const mapFrameRates = {
             "idle": 10,
             "walk": 12,
-            "strong": 15,
+            "strong": 3,
             "normal": 8
         }
         const mapFrames = {
@@ -37,13 +37,14 @@ export default class Azazel extends Personaje {
         this.poder = 0; 
         this.poderPorFrame = 0;
         this.throwFire = false;
+        this.player;
 
         this.on('animationcomplete', end => {//Detecta que ha dejado de pegar
             this.throwFire = true;
-            if (this.anims.currentAnim.key === mapAnimaciones["normal"]) {
+            if (this.anims.currentAnim.key === mapAnimaciones["strong"]) {
                 if (this.fire < this.fireDuration) {
                     this.fire++;
-                    this.play(mapAnimaciones["normal"]);
+                    this.play(mapAnimaciones["strong"]);
                 }
                 else {
                     this.fire = 0;
@@ -110,7 +111,7 @@ export class AzazelBall extends Phaser.GameObjects.Sprite {
         this.elapsed = 0;
         this.damage = 10;
         this.HUD = HUD;
-        scene.physics.add.overlap(this, player2, end => {
+        scene.physics.add.collider(this, player2, end => {
             scene.hitPlayer(player2, this.damage);
             this.delete = true;
         });

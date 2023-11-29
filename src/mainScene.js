@@ -122,8 +122,8 @@ export class MainScene extends Phaser.Scene {
     create() {//asignamos player1 y player 2
         this.HEIGHT = this.sys.game.canvas.height;
         this.WIDTH = this.sys.game.canvas.width;
-        this.posicionInicial1 = this.WIDTH - this.WIDTH / 4;
-        this.posicionInicial2 = this.WIDTH / 4;
+        this.posicionInicial1 = this.WIDTH / 4;
+        this.posicionInicial2 = this.WIDTH - this.WIDTH / 4;
         this.alturaInicial = this.HEIGHT / 2;
         this.alturaVacio = this.HEIGHT;
         //new Volcan(this, 600, 300).setScale(1.7, 1.8);
@@ -164,7 +164,7 @@ export class MainScene extends Phaser.Scene {
                 this.player1 = new Azazel(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player2, 1);
                 break
             case 2:
-                this.player1 = new Trevor(this, 500, 300, this.player2, this.platforms);  
+                this.player1 = new Trevor(this, this.posicionInicial1, this.alturaInicial, this.player2, this.platforms);  
                 break
             case 3:
                 this.player1 = new Shinji(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player2, 1);
@@ -180,7 +180,7 @@ export class MainScene extends Phaser.Scene {
                 this.player2 = new Azazel(this, this.posicionInicial2, this.alturaInicial, this.platforms, this.HUD, this.player1, 2);
                 break
             case 2:
-                this.player2 = new Trevor(this, 500, 300, this.player1, this.platforms);
+                this.player2 = new Trevor(this, this.posicionInicial2, this.alturaInicial, this.player1, this.platforms);
                 break
             case 3:
                 this.player2 = new Shinji(this, this.posicionInicial2, this.alturaInicial, this.platforms, this.HUD, this.player1, 2);
@@ -195,7 +195,8 @@ export class MainScene extends Phaser.Scene {
         this.HUD = new HUD(this, 0, 0, this.player1, this.player2, this.score1, this.score2);
         this.player1.HUD = this.HUD;
         this.player2.HUD = this.HUD;
-        this.player2.playerOpuesto = this.player1;
+        this.player1.player2 = this.player2;
+        this.player1.playeropuesto = this.player2;
         //this.OVNI = new OVNI(this, this.WIDTH / 3, this.HEIGHT / 10, this.player1, this.player2, 4000);
         //new OVNI(this, this.WIDTH, this.HEIGHT / 10, this.player1, this.player2, 3500);
     }

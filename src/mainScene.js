@@ -196,7 +196,7 @@ export class MainScene extends Phaser.Scene {
         this.player1.HUD = this.HUD;
         this.player2.HUD = this.HUD;
         this.player1.player2 = this.player2;
-        this.player1.playeropuesto = this.player2;
+        this.player1.playerOpuesto = this.player2;
         //this.OVNI = new OVNI(this, this.WIDTH / 3, this.HEIGHT / 10, this.player1, this.player2, 4000);
         //new OVNI(this, this.WIDTH, this.HEIGHT / 10, this.player1, this.player2, 3500);
     }

@@ -77,6 +77,10 @@ export  class Menu extends Phaser.Scene {
         this.Selector3 = undefined;
         this.maxp = 3;
         this.map = 0;
+        this.changeSize = true;
+        this.changeSize2 = true;
+        this.elapsedSize = 0;
+        this.elapsedSize2 = 0; 
     }
 
     preload() {
@@ -101,10 +105,14 @@ export  class Menu extends Phaser.Scene {
         this.HEIGHT = this.sys.game.canvas.height;
         this.WIDTH = this.sys.game.canvas.width;
         this.textY = -100;
-        let style = { fontFamily: 'Pixels', fill: "orange", fontSize: 100};
+        let style = { fontFamily: 'Pixels', fill: "orange", fontSize: 100 };
+        let styleblue = { fontFamily: 'Pixels', fill: "blue", fontSize: 30 };
+        let stylered = { fontFamily: 'Pixels', fill: "red", fontSize: 30 };
         new MenuBackground(this, this.WIDTH / 2, this.HEIGHT /2).setScale(1.35, 1.2);
         this.text = this.add.text(25, this.textY, 'EGOBATTLE', style)
-        this.startButton = this.add.image(this.WIDTH / 10, this.HEIGHT / 10, 'start').setScale(0.2, 0.2).setInteractive();
+        this.add.text(25, this.textY + 170, 'Player1: A-D + Space', stylered)
+        this.add.text(900, this.textY + 170, 'Player2: <- -> + Enter', styleblue)
+        this.startButton = this.add.image(this.WIDTH / 2.03, this.HEIGHT / 4, 'start').setScale(0.15, 0.15).setInteractive();
         this.Selector1 = new Selector1(this, (this.WIDTH / 12) + 40, (this.HEIGHT / 7) + 65);
         this.Selector2 = new Selector2(this, (this.WIDTH / 2.17) + 492, (this.HEIGHT / 7) + 65);
         this.Selector3 = new Selector3(this,4000, (this.HEIGHT / 7) + 65);
@@ -140,13 +148,28 @@ export  class Menu extends Phaser.Scene {
         } 
         if (Phaser.Input.Keyboard.JustDown(this.spacekey)) {
             console.log("space")
-            this.p1selected = true;
+            if (!this.p2selected || this.positionp1 !== this.positionp2) {
+                this.p1selected = true;
+            }
         }
         if (Phaser.Input.Keyboard.JustDown(this.enterkey)) {
+            if (!this.p1selected || this.positionp1 !== this.positionp2) {
+                this.p2selected = true;
+            }
             console.log("enter")
-            this.p2selected = true;
+           
         }
+        this.elapsedSize += dt;
+        this.elapsedSize2 += dt;
+
         if (!this.p1selected) {
+            if (this.elapsedSize > 300) {
+                this.elapsedSize = 0; 
+                this.changeSize = !this.changeSize;
+                if (this.changeSize) { this.Selector1.setScale(1.2, 1.2); }
+                else this.Selector1.setScale(1.15, 1.15);
+               
+            }
             if (Phaser.Input.Keyboard.JustDown(this.akey)) {
                 if (this.positionp1 > 0) {
                     this.positionp1--;
@@ -155,16 +178,26 @@ export  class Menu extends Phaser.Scene {
                 }
             }
             if (Phaser.Input.Keyboard.JustDown(this.dkey)) {
-                if (this.positionp1 < this.maxp) {                   
+                if (this.positionp1 < this.maxp) {
                     this.positionp1++;
                     this.Selector1.move(true);
                 }
             }
         }
+        else {
+            this.Selector1.setScale(1.2, 1.2);
+        }
         if (!this.p2selected) {
+            if (this.elapsedSize2 > 300) {
+                this.elapsedSize2 = 0;
+                this.changeSize2 = !this.changeSize2;
+                if (this.changeSize2) { this.Selector2.setScale(1.2, 1.2); }
+                else this.Selector2.setScale(1.15, 1.15);
+
+            }
             if (Phaser.Input.Keyboard.JustDown(this.leftkey)) {
                 if (this.positionp2 > 0) {
-                    
+
                     this.positionp2--;
                     this.Selector2.move(false);
 
@@ -175,6 +208,20 @@ export  class Menu extends Phaser.Scene {
                     this.positionp2++;
                     this.Selector2.move(true);
                 }
+            }
+        }
+        else {
+            this.Selector2.setScale(1.2, 1.2);
+        }
+
+        if (this.p1selected && this.p2selected) {
+            if (this.elapsedSize > 500) {
+                this.elapsedSize = 0;
+                this.changeSize = !this.changeSize;
+                console.log(this.changeSize);
+                if (this.changeSize) { this.startButton.setScale(0.16, 0.16); }
+                else this.startButton.setScale(0.15, 0.15);
+
             }
         }
 
@@ -190,9 +237,6 @@ export  class Menu extends Phaser.Scene {
             this.Selector3.setPosition(4000, this.Selector3.y)
 
         }
-        //if (this.p1selected && this.p2selected) {
-        //    MainScene(map,this.positionP1,this.positionP2)
-        //}
         
     }
 

@@ -111,7 +111,7 @@ class HealthBar extends Phaser.GameObjects.Container {
 class Marco extends Phaser.GameObjects.Image {
     constructor(scene, x, y, personaje) {
         super(scene, x, y, personaje);
-        scene.add.existing(this).setScale(1, 1);
+        scene.add.existing(this).setScale(0.11, 0.11);
     }
 }
 
@@ -134,8 +134,8 @@ export default class HUD extends Phaser.GameObjects.Container {
         this.add(this.BarraDePoder1);
         this.add(this.BarraDePoder2);
 
-        this.MarcoPlayer1 = new Marco(scene, 0, 20, player1.name);
-        this.MarcoPlayer2 = new Marco(scene, scene.WIDTH - 20, 20, player2.name);
+        this.MarcoPlayer1 = new Marco(scene, -440, -910, player1.name);
+        this.MarcoPlayer2 = new Marco(scene, -440, -910, player2.name);
         this.add(this.MarcoPlayer1);
         this.add(this.MarcoPlayer2);
         this.MarcoPlayer1.x += this.MarcoPlayer1.width / 2;

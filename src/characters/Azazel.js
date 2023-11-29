@@ -12,8 +12,8 @@ export default class Azazel extends Personaje {
         const mapFrameRates = {
             "idle": 10,
             "walk": 12,
-            "strong": 3,
-            "normal": 8
+            "strong": 6,
+            "normal": 7
         }
         const mapFrames = {
             "idle": 7,
@@ -41,10 +41,10 @@ export default class Azazel extends Personaje {
 
         this.on('animationcomplete', end => {//Detecta que ha dejado de pegar
             this.throwFire = true;
-            if (this.anims.currentAnim.key === mapAnimaciones["strong"]) {
+            if (this.anims.currentAnim.key === mapAnimaciones["idle"]) {
                 if (this.fire < this.fireDuration) {
                     this.fire++;
-                    this.play(mapAnimaciones["strong"]);
+                    this.play(mapAnimaciones["idle"]);
                 }
                 else {
                     this.fire = 0;

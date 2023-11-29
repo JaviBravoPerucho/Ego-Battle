@@ -98,6 +98,13 @@ export  class Menu extends Phaser.Scene {
         this.load.image('Selector3', '../assets/img/uiimages/Selector3.png');
     }
 
+    shutdown() {
+        this.positionp1 = 0;
+        this.positionp2 = 0;
+        this.p1selected = false;
+        this.p2selected = false;
+    }
+
 
     create() {
         this.positionp1 = 0;
@@ -119,7 +126,9 @@ export  class Menu extends Phaser.Scene {
 
         this.startButton.on('pointerdown', () => {
             if (this.p1selected && this.p2selected) {
-                this.scene.start('mainScene', {parametro0: this.map, parametro1: this.positionp1, parametro2: this.positionp2 });
+                this.scene.stop(this);
+                this.scene.start('mainScene', { parametro0: this.map, parametro1: this.positionp1, parametro2: this.positionp2 });
+               
                 console.log("sigo vivo")
                 //this.scene.start('mainScene');
             }
@@ -218,7 +227,6 @@ export  class Menu extends Phaser.Scene {
             if (this.elapsedSize > 500) {
                 this.elapsedSize = 0;
                 this.changeSize = !this.changeSize;
-                console.log(this.changeSize);
                 if (this.changeSize) { this.startButton.setScale(0.16, 0.16); }
                 else this.startButton.setScale(0.15, 0.15);
 

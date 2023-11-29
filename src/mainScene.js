@@ -53,6 +53,7 @@ export class MainScene extends Phaser.Scene {
         this.Mapinfo = data.parametro0;
         this.p1info = data.parametro1;
         this.p2info = data.parametro2;
+       
     }
 
     playerDied(player) {
@@ -61,6 +62,9 @@ export class MainScene extends Phaser.Scene {
         this.player2.setPosition(this.posicionInicial2, this.alturaInicial);
         this.player1.vida = 300;
         this.player2.vida = 300;
+        if (player === this.player1) { this.score2++; }
+        else { this.score1++; }
+
     }
     
     preload() {//Dependiendo de lo seleccionado cargamos una cosa u otra (mas adelante)
@@ -134,12 +138,6 @@ export class MainScene extends Phaser.Scene {
         this.posicionInicial2 = this.WIDTH - this.WIDTH / 4;
         this.alturaInicial = this.HEIGHT / 2;
         this.alturaVacio = this.HEIGHT;
-        //new Volcan(this, 600, 300).setScale(1.7, 1.8);
-        //new Espacio(this, 600, 300).setScale(1.6, 1.4);
-        //new Muelle(this, 600, 350).setScale(1.8, 1.7);
-        //this.add.existing(new Phaser.GameObjects.Sprite(this, 600, 300, 'Castillo')).setScale(1.2, 1);
-        //this.background = this.add.image(400, 300, 'background');
-  
         this.score1 = 0;
         this.score2 = 0;//Marcador de la partida
         console.log(this.Mapinfo,this.p1info,this.p2info)
@@ -149,8 +147,7 @@ export class MainScene extends Phaser.Scene {
                 break
             case 1:
                 new Espacio(this, 600, 300).setScale(1.6, 1.4);
-                new OVNI(this, this.WIDTH / 3, this.HEIGHT / 10, this.player1, this.player2, 4000);
-                new OVNI(this, this.WIDTH, this.HEIGHT / 10, this.player1, this.player2, 3500);
+                
                 break
             case 2:
                 new Muelle(this, 600, 350).setScale(1.8, 1.7);
@@ -197,18 +194,15 @@ export class MainScene extends Phaser.Scene {
             default:
             break;
         }
-        
-        //this.player1 = new Trevor(this, 500, 300, this.player2, this.platforms);  
-        //this.player2 = new Arturo(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player1, 2);
-        //this.player1 = new Azazel(this, this.posicionInicial2, this.alturaInicial, this.platforms, this.player2, this.HUD, 1);
-        /*this.player2 = new Shinji(this, this.WIDTH / 4, this.HEIGHT / 2, this.player1, this.platforms);*/
         this.HUD = new HUD(this, 0, 0, this.player1, this.player2, this.score1, this.score2);
         this.player1.HUD = this.HUD;
         this.player2.HUD = this.HUD;
         this.player1.player2 = this.player2;
         this.player1.playerOpuesto = this.player2;
-        //this.OVNI = new OVNI(this, this.WIDTH / 3, this.HEIGHT / 10, this.player1, this.player2, 4000);
-        //new OVNI(this, this.WIDTH, this.HEIGHT / 10, this.player1, this.player2, 3500);
+        if (this.Mapinfo == 1) {
+            new OVNI(this, this.WIDTH / 3, this.HEIGHT / 10, this.player1, this.player2, 4000);
+            new OVNI(this, this.WIDTH, this.HEIGHT / 10, this.player1, this.player2, 3500);
+        }
     }
     update(t) {
         this.time = t;
@@ -220,9 +214,7 @@ export class MainScene extends Phaser.Scene {
         
         this.HUD.update();
 
-        if (this.score1 === 3 || this.score2 === 3) {
-            this.termina();
-        }
+        this.terminaJuego();
     }
 
     hitPlayer(player, damage) {
@@ -289,7 +281,9 @@ export class MainScene extends Phaser.Scene {
     }
     
     terminaJuego() {
-
+        if (this.score1 > 2 || this.score2 > 2) {
+            this.scene.start('menu');
+        }
     }
    
    

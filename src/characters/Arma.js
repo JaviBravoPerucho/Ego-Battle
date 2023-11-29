@@ -35,6 +35,12 @@ export default class Arma extends Phaser.GameObjects.Rectangle {
         } else if (this.arma === 'Maza') {
 
         }
+        else if (this.arma === 'Fuego') {
+            this.y = this.y - 60;
+            this.damage = 40;
+            this.tiempo = 3000;
+            this.tiempoRetardo = 0;
+        }
 
         if (this.direction === 0) {
             this.setPosition(this.x - 60, this.y);
@@ -54,11 +60,12 @@ export default class Arma extends Phaser.GameObjects.Rectangle {
         this.followPlayer();
         this.contRetardo += dt;
         this.contAtaque += dt;
-        if (this.contRetardo > 100) {
+        if (this.contRetardo > this.tiempoRetardo) {
             this.contRetardo = 0;
         }
-        if (this.contAtaque > 500) {
-            this.destroy();
+        //console.log(this.contAtaque);
+        if (this.contAtaque > this.tiempo) {
+           this.destroy();
         }
     }
 }

@@ -89,11 +89,12 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
     }
     createWeapon() {
         this.arma = new Arma(this.scene, this.x, this.y + 60, this.armaName, this.direction, this, this.playerOpuesto, 20, this.HUD, this.armaWidth, this.armaHeight);
-        this.arma.parent = this;
+       // this.arma.parent = this;
         this.scene.physics.add.overlap(this.arma, this.playerOpuesto, end => {
             if (this.playerOpuesto.name == this.HUD.player2.name) this.HUD.BarraDeVida2.decrease(this.arma.damage);
             else if (this.playerOpuesto.name = this.HUD.player1.name) this.HUD.BarraDeVida1.decrease(this.arma.damage);
             this.playerOpuesto.vida -= this.arma.damage;
+            console.log('hit')
             this.arma.destroy();
         });
     }
@@ -156,8 +157,9 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
                 }
                 if (this.anims.currentAnim.key !== this.normalAttack) {
                     this.play(this.normalAttack);
-                    this.attacking = true;
+                 
                 }
+                this.attacking = true;
 
             }
             if (Phaser.Input.Keyboard.JustDown(this.hKey) && !this.attacking) {
@@ -169,8 +171,9 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
                 }
                 if (this.anims.currentAnim.key !== this.strongAttack) {
                     this.play(this.strongAttack);
-                    this.attacking = true;
+                   
                 }
+                this.attacking = true;
             }
 
             if (this.vida <= 0) {

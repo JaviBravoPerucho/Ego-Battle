@@ -28,7 +28,7 @@ export default class Azazel extends Personaje {
             "normal": 0
         }
 
-        super(scene, x, y, floor, HUD, player2, 20, 45, 65, 55, 'Azazel', undefined, undefined, undefined, undefined, undefined, undefined, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats);
+        super(scene, x, y, floor, HUD, player2, 20, 45, 65, 55, 'Azazel', undefined, undefined, undefined,'Fuego', 450, 200, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats);
 
         this.right = true;
         this.fireDuration = 3;

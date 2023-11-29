@@ -59,7 +59,7 @@ export class MainScene extends Phaser.Scene {
         this.HUD.countScore(player);
         this.player1.setPosition(this.posicionInicial1, this.alturaInicial);
         this.player2.setPosition(this.posicionInicial2, this.alturaInicial);
-        this.player.vida = 300;
+        this.player1.vida = 300;
         this.player2.vida = 300;
     }
     

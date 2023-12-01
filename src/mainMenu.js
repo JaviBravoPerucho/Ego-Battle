@@ -1,9 +1,9 @@
 import MenuBackground from './ui/FondoMenu.js'
 import CharacterSelector from './ui/CharacterSelector.js'
 //import MainScene from './mainScene.js'
-class Selector1 extends Phaser.GameObjects.Image {
-    constructor(scene, x, y) {//Habra que pasarle player1 y player2 para que colisione con ellos 
-        super(scene, x, y, 'Selector1');
+class Selector extends Phaser.GameObjects.Image {
+    constructor(scene, x, y, imageKey) {//Habra que pasarle player1 y player2 para que colisione con ellos 
+        super(scene, x, y, imageKey);
         scene.add.existing(this).setScale(1.2, 1.2);
         this.eliminate = false;
     }
@@ -21,39 +21,28 @@ class Selector1 extends Phaser.GameObjects.Image {
     }
     preUpdate() { }
 }
-class Selector2 extends Phaser.GameObjects.Image {
-    constructor(scene, x, y) {//Habra que pasarle player1 y player2 para que colisione con ellos 
-        super(scene, x, y, 'Selector2');
-        scene.add.existing(this).setScale(1.2, 1.2);
-        this.eliminate = false;
+
+class Mapa extends Phaser.GameObjects.Image {
+    constructor(scene, x, y, imageKey) {
+        super(scene, x, y, imageKey);
+        scene.add.existing(this).setScale(0.3, 0.3);
+        this.setVisible(false);
+        this.imageKey = imageKey;
+        this.selected = false;
+        this.setInteractive();
+        this.on('pointerdown', () => {this.selected = true });
     }
-    Visible(bool) {
-        this.setVisble(bool);
+
+    preUpdate(){
+
     }
-    move(right) {
-        console.log('si');
-        if (right) {
-            this.setPosition(this.x + 302, this.y)
-        }
-        else {
-            this.setPosition(this.x - 302, this.y)
-        }
-    }
-    preUpdate() { }
 }
-class Selector3 extends Phaser.GameObjects.Image {
-    constructor(scene, x, y) {//Habra que pasarle player1 y player2 para que colisione con ellos 
-        super(scene, x, y, 'Selector3');
-        scene.add.existing(this).setScale(1.2, 1.2);
-        this.eliminate = false;
-        //this.setVisble(false);
-    }
-    Visible(bool) {
-        this.setVisble(bool);
-    }
-    preUpdate() { }
-}
-export  class Menu extends Phaser.Scene {
+
+const alturaMapa = 470;
+const difMapa = 230;
+const posInicialMapa = 120;
+
+export class Menu extends Phaser.Scene {
     constructor() {
         super({ key: 'menu' })
         this.WIDTH = undefined;
@@ -76,11 +65,20 @@ export  class Menu extends Phaser.Scene {
         this.Selector2 = undefined;
         this.Selector3 = undefined;
         this.maxp = 3;
-        this.map = 1;
         this.changeSize = true;
         this.changeSize2 = true;
+        this.changeSize3 = true;
         this.elapsedSize = 0;
-        this.elapsedSize2 = 0; 
+        this.elapsedSize2 = 0;
+        this.mapMuelle = undefined;
+        this.mapEspacio = undefined;
+        this.mapCastillo = undefined;
+        this.mapJungla = undefined;
+        this.mapVolcan = undefined;
+        this.mapSelected = false;
+        this.mapKey = undefined;
+        this.arrayMapas = undefined;
+        this.map = undefined;
     }
 
     preload() {
@@ -96,6 +94,11 @@ export  class Menu extends Phaser.Scene {
         this.load.image('Selector1', '../assets/img/uiimages/Selector1.png');
         this.load.image('Selector2', '../assets/img/uiimages/Selector2.png');
         this.load.image('Selector3', '../assets/img/uiimages/Selector3.png');
+        this.load.image('castilloIcon', '../assets/img/fondosimages/castilloIcon.png');
+        this.load.image('muelleIcon', '../assets/img/fondosimages/muelleIcon.png');
+        this.load.image('junglaIcon', '../assets/img/fondosimages/junglaIcon.png');
+        this.load.image('volcanIcon', '../assets/img/fondosimages/volcanIcon.png');
+        this.load.image('espacioIcon', '../assets/img/fondosimages/espacioIcon.png');
     }
 
     shutdown() {
@@ -115,30 +118,57 @@ export  class Menu extends Phaser.Scene {
         let style = { fontFamily: 'Pixels', fill: "orange", fontSize: 100 };
         let styleblue = { fontFamily: 'Pixels', fill: "blue", fontSize: 30 };
         let stylered = { fontFamily: 'Pixels', fill: "red", fontSize: 30 };
-        new MenuBackground(this, this.WIDTH / 2, this.HEIGHT /2).setScale(1.35, 1.2);
+
+        new MenuBackground(this, this.WIDTH / 2, this.HEIGHT / 2).setScale(1.35, 1.2);
         this.text = this.add.text(25, this.textY, 'EGOBATTLE', style)
         this.add.text(25, this.textY + 170, 'Player1: A-D + Space', stylered)
         this.add.text(900, this.textY + 170, 'Player2: <- -> + Enter', styleblue)
         this.startButton = this.add.image(this.WIDTH / 2.03, this.HEIGHT / 4, 'start').setScale(0.15, 0.15).setInteractive();
-        this.Selector1 = new Selector1(this, (this.WIDTH / 12) + 40, (this.HEIGHT / 7) + 65);
-        this.Selector2 = new Selector2(this, (this.WIDTH / 2.17) + 492, (this.HEIGHT / 7) + 65);
-        this.Selector3 = new Selector3(this,4000, (this.HEIGHT / 7) + 65);
+
+        this.Selector1 = new Selector(this, (this.WIDTH / 12) + 40, (this.HEIGHT / 7) + 65, 'Selector1');
+        this.Selector2 = new Selector(this, (this.WIDTH / 2.17) + 492, (this.HEIGHT / 7) + 65, 'Selector2');
+        this.Selector3 = new Selector(this, 4000, (this.HEIGHT / 7) + 65, 'Selector3');
 
         this.startButton.on('pointerdown', () => {
-            if (this.p1selected && this.p2selected) {
+            if (this.p1selected && this.p2selected && this.mapSelected) {             
                 this.scene.stop(this);
+                switch (this.mapKey) {
+                    case 'volcanIcon':
+                        this.map = 0;
+                        break
+                    case 'espacioIcon':
+                        this.map = 1;
+                        break
+                    case 'muelleIcon':
+                        this.map = 2;
+                        break
+                    case 'castilloIcon':
+                        this.map = 3;
+                        break
+                    case 'junglaIcon':
+                        this.map = 4;
+                        break
+                    default:
+                        this.map = 3;
+                            break
+                }
                 this.scene.start('mainScene', { parametro0: this.map, parametro1: this.positionp1, parametro2: this.positionp2 });
-               
                 console.log("sigo vivo")
-                //this.scene.start('mainScene');
+                //this.scene.start('mainScene');          
             }
-
-
         });
         this.player1 = new CharacterSelector(this, this.WIDTH / 12, this.HEIGHT / 7, 'Arturo');
         this.player2 = new CharacterSelector(this, this.WIDTH / 2.17, this.HEIGHT / 7, 'Shinji');
         this.player3 = new CharacterSelector(this, this.WIDTH / 2.98, this.HEIGHT / 7, 'Trevor');
         this.player4 = new CharacterSelector(this, this.WIDTH / 4.78, this.HEIGHT / 7, 'Azazel');
+
+        this.mapCastillo = new Mapa(this, posInicialMapa, alturaMapa, 'castilloIcon');
+        this.mapMuelle = new Mapa(this, posInicialMapa+difMapa, alturaMapa, 'muelleIcon');
+        this.mapJungla = new Mapa(this, posInicialMapa+difMapa*2, alturaMapa, 'junglaIcon');
+        this.mapEspacio = new Mapa(this, posInicialMapa+difMapa*3, alturaMapa, 'espacioIcon');
+        this.mapVolcan = new Mapa(this, posInicialMapa + difMapa * 4, alturaMapa, 'volcanIcon');
+        this.arrayMapas = [this.mapMuelle, this.mapEspacio, this.mapCastillo, this.mapJungla, this.mapVolcan];
+
         this.cursors = this.input.keyboard.createCursorKeys();
         this.akey = this.input.keyboard.addKey('A');
         this.dkey = this.input.keyboard.addKey('d');
@@ -170,6 +200,17 @@ export  class Menu extends Phaser.Scene {
         }
         this.elapsedSize += dt;
         this.elapsedSize2 += dt;
+        this.elapsedSize3 += dt;
+
+        if (!this.mapSelected) {
+            if (this.elapsedSize3 > 300) {
+                this.elapsedSize3 = 0;
+                this.changeSize3 = !this.changeSize3;
+                if (this.changeSize3) this.mapCastillo.setScale(1.2, 1.2)
+                else this.mapCastillo.setScale(1.15, 1.15)
+
+            }
+        }
 
         if (!this.p1selected) {
             if (this.elapsedSize > 300) {
@@ -224,12 +265,20 @@ export  class Menu extends Phaser.Scene {
         }
 
         if (this.p1selected && this.p2selected) {
+            this.arrayMapas.forEach((mapa) => {
+                mapa.setVisible(true);
+                if (mapa.selected) {
+                    this.mapSelected = true;
+                    this.mapKey = mapa.imageKey;
+                    console.log(this.mapKey)
+                    mapa.selected = false;
+                }
+            });
             if (this.elapsedSize > 500) {
                 this.elapsedSize = 0;
                 this.changeSize = !this.changeSize;
                 if (this.changeSize) { this.startButton.setScale(0.16, 0.16); }
                 else this.startButton.setScale(0.15, 0.15);
-
             }
         }
 

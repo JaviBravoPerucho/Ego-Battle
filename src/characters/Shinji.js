@@ -42,16 +42,34 @@ export default class Shinji extends Personaje {
         this.maxulti = 2000;
         this.x = x;
         this.y = y;
-        
+
+        scene.anims.create({
+            key: 'ShinjiUlti',
+            frames: scene.anims.generateFrameNumbers('ShinjiUlti', { start: 0, end: 3 }),
+            frameRate: 10,
+            repeat: 0
+        });
+        this.on('animationcomplete', end => {//Detecta que ha dejado de pegar
+            if (this.anims.currentAnim.key === 'ShinjiUlti') {
+                super.attacking = false;
+            }
+        })
     }
     ult() {
         if (this.x > this.playerOpuesto.x) {
-            this.setPosition(this.playerOpuesto.x - 50, this.playerOpuesto.y-50);
+            this.setPosition(this.playerOpuesto.x - 50, this.playerOpuesto.y - 30);
+            this.mainScene.hitPlayer(this.playerOpuesto, this.ultidamage)
+            super.attacking = true;
+            this.play('ShinjiUlti');
+
         }
         else {
-            this.setPosition(this.playerOpuesto.x + 50, this.playerOpuesto.y-50);
+            this.setPosition(this.playerOpuesto.x + 50, this.playerOpuesto.y - 30);
+            this.mainScene.hitPlayer(this.playerOpuesto, this.ultidamage)
+            super.attacking = true;
+            this.play('ShinjiUlti');
         }
-        
+
     }
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
@@ -68,58 +86,58 @@ export default class Shinji extends Personaje {
             this.ult();
         }
 
-        console.log(this.ulti);
+    //    console.log(this.ulti);
 
-        if (this.dKey.isDown && this.aKey.isDown) {
-            this.body.setVelocityX(0);
-            if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Shinjiidle') { this.play('Shinjiidle'); this.body.setOffset(15, 20); this.setPosition(this.x, this.y - 15); }
-            else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Shinjijump') { this.play('Shinjijump'); this.body.setOffset(10, 5); }
-        }
-        else if (this.aKey.isDown) {
-            this.direction = 0;
-            if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(-350); }
-            else { this.body.setVelocityX(0); }
-            if (this.anims.currentAnim.key !== 'Shinjiwalk') {
-                this.setFlip(true, false)
-                if (!this.attacking && !this.onAir) { this.play('Shinjiwalk'); this.body.setOffset(0, 15); if (this.anims.currentAnim.key !== 'Shinjiidle') this.setPosition(this.x, this.y - 15); }
-                else if (!this.attacking) { this.play('Shinjijump'); this.body.setOffset(10, 5); }
-            }
-        }
-        else if (this.dKey.isDown) {
-            this.direction = 1;
-            if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(350); }
-            else { this.body.setVelocityX(0); }
+    //    if (this.dKey.isDown && this.aKey.isDown) {
+    //        this.body.setVelocityX(0);
+    //        if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Shinjiidle') { this.play('Shinjiidle'); this.body.setOffset(15, 20); this.setPosition(this.x, this.y - 15); }
+    //        else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Shinjijump') { this.play('Shinjijump'); this.body.setOffset(10, 5); }
+    //    }
+    //    else if (this.aKey.isDown) {
+    //        this.direction = 0;
+    //        if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(-350); }
+    //        else { this.body.setVelocityX(0); }
+    //        if (this.anims.currentAnim.key !== 'Shinjiwalk') {
+    //            this.setFlip(true, false)
+    //            if (!this.attacking && !this.onAir) { this.play('Shinjiwalk'); this.body.setOffset(0, 15); if (this.anims.currentAnim.key !== 'Shinjiidle') this.setPosition(this.x, this.y - 15); }
+    //            else if (!this.attacking) { this.play('Shinjijump'); this.body.setOffset(10, 5); }
+    //        }
+    //    }
+    //    else if (this.dKey.isDown) {
+    //        this.direction = 1;
+    //        if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(350); }
+    //        else { this.body.setVelocityX(0); }
 
-            if (this.anims.currentAnim.key !== 'Shinjiwalk') {
-                this.setFlip(false, false);
-                if (!this.attacking && !this.onAir) { this.play('Shinjiwalk'); this.body.setOffset(0, 15); if (this.anims.currentAnim.key !== 'Shinjiidle') this.setPosition(this.x, this.y - 15); }
-                else if (!this.attacking) { this.play('Shinjijump'); this.body.setOffset(10, 5); }
-            }
-        }
-        else {
-            this.body.setVelocityX(0);
-            if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Shinjiidle') { this.play('Shinjiidle'); this.body.setOffset(15, 20); this.setPosition(this.x, this.y - 15); }
-            else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Shinjijump') { this.play('Shinjijump'); this.body.setOffset(10, 5); }
-        }
+    //        if (this.anims.currentAnim.key !== 'Shinjiwalk') {
+    //            this.setFlip(false, false);
+    //            if (!this.attacking && !this.onAir) { this.play('Shinjiwalk'); this.body.setOffset(0, 15); if (this.anims.currentAnim.key !== 'Shinjiidle') this.setPosition(this.x, this.y - 15); }
+    //            else if (!this.attacking) { this.play('Shinjijump'); this.body.setOffset(10, 5); }
+    //        }
+    //    }
+    //    else {
+    //        this.body.setVelocityX(0);
+    //        if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== 'Shinjiidle') { this.play('Shinjiidle'); this.body.setOffset(15, 20); this.setPosition(this.x, this.y - 15); }
+    //        else if (!this.attacking && this.onAir && this.anims.currentAnim.key !== 'Shinjijump') { this.play('Shinjijump'); this.body.setOffset(10, 5); }
+    //    }
 
-        if (Phaser.Input.Keyboard.JustDown(this.wKey) && this.jumps < 2) {
-            this.jumps++;
-            this.setPosition(this.x, this.y - 20);
-            this.body.setVelocityY(-350);
-            this.onAir = true;
-            if (this.anims.currentAnim.key !== 'Shinjijump' && !this.attacking) {
-                this.play('Shinjijump');
-                this.body.setOffset(10, 5);
-            }
-        }
+    //    if (Phaser.Input.Keyboard.JustDown(this.wKey) && this.jumps < 2) {
+    //        this.jumps++;
+    //        this.setPosition(this.x, this.y - 20);
+    //        this.body.setVelocityY(-350);
+    //        this.onAir = true;
+    //        if (this.anims.currentAnim.key !== 'Shinjijump' && !this.attacking) {
+    //            this.play('Shinjijump');
+    //            this.body.setOffset(10, 5);
+    //        }
+    //    }
        
-        if (Phaser.Input.Keyboard.JustDown(this.hKey) && !this.attacking) {
-            /* new Arma(this.x, this.y, this.arma2, this.direction, this, this.playerOpuesto, 10, this.HUD, 100, 100);*/
-            if (this.anims.currentAnim.key !== 'Shinjinormalattack') {
-                this.body.setOffset(15, 0);
-                this.play('Shinjinormalattack');
-                this.attacking = true;
-            }
-        }
+    //    if (Phaser.Input.Keyboard.JustDown(this.hKey) && !this.attacking) {
+    //        /* new Arma(this.x, this.y, this.arma2, this.direction, this, this.playerOpuesto, 10, this.HUD, 100, 100);*/
+    //        if (this.anims.currentAnim.key !== 'Shinjinormalattack') {
+    //            this.body.setOffset(15, 0);
+    //            this.play('Shinjinormalattack');
+    //            this.attacking = true;
+    //        }
+    //    }
     }
 }

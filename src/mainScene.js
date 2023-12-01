@@ -170,7 +170,7 @@ export class MainScene extends Phaser.Scene {
                 this.player1 = new Azazel(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player2, 1);
                 break
             case 2:
-                this.player1 = new Trevor(this, this.posicionInicial1, this.alturaInicial, this.player2, this.platforms);  
+                this.player1 = new Trevor(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player2, 1);  
                 break
             case 3:
                 this.player1 = new Shinji(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player2, 1);
@@ -186,7 +186,7 @@ export class MainScene extends Phaser.Scene {
                 this.player2 = new Azazel(this, this.posicionInicial2, this.alturaInicial, this.platforms, this.HUD, this.player1, 2);
                 break
             case 2:
-                this.player2 = new Trevor(this, this.posicionInicial2, this.alturaInicial, this.player1, this.platforms);
+                this.player2 = new Trevor(this, this.posicionInicial2, this.alturaInicial, this.platforms, this.HUD, this.player1, 2);
                 break
             case 3:
                 this.player2 = new Shinji(this, this.posicionInicial2, this.alturaInicial, this.platforms, this.HUD, this.player1, 2);

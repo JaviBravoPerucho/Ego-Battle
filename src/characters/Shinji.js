@@ -40,6 +40,9 @@ export default class Shinji extends Personaje {
         this.Useulti = false;
         this.distance = 350;
         this.maxulti = 2000;
+        this.mainScene = scene;
+        this.ultidamage = 50;
+        this.playerOpuesto = playerOpuesto;
         this.x = x;
         this.y = y;
 

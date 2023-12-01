@@ -94,6 +94,7 @@ export class MainScene extends Phaser.Scene {
         this.load.spritesheet('Shinjijump', './assets/img/shinjiimages/Jump.png', { frameWidth: 61, frameHeight: 77 });
         this.load.spritesheet('Shinjistrongattack', './assets/img/shinjiimages/Strong.png', { frameWidth: 63, frameHeight: 87 });
         this.load.spritesheet('Shinjinormalattack', './assets/img/shinjiimages/Normal.png', { frameWidth: 62, frameHeight: 69 });
+        this.load.spritesheet('ShinjiUlti', './assets/img/shinjiimages/ulti.png', { frameWidth: 69, frameHeight: 70 });
         switch (this.Mapinfo) {
             case 0:
                 this.load.spritesheet('Volcan', './assets/img/fondosimages/Volcan.png', { frameWidth: 800, frameHeight: 336 });//Fondo volcan
@@ -170,7 +171,7 @@ export class MainScene extends Phaser.Scene {
                 this.player1 = new Azazel(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player2, 1);
                 break
             case 2:
-                this.player1 = new Trevor(this, this.posicionInicial1, this.alturaInicial, this.player2, this.platforms);  
+                this.player1 = new Trevor(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player2, 1);  
                 break
             case 3:
                 this.player1 = new Shinji(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player2, 1);
@@ -186,7 +187,7 @@ export class MainScene extends Phaser.Scene {
                 this.player2 = new Azazel(this, this.posicionInicial2, this.alturaInicial, this.platforms, this.HUD, this.player1, 2);
                 break
             case 2:
-                this.player2 = new Trevor(this, this.posicionInicial2, this.alturaInicial, this.player1, this.platforms);
+                this.player2 = new Trevor(this, this.posicionInicial2, this.alturaInicial, this.platforms, this.HUD, this.player1, 2);
                 break
             case 3:
                 this.player2 = new Shinji(this, this.posicionInicial2, this.alturaInicial, this.platforms, this.HUD, this.player1, 2);

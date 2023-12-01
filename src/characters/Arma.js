@@ -13,6 +13,8 @@ export default class Arma extends Phaser.GameObjects.Rectangle {
         this.arma = arma;
         this.direction = direction;
         this.player = player;
+        this.playerOpuesto = playerOpuesto;
+        this.scene = scene;
         this.yPos = y;
         this.init();
         this.setVisible(false);
@@ -31,9 +33,16 @@ export default class Arma extends Phaser.GameObjects.Rectangle {
             this.tiempo = 300;
             this.tiempoRetardo = 0;
         } else if (this.arma === 'Lanza') {
+            this.y = this.y - 60;
+            this.damage = 15;
+            this.tiempo = 300;
+            this.tiempoRetardo = 0;
 
         } else if (this.arma === 'Maza') {
-
+            this.y = this.y - 60;
+            this.damage = 10;
+            this.tiempo = 300;
+            this.tiempoRetardo = 0;
         }
         else if (this.arma === 'Fuego') {
             this.y = this.y - 60;
@@ -60,6 +69,10 @@ export default class Arma extends Phaser.GameObjects.Rectangle {
         this.followPlayer();
         this.contRetardo += dt;
         this.contAtaque += dt;
+        this.scene.physics.add.overlap(this, this.playerOpuesto, end => {
+            this.scene.hitPlayer(this.playerOpuesto, this.damage);
+            this.destroy();
+        });
         if (this.contRetardo > this.tiempoRetardo) {
             this.contRetardo = 0;
         }

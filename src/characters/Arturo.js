@@ -87,6 +87,7 @@ export default class Arturo extends Personaje {
 
             if (!this.boolPoder) {              
                 this.contPoder += dt;
+                console.log(this.contPoder);
                 if (this.contPoder > this.tiempoPoder) {
                     this.boolPoder = true;
                     this.contPoder = 0;

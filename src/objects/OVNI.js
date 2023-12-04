@@ -9,21 +9,11 @@ class Laser extends Phaser.GameObjects.Image {
         this.elapsed = 0;
         this.delete = false;
         scene.physics.add.collider(this, player, collision => {
-            scene.hitPlayer(player, this.damage);
+            scene.hitPlayer(player, this.damage, 0);
             this.delete = true;
         });
         scene.physics.add.collider(this, player2, collision => {
-            scene.hitPlayer(player2, this.damage);
-            //var emitter = scene.add.particles(player2.positionX, player2.positionY, 'flares', {
-            //    frame: ['red', 'yellow', 'green'],
-            //    lifespan: 4000,
-            //    speed: { min: 150, max: 250 },
-            //    scale: { start: 0.8, end: 0 },
-            //    gravityY: 150,
-            //    blendMode: 'ADD',
-            //    emitting: false
-            //});
-            //emitter.explode(16);
+            scene.hitPlayer(player2, this.damage, 0);
             this.delete = true;
         });
     }

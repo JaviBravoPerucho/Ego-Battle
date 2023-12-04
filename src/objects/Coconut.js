@@ -8,11 +8,11 @@ export default class Coconut extends Phaser.GameObjects.Image {
         this.damage = 15;
         this.eliminate = false;   
         scene.physics.add.collider(this, player1, collision => {
-            scene.hitPlayer(player1, this.damage);
+            scene.hitPlayer(player1, this.damage, 0);
             this.eliminate = true;
         });
         scene.physics.add.collider(this, player2, collision => {
-            scene.hitPlayer(player2, this.damage);
+            scene.hitPlayer(player2, this.damage, 0);
             this.eliminate = true;
         });
         scene.physics.add.collider(this, floor) 

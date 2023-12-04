@@ -1,5 +1,5 @@
 export default class Arma extends Phaser.GameObjects.Rectangle {
-    constructor(scene, x, y, arma, direction, player, playerOpuesto, damage, HUD, width, height) {
+    constructor(scene, x, y, arma, direction, player, playerOpuesto, damage, HUD, width, height, type) {
         super(scene, x, y, width, height, 0xf0000);
         scene.add.existing(this).setScale(0.2, 0.2);
         scene.physics.add.existing(this);
@@ -20,8 +20,7 @@ export default class Arma extends Phaser.GameObjects.Rectangle {
         this.setVisible(false);
         this.body.setAllowGravity(false);
         this.scene.physics.add.collider(this, this.playerOpuesto, end => {
-            console.log('Hit:' + this.playerOpuesto);
-            this.scene.hitPlayer(this.playerOpuesto, this.damage);
+            this.scene.hitPlayer(this.playerOpuesto, this.damage,type);
             this.destroy();
         });
     }
@@ -85,7 +84,6 @@ export default class Arma extends Phaser.GameObjects.Rectangle {
         }
         //console.log(this.contAtaque);
         if (this.contAtaque > this.tiempo) {
-            console.log('rompe');
            this.destroy();
         }
     }

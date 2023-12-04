@@ -135,9 +135,9 @@ export class MainScene extends Phaser.Scene {
     create() {//asignamos player1 y player 2
         this.HEIGHT = this.sys.game.canvas.height;
         this.WIDTH = this.sys.game.canvas.width;
-        this.posicionInicial1 = this.WIDTH / 3.5;
-        this.posicionInicial2 = this.WIDTH - this.WIDTH / 3.5;
-        this.alturaInicial = this.HEIGHT / 2;
+        this.posicionInicial1 = this.WIDTH / 4;
+        this.posicionInicial2 = this.WIDTH - this.WIDTH / 4;
+        this.alturaInicial = this.HEIGHT / 2.2;
         this.alturaVacio = this.HEIGHT;
         this.score1 = 0;
         this.score2 = 0;//Marcador de la partida
@@ -219,11 +219,23 @@ export class MainScene extends Phaser.Scene {
         this.terminaJuego();
     }
 
-    hitPlayer(player, damage) {
-        if (player.name == this.HUD.player2.name) this.HUD.BarraDeVida2.decrease(damage);
-        else if (player.name = this.HUD.player1.name) this.HUD.BarraDeVida1.decrease(damage);
+    hitPlayer(player, damage, type) {
+        var dir = -1;
+        var strength = 0;
+        if (player.name == this.HUD.player2.name) {
+            this.HUD.BarraDeVida2.decrease(damage);
+            if (this.player1.x < this.player2.x) { dir = 1; }
+        }
+        else if (player.name = this.HUD.player1.name) {
+            this.HUD.BarraDeVida1.decrease(damage);
+            if (this.player1.x > this.player2.x) { dir = 1; }
+        }
         if (player.name === 'Arturo') player.boolPoder = 0;
         player.vida -= damage;
+        if (type === 0) { strength = 300 / player.playerOpuesto.vida }
+        else { strength = (300 / player.playerOpuesto.vida) * 1.5 }
+        player.applyKnockback(dir, strength);
+        console.log(dir + ":" + strength);
     }
     createPlatforms() {//Crea la plataforma
         let platforms = this.physics.add.staticGroup();

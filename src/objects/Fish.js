@@ -42,12 +42,12 @@ export default class Fish extends Phaser.GameObjects.Sprite {
         }
         else if(this.goUp) {
             this.collision = this.scene.physics.add.collider(this, this.player, collider => {
-                this.scene.hitPlayer(this.player, 25);
+                this.scene.hitPlayer(this.player, 25, 0);
                 this.scene.physics.world.removeCollider(this.collision)
                 this.hit = true;
             });
             this.collision1 = this.scene.physics.add.collider(this, this.player2, collider => {
-                this.scene.hitPlayer(this.player2, 25);
+                this.scene.hitPlayer(this.player2, 25, 0);
                 this.scene.physics.world.removeCollider(this.collision1)
                 this.hit = true;
             });

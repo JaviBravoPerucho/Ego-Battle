@@ -122,7 +122,7 @@ export class AzazelBall extends Phaser.GameObjects.Sprite {
         else { this.body.setVelocityX(200); }
 
         scene.physics.add.collider(this, playerOpuesto, end => {
-            scene.hitPlayer(playerOpuesto, this.damage);
+            scene.hitPlayer(playerOpuesto, this.damage, 0);
             this.delete = true;
         });
 

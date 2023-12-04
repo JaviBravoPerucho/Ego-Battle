@@ -43,7 +43,7 @@ export default class Arturo extends Personaje {
         this.contUlti = 0;
         this.tiempoUlti = 3000;
         this.x = x;
-       
+        this.stop = false;
         this.boolPoder = true;
         this.playerOpuesto = playerOpuesto;
     }

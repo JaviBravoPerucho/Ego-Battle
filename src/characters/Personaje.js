@@ -49,6 +49,10 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
         this.eliminate = false;
         this.attacking = false;
         this.boolPoder = true;
+        this.isTrevor = (this.idle === 'Trevoridle');
+        this.trevorAttack = false;
+
+        this.left = false;
 
         //Funcion para crear animaciones a partir de los arrays pasados por cada personaje
         function createAnim(keyString, frameRate, frames, repeat) {
@@ -62,6 +66,7 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
         this.on('animationcomplete', end => {//Detecta que ha dejado de pegar
             if (this.anims.currentAnim.key === this.strongAttack || this.anims.currentAnim.key === this.normalAttack) {
                 this.attacking = false;
+                if (this.isTrevor) { this.trevorAttack = false; }
             }
         })
 
@@ -101,16 +106,18 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
             this.onAir = false;
         }
         else { this.onAir = true; }
-        if (!this.stop) {
+        if (!this.stop && !this.trevorAttack) {
             if (this.aKey.isDown && this.dKey.isDown) {
                 this.body.setVelocityX(0);
                 if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== this.idle) { this.play(this.idle); }
                 else if (!this.attacking && this.onAir && this.jump !== undefined && this.anims.currentAnim.key !== this.jump) { this.play(this.jump); }
             }
             else if (this.aKey.isDown) {
+                this.left = true;
                 this.direction = 0;
                 if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(-this.playerSpeed); }
                 else { this.body.setVelocityX(0); }
+
                 if (this.anims.currentAnim.key !== this.walk) {
                     this.setFlip(true, false)
                     if (!this.attacking && !this.onAir) { this.play(this.walk); }
@@ -118,6 +125,7 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
                 }
             }
             else if (this.dKey.isDown) {
+                this.left = false;
                 this.direction = 1;
                 if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(this.playerSpeed); }
                 else { this.body.setVelocityX(0); }
@@ -148,6 +156,11 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
                     this.armaWidth = this.arma1Width;
                     this.armaHeight = this.arma1Height;
                     this.createWeapon();
+                    if (this.isTrevor) {
+                        this.trevorAttack = true;
+                        if (this.left) { this.body.setVelocityX(-400); }//ataque trevor hacia delante
+                        else { this.body.setVelocityX(400); }
+                    }
                 }
                 if (this.anims.currentAnim.key !== this.normalAttack) {
                     this.play(this.normalAttack);

@@ -134,15 +134,15 @@ export default class HUD extends Phaser.GameObjects.Container {
         this.add(this.BarraDePoder1);
         this.add(this.BarraDePoder2);
 
-        this.MarcoPlayer1 = new Marco(scene, -440, -910, player1.name);
-        this.MarcoPlayer2 = new Marco(scene, -440, -910, player2.name);
+        this.MarcoPlayer1 = new Marco(scene, 75, 125, player1.name);
+        this.MarcoPlayer2 = new Marco(scene, 1125, 125, player2.name);
         this.add(this.MarcoPlayer1);
         this.add(this.MarcoPlayer2);
-        this.MarcoPlayer1.x += this.MarcoPlayer1.width / 2;
-        this.MarcoPlayer2.x -= this.MarcoPlayer2.width / 2;
-        this.MarcoPlayer1.y += this.MarcoPlayer1.height;
-        this.MarcoPlayer2.y += this.MarcoPlayer2.height;
-        this.MarcoPlayer2.flipX = true;
+        //this.MarcoPlayer1.x += this.MarcoPlayer1.width / 2;
+        //this.MarcoPlayer2.x -= this.MarcoPlayer2.width / 2;
+        //this.MarcoPlayer1.y += this.MarcoPlayer1.height;
+        //this.MarcoPlayer2.y += this.MarcoPlayer2.height;
+        this.MarcoPlayer1.flipX = true;
 
 
         this.score = this.scene.add.text(this.scene.WIDTH / 2 - 50, 0, score1 + "-" + score2, { fontFamily: 'ka1', fontSize: 80 });

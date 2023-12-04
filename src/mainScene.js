@@ -135,8 +135,8 @@ export class MainScene extends Phaser.Scene {
     create() {//asignamos player1 y player 2
         this.HEIGHT = this.sys.game.canvas.height;
         this.WIDTH = this.sys.game.canvas.width;
-        this.posicionInicial1 = this.WIDTH / 4;
-        this.posicionInicial2 = this.WIDTH - this.WIDTH / 4;
+        this.posicionInicial1 = this.WIDTH / 3.5;
+        this.posicionInicial2 = this.WIDTH - this.WIDTH / 3.5;
         this.alturaInicial = this.HEIGHT / 2;
         this.alturaVacio = this.HEIGHT;
         this.score1 = 0;
@@ -198,8 +198,9 @@ export class MainScene extends Phaser.Scene {
         this.HUD = new HUD(this, 0, 0, this.player1, this.player2, this.score1, this.score2);
         this.player1.HUD = this.HUD;
         this.player2.HUD = this.HUD;
-        this.player1.player2 = this.player2;
-        this.player1.playerOpuesto = this.player2;
+        this.player1.setOpositePlayer(this.player2);
+        this.player2.setOpositePlayer(this.player1);
+        
         if (this.Mapinfo == 1) {
             new OVNI(this, this.WIDTH / 3, this.HEIGHT / 10, this.player1, this.player2, 4000);
             new OVNI(this, this.WIDTH, this.HEIGHT / 10, this.player1, this.player2, 3500);

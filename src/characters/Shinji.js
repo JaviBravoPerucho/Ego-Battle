@@ -33,7 +33,7 @@ export default class Shinji extends Personaje {
             "normal": 0
         }
 
-        super(scene, x, y, floor, HUD, playerOpuesto, 35, 65, 15, 20, 'Shinji', undefined, undefined, undefined, undefined, undefined, undefined, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats);
+        super(scene, x, y, floor, HUD, playerOpuesto, 35, 65, 15, 20, 'Shinji', undefined, undefined, undefined, undefined, undefined, undefined, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats, 260);
 
         scene.add.existing(this).setScale(1.2, 1.2);
         this.ulti = 0;
@@ -57,6 +57,9 @@ export default class Shinji extends Personaje {
                 super.attacking = false;
             }
         })
+    }
+    setOpositePlayer(player) {
+        super.playerOpuesto = player;
     }
     ult() {
         if (this.x > this.playerOpuesto.x) {

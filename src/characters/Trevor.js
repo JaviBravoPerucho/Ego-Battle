@@ -31,7 +31,7 @@ export default class Trevor extends Personaje {
             "strong": 0,
             "normal": 0
         }
-        super(scene, x, y, floor, HUD, playerOpuesto, 22, 38, 65, 60, 'Trevor', 'Lanza',500, 100, 'Maza', 450, 200, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats);
+        super(scene, x, y, floor, HUD, playerOpuesto, 22, 38, 65, 60, 'Trevor', 'Lanza',500, 100, 'Maza', 450, 200, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats, 180);
 
         this.poder = 0;
         this.contPoder = 0;
@@ -48,6 +48,9 @@ export default class Trevor extends Personaje {
 
     ulti() {
         this.ultiActivated = true;
+    }
+    setOpositePlayer(player) {
+        super.playerOpuesto = player;
     }
 
     gainPower() {

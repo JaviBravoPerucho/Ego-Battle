@@ -82,23 +82,23 @@ export class Menu extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('Arturo', '../assets/img/arturoimages/arturo.png');
-        this.load.image('Trevor', '../assets/img/trevorimages/trevor.png');
-        this.load.image('Azazel', '../assets/img/azazelimages/azazelportrait.png');
-        this.load.image('Shinji', '../assets/img/shinjiimages/shinjiportrait.png');
-        this.load.image('start', '../assets/img/uiimages/Startbutton.png');
-        this.load.spritesheet('MenuFondo', '../assets/img/fondosimages/MenuFondo.png', { frameWidth: 960, frameHeight: 540 });
-        this.load.image('nameImage', '../assets/img/uiimages//marcoNombre.png');
-        this.load.image('text', '/assets/img/uiimages//textoMarco.png');
-        this.load.image('textomarco', '../assets/img/uiimages/MarcosTexto.png');
-        this.load.image('Selector1', '../assets/img/uiimages/Selector1.png');
-        this.load.image('Selector2', '../assets/img/uiimages/Selector2.png');
-        this.load.image('Selector3', '../assets/img/uiimages/Selector3.png');
-        this.load.image('castilloIcon', '../assets/img/fondosimages/castilloIcon.png');
-        this.load.image('muelleIcon', '../assets/img/fondosimages/muelleIcon.png');
-        this.load.image('junglaIcon', '../assets/img/fondosimages/junglaIcon.png');
-        this.load.image('volcanIcon', '../assets/img/fondosimages/volcanIcon.png');
-        this.load.image('espacioIcon', '../assets/img/fondosimages/espacioIcon.png');
+        this.load.image('Arturo', './assets/img/arturoimages/arturo.png');
+        this.load.image('Trevor', './assets/img/trevorimages/trevor.png');
+        this.load.image('Azazel', './assets/img/azazelimages/azazelportrait.png');
+        this.load.image('Shinji', './assets/img/shinjiimages/shinjiportrait.png');
+        this.load.image('start', './assets/img/uiimages/Startbutton.png');
+        this.load.spritesheet('MenuFondo', './assets/img/fondosimages/MenuFondo.png', { frameWidth: 960, frameHeight: 540 });
+        this.load.image('nameImage', './assets/img/uiimages//marcoNombre.png');
+        this.load.image('text', './assets/img/uiimages//textoMarco.png');
+        this.load.image('textomarco', './assets/img/uiimages/MarcosTexto.png');
+        this.load.image('Selector1', './assets/img/uiimages/Selector1.png');
+        this.load.image('Selector2', './assets/img/uiimages/Selector2.png');
+        this.load.image('Selector3', './assets/img/uiimages/Selector3.png');
+        this.load.image('castilloIcon', './assets/img/fondosimages/castilloIcon.png');
+        this.load.image('muelleIcon', './assets/img/fondosimages/muelleIcon.png');
+        this.load.image('junglaIcon', './assets/img/fondosimages/junglaIcon.png');
+        this.load.image('volcanIcon', './assets/img/fondosimages/volcanIcon.png');
+        this.load.image('espacioIcon', './assets/img/fondosimages/espacioIcon.png');
     }
 
     shutdown() {

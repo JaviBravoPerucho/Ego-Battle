@@ -19,10 +19,15 @@ export default class Arma extends Phaser.GameObjects.Rectangle {
         this.init();
         this.setVisible(false);
         this.body.setAllowGravity(false);
+        this.scene.physics.add.overlap(this, this.playerOpuesto, end => {
+            console.log('Hit:' + this.playerOpuesto);
+            this.scene.hitPlayer(this.playerOpuesto, this.damage);
+            this.destroy();
+        });
     }
 
     init() {
-
+       
         if (this.arma === 'Espada1') {
             this.damage = 25;
             this.tiempo = 500;
@@ -50,6 +55,9 @@ export default class Arma extends Phaser.GameObjects.Rectangle {
             this.tiempo = 3000;
             this.tiempoRetardo = 0;
         }
+        else {
+            console.log('arma no encontrada');
+        }
 
         if (this.direction === 0) {
             this.setPosition(this.x - 60, this.y);
@@ -63,16 +71,14 @@ export default class Arma extends Phaser.GameObjects.Rectangle {
         this.body.setVelocityX(this.player.body.velocityX);
         this.y = this.player.y - 60;
     }
+    
 
 
     preUpdate(t, dt) {
         this.followPlayer();
         this.contRetardo += dt;
         this.contAtaque += dt;
-        this.scene.physics.add.overlap(this, this.playerOpuesto, end => {
-            this.scene.hitPlayer(this.playerOpuesto, this.damage);
-            this.destroy();
-        });
+       
         if (this.contRetardo > this.tiempoRetardo) {
             this.contRetardo = 0;
         }

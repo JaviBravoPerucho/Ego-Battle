@@ -33,7 +33,7 @@ export default class Arturo extends Personaje {
             "normal": 0
         }
 
-        super(scene, x, y, floor, HUD, playerOpuesto, 22, 45, 68, 60, 'Arturo', 'Espada1', 650, 400, 'Espada2', 500, 200, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats);
+        super(scene, x, y, floor, HUD, playerOpuesto, 22, 45, 68, 60, 'Arturo', 'Espada1', 650, 400, 'Espada2', 500, 200, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats, 160);
 
         this.poder = 0;
         this.contPoder = 0;
@@ -55,6 +55,10 @@ export default class Arturo extends Personaje {
         this.playerOpuesto.body.setVelocityX(0);
         this.play(this.idle);
         /*this.playerOpuesto.play(this.playerOpuesto.idle);*/
+    }
+
+    setOpositePlayer(player) {
+        super.playerOpuesto = player;
     }
 
     preUpdate(t, dt) {
@@ -87,7 +91,7 @@ export default class Arturo extends Personaje {
 
             if (!this.boolPoder) {              
                 this.contPoder += dt;
-                console.log(this.contPoder);
+                
                 if (this.contPoder > this.tiempoPoder) {
                     this.boolPoder = true;
                     this.contPoder = 0;

@@ -1,7 +1,7 @@
 import Arma from './Arma.js';
 
 export default class Personaje extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, floor, HUD, playerOpuesto, width, height, bodyOffsetX, bodyOffsetY, name, arma1, arma1Width, arma1Height, arma2, arma2Width, arma2Height, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats) {
+    constructor(scene, x, y, floor, HUD, playerOpuesto, width, height, bodyOffsetX, bodyOffsetY, name, arma1, arma1Width, arma1Height, arma2, arma2Width, arma2Height, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats, movingSpeed) {
         super(scene, x, y);
 
         scene.add.existing(this).setScale(2, 2);
@@ -19,6 +19,7 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
         this.direction = 0;//0 izquierda 1 derecha
         this.indexPlayer = indexPlayer;
         this.scene = scene;
+        this.playerSpeed = movingSpeed;
 
         this.arma = undefined;
         this.rect = undefined;//Rectangulo para crear la colision del arma con el player opuesto
@@ -100,7 +101,6 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
             this.onAir = false;
         }
         else { this.onAir = true; }
-        console.log(this.arma);
         if (!this.stop) {
             if (this.aKey.isDown && this.dKey.isDown) {
                 this.body.setVelocityX(0);
@@ -109,7 +109,7 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
             }
             else if (this.aKey.isDown) {
                 this.direction = 0;
-                if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(-160); }
+                if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(-this.playerSpeed); }
                 else { this.body.setVelocityX(0); }
                 if (this.anims.currentAnim.key !== this.walk) {
                     this.setFlip(true, false)
@@ -119,7 +119,7 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
             }
             else if (this.dKey.isDown) {
                 this.direction = 1;
-                if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(160); }
+                if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(this.playerSpeed); }
                 else { this.body.setVelocityX(0); }
 
                 if (this.anims.currentAnim.key !== this.walk) {

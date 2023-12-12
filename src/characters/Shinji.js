@@ -40,6 +40,7 @@ export default class Shinji extends Personaje {
         this.Useulti = false;
         this.distance = 350;
         this.maxulti = 2000;
+        this.poderPorFrame = 0.1;
         this.mainScene = scene;
         this.ultidamage = 50;
         this.playerOpuesto = playerOpuesto;
@@ -62,6 +63,15 @@ export default class Shinji extends Personaje {
         super.playerOpuesto = player;
     }
     ult() {
+        if (this.HUD.player1 === this) {
+            this.HUD.BarraDePoder1.value = 0;
+            this.HUD.BarraDePoder1.draw();
+        }
+        else if (this.HUD.player2 === this) {
+            this.HUD.BarraDePoder2.value = 0;
+            this.HUD.BarraDePoder2.draw();
+        }
+
         if (this.x > this.playerOpuesto.x) {
             this.setPosition(this.playerOpuesto.x - 50, this.playerOpuesto.y - 30);
             this.mainScene.hitPlayer(this.playerOpuesto, this.ultidamage)
@@ -74,17 +84,25 @@ export default class Shinji extends Personaje {
             this.mainScene.hitPlayer(this.playerOpuesto, this.ultidamage)
             super.attacking = true;
             this.play('ShinjiUlti');
-        }
+        }  
 
     }
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
         if (this.ulti <= this.maxulti) {
             if (this.x > this.playerOpuesto.x) {
-                if ((this.x - this.playerOpuesto.x) >= this.distance) this.ulti += (this.x - this.playerOpuesto.x) * 0.01;
+                if ((this.x - this.playerOpuesto.x) >= this.distance) {
+                    this.ulti += (this.x - this.playerOpuesto.x) * 0.001;
+                    if (this.HUD.player1 === this) this.HUD.BarraDePoder1.increase((this.x - this.playerOpuesto.x) * 0.0001);
+                    else if (this.HUD.player2 === this) this.HUD.BarraDePoder2.increase((this.x - this.playerOpuesto.x) * 0.0001);
+                }
             }
             else {
-                if ((this.playerOpuesto.x - this.x) >= this.distance) this.ulti += (this.playerOpuesto.x - this.x) * 0.01;
+                if ((this.playerOpuesto.x - this.x) >= this.distance) {
+                    this.ulti += (this.playerOpuesto.x - this.x) * 0.001;
+                    if (this.HUD.player1 === this) this.HUD.BarraDePoder1.increase((this.playerOpuesto.x - this.x) * 0.0001);
+                    else if (this.HUD.player2 === this) this.HUD.BarraDePoder2.increase((this.playerOpuesto.x - this.x) * 0.0001);
+                }
             }
         }
         else {

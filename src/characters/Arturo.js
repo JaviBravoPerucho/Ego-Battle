@@ -38,7 +38,7 @@ export default class Arturo extends Personaje {
         this.poder = 0;
         this.contPoder = 0;
         this.tiempoPoder = 5000;
-        this.poderPorFrame = 0;
+        this.poderPorFrame = 0.1;
         this.danoUlti = 50;
         this.contUlti = 0;
         this.tiempoUlti = 3000;

@@ -2,24 +2,27 @@ import MenuBackground from './ui/FondoMenu.js'
 import CharacterSelector from './ui/CharacterSelector.js'
 //import MainScene from './mainScene.js'
 
-const alturaMapa = 300, difMapa = 230, posInicialMapa = 120, elapsedTimeMarcos = 300, elapsedTimeStartButton = 500, elapsedTimeMapas = 200;
+const alturaMapa = 300, difMapa = 230, posInicialMapa = 120, proporcionMapa = 0.3, offsetParpadeoMapa = 0.02;
+const elapsedTimeMarcos = 300, elapsedTimeStartButton = 500, elapsedTimeMapas = 200
+const proporcionSelector = 1.2, offsetSelector = 302, offsetParpadeoSelector = 0.05;
+const proporcionStartButton = 0.15, offsetParpadeoStartButton = 0.01;
+const ArWidthProportion = 12, AzWidthProportion = 2.17, TWidthProportion = 2.98, SWidthProportion = 4.78, CSHeightProportion = 7;
+const tutorialText1X = 25, tutorialText2X = 900, tutorialTextY = 170;
 
 class Selector extends Phaser.GameObjects.Image {
     constructor(scene, x, y, imageKey) {//Habra que pasarle player1 y player2 para que colisione con ellos 
         super(scene, x, y, imageKey);
-        scene.add.existing(this).setScale(1.2, 1.2);
+        scene.add.existing(this).setScale(proporcionSelector, proporcionSelector);
         this.eliminate = false;
     }
-    Visible(bool) {
-        this.setVisble(bool);
-    }
+
+    //Cambia la posicion del marco de seleccion una distancia fija en funcion de la direccion
     move(right) {
-        console.log('si');
         if (right) {
-            this.setPosition(this.x + 302, this.y)
+            this.setPosition(this.x + offsetSelector, this.y)
         }
         else {
-            this.setPosition(this.x - 302, this.y)
+            this.setPosition(this.x - offsetSelector, this.y)
         }
     }
     preUpdate() { }
@@ -32,12 +35,10 @@ class Mapa extends Phaser.GameObjects.Image {
         this.setVisible(false);
         this.imageKey = imageKey;
         this.selected = false;
-        this.setInteractive();
-        this.input.alwaysEnabled = true; 
         this.elapsedTime = 0;
-        this.changeSize = false;
-        this.intermitent = false;
-        this.stopIntermitent = false;
+        this.changeSize = false;//Para cambiar el tamaño de la imagen e inducir el parpadeo
+        this.intermitent = false;//Define si el mapa debe parpadear o no
+        this.stopIntermitent = false;//Este booleano sirve para que cuando se haya seleccionado un mapa el resto deje de parapadear y no se puedan seleccionar
  
         this.on('pointerdown', () => { if (!this.stopIntermitent)this.selected = true });    
         this.on('pointerover', () => { if(!this.selected && !this.stopIntermitent)this.intermitent = true });
@@ -46,13 +47,12 @@ class Mapa extends Phaser.GameObjects.Image {
 
     preUpdate(t, dt) {
         if (this.intermitent) {
-            console.log('encima');
             this.elapsedTime += dt;
             if (this.elapsedTime > elapsedTimeMapas) {
                 this.elapsedTime = 0;
                 this.changeSize = !this.changeSize;
-                if (this.changeSize) this.setScale(0.32, 0.32)
-                else this.setScale(0.3, 0.3);
+                if (this.changeSize) this.setScale(proporcionMapa + offsetParpadeoMapa, proporcionMapa + offsetParpadeoMapa)
+                else this.setScale(proporcionMapa, proporcionMapa);
             }
         }    
     }
@@ -81,7 +81,7 @@ export class Menu extends Phaser.Scene {
         this.Selector1 = undefined;
         this.Selector2 = undefined;
         this.Selector3 = undefined;
-        this.maxp = 3;
+        this.maxPosition = 3;
         this.changeSize = true;
         this.changeSize2 = true;
         this.changeSize3 = true;
@@ -144,13 +144,13 @@ export class Menu extends Phaser.Scene {
 
         new MenuBackground(this, this.WIDTH / 2, this.HEIGHT / 2).setScale(1.35, 1.2);
         this.text = this.add.text(25, this.textY, 'EGOBATTLE', style)
-        this.tutorialText1 = this.add.text(25, this.textY + 170, 'Player1: A-D + Space', stylered)
-        this.tutorialText2 = this.add.text(900, this.textY + 170, 'Player2: <- -> + Enter', styleblue)
+        this.tutorialText1 = this.add.text(tutorialText1X, this.textY + tutorialTextY, 'Player1: A-D + Space', stylered)
+        this.tutorialText2 = this.add.text(tutorialText2X, this.textY + tutorialTextY, 'Player2: <- -> + Enter', styleblue)
         this.tutorialTexts = [this.tutorialText1, this.tutorialText2];
-        this.startButton = this.add.image(this.WIDTH / 2.03, this.HEIGHT / 4, 'start').setScale(0.15, 0.15).setInteractive();
+        this.startButton = this.add.image(this.WIDTH / 2.03, this.HEIGHT / 4, 'start').setScale(proporcionStartButton, proporcionStartButton).setInteractive();
 
-        this.Selector1 = new Selector(this, (this.WIDTH / 12) + 40, (this.HEIGHT / 7) + 65, 'Selector1');
-        this.Selector2 = new Selector(this, (this.WIDTH / 2.17) + 492, (this.HEIGHT / 7) + 65, 'Selector2');
+        this.Selector1 = new Selector(this, (this.WIDTH / ArWidthProportion) + 40, (this.HEIGHT / CSHeightProportion) + 65, 'Selector1');
+        this.Selector2 = new Selector(this, (this.WIDTH / AzWidthProportion) + 492, (this.HEIGHT / CSHeightProportion) + 65, 'Selector2');
         this.Selector3 = new Selector(this, 4000, (this.HEIGHT / 7) + 65, 'Selector3');
         this.selectors = [this.Selector1, this.Selector2, this.Selector3];
 
@@ -183,10 +183,10 @@ export class Menu extends Phaser.Scene {
             }
         });
 
-        this.player1 = new CharacterSelector(this, this.WIDTH / 12, this.HEIGHT / 7, 'Arturo');
-        this.player2 = new CharacterSelector(this, this.WIDTH / 2.17, this.HEIGHT / 7, 'Shinji');
-        this.player3 = new CharacterSelector(this, this.WIDTH / 2.98, this.HEIGHT / 7, 'Trevor');
-        this.player4 = new CharacterSelector(this, this.WIDTH / 4.78, this.HEIGHT / 7, 'Azazel');
+        this.player1 = new CharacterSelector(this, this.WIDTH / ArWidthProportion, this.HEIGHT / CSHeightProportion, 'Arturo');
+        this.player2 = new CharacterSelector(this, this.WIDTH / AzWidthProportion, this.HEIGHT / CSHeightProportion, 'Shinji');
+        this.player3 = new CharacterSelector(this, this.WIDTH / TWidthProportion, this.HEIGHT / CSHeightProportion, 'Trevor');
+        this.player4 = new CharacterSelector(this, this.WIDTH / SWidthProportion, this.HEIGHT / CSHeightProportion, 'Azazel');
         this.arrayPlayers = [this.player1, this.player2, this.player3, this.player4];
 
         this.mapCastillo = new Mapa(this, posInicialMapa, alturaMapa, 'castilloIcon');
@@ -232,8 +232,8 @@ export class Menu extends Phaser.Scene {
             if (this.elapsedTime > elapsedTimeMarcos) {
                 this.elapsedTime = 0; 
                 this.changeSize = !this.changeSize;
-                if (this.changeSize) { this.Selector1.setScale(1.2, 1.2); }
-                else this.Selector1.setScale(1.15, 1.15);
+                if (this.changeSize) { this.Selector1.setScale(proporcionSelector, proporcionSelector); }
+                else this.Selector1.setScale(proporcionSelector-offsetParpadeoSelector, proporcionSelector-offsetParpadeoSelector);
                
             }
             if (Phaser.Input.Keyboard.JustDown(this.akey)) {
@@ -244,21 +244,21 @@ export class Menu extends Phaser.Scene {
                 }
             }
             if (Phaser.Input.Keyboard.JustDown(this.dkey)) {
-                if (this.positionp1 < this.maxp) {
+                if (this.positionp1 < this.maxPosition) {
                     this.positionp1++;
                     this.Selector1.move(true);
                 }
             }
         }
         else {
-            this.Selector1.setScale(1.2, 1.2);
+            this.Selector1.setScale(proporcionSelector, proporcionSelector);
         }
         if (!this.p2selected) {
             if (this.elapsedTime2 > elapsedTimeMarcos) {
                 this.elapsedTime2 = 0;
                 this.changeSize2 = !this.changeSize2;
-                if (this.changeSize2) { this.Selector2.setScale(1.2, 1.2); }
-                else this.Selector2.setScale(1.15, 1.15);
+                if (this.changeSize2) { this.Selector2.setScale(proporcionSelector, proporcionSelector); }
+                else this.Selector2.setScale(proporcionSelector-offsetParpadeoSelector, proporcionSelector-offsetParpadeoSelector);
 
             }
             if (Phaser.Input.Keyboard.JustDown(this.leftkey)) {
@@ -269,14 +269,14 @@ export class Menu extends Phaser.Scene {
                 }
             }
             if (Phaser.Input.Keyboard.JustDown(this.rightkey)) {
-                if (this.positionp2 < 3) {
+                if (this.positionp2 < this.maxPosition) {
                     this.positionp2++;
                     this.Selector2.move(true);
                 }
             }
         }
         else {
-            this.Selector2.setScale(1.2, 1.2);
+            this.Selector2.setScale(proporcionSelector, proporcionSelector);
         }
 
         if (this.p1selected && this.p2selected) {
@@ -291,6 +291,7 @@ export class Menu extends Phaser.Scene {
             });
 
             this.arrayMapas.forEach((mapa) => {
+                mapa.setInteractive();
                 mapa.setVisible(true);
                 if (mapa.selected) {
                     this.mapSelected = true;
@@ -306,8 +307,8 @@ export class Menu extends Phaser.Scene {
                 if (this.elapsedTime > elapsedTimeStartButton) {
                     this.elapsedTime = 0;
                     this.changeSize = !this.changeSize;
-                    if (this.changeSize) { this.startButton.setScale(0.16, 0.16); }
-                    else this.startButton.setScale(0.15, 0.15);
+                    if (this.changeSize) { this.startButton.setScale(proporcionStartButton + offsetParpadeoStartButton, proporcionStartButton + offsetParpadeoStartButton); }
+                    else this.startButton.setScale(proporcionStartButton, proporcionStartButton);
                 }
             }
         }

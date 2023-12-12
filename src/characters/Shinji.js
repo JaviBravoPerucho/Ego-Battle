@@ -89,6 +89,7 @@ export default class Shinji extends Personaje {
     }
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
+        console.log(this.anims.currentAnim);
         if (this.ulti <= this.maxulti) {
             if (this.x > this.playerOpuesto.x) {
                 if ((this.x - this.playerOpuesto.x) >= this.distance) {

@@ -104,13 +104,13 @@ export class MainScene extends Phaser.Scene {
                 break
             case 1:
                 this.load.image('OVNI', './assets/img/objimages/ovniimage.png');//Ovni volador
-                this.load.spritesheet('Espacio', '../assets/img/fondosimages/espacio.png', { frameWidth: 768, frameHeight: 432 });//Fondo Espacio
+                this.load.spritesheet('Espacio', './assets/img/fondosimages/espacio.png', { frameWidth: 768, frameHeight: 432 });//Fondo Espacio
                 this.load.image('platformMetal', './assets/img/fondosimages/Plat2.png');
                 this.load.image('laser', './assets/img/objimages/laser.png');//laser
                 break
             case 2:
                 this.load.spritesheet('Fish', './assets/img/objimages/pezimage.png', { frameWidth: 500, frameHeight: 659 });//Pez
-                this.load.spritesheet('Muelle', '../assets/img/fondosimages/lago1.png', { frameWidth: 720, frameHeight: 405 });//Fondo Muelle
+                this.load.spritesheet('Muelle', './assets/img/fondosimages/lago1.png', { frameWidth: 720, frameHeight: 405 });//Fondo Muelle
                 this.load.image('wood', './assets/img/fondosimages/madera.jpg');
                 break
             case 3:
@@ -125,7 +125,7 @@ export class MainScene extends Phaser.Scene {
             default:
                 break;
         }
-        this.load.atlas('flares', 'assets/img/flares.png', 'assets/img/flares.json');//particulas
+        this.load.atlas('flares', './assets/img/flares.png', './assets/img/flares.json');//particulas
         //UI
         this.load.image('Borde', './assets/img/uiimages/border.png');
         this.load.image('BordePoder', './assets/img/uiimages/barrapoder.png');

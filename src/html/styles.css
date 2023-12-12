@@ -78,6 +78,8 @@ nav {
 
 canvas{
     margin: auto;
+    width:auto;
+    height: auto;
 }
 
 h2 {

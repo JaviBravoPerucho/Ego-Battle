@@ -1,5 +1,5 @@
 export default class Arma extends Phaser.GameObjects.Rectangle {
-    constructor(scene, x, y, arma, direction, player, playerOpuesto, damage, HUD, width, height) {
+    constructor(scene, x, y, arma, direction, player, playerOpuesto, damage, HUD, width, height, type) {
         super(scene, x, y, width, height, 0xf0000);
         scene.add.existing(this).setScale(0.2, 0.2);
         scene.physics.add.existing(this);
@@ -13,14 +13,20 @@ export default class Arma extends Phaser.GameObjects.Rectangle {
         this.arma = arma;
         this.direction = direction;
         this.player = player;
+        this.playerOpuesto = playerOpuesto;
+        this.scene = scene;
         this.yPos = y;
         this.init();
         this.setVisible(false);
         this.body.setAllowGravity(false);
+        this.scene.physics.add.collider(this, this.playerOpuesto, end => {
+            this.scene.hitPlayer(this.playerOpuesto, this.damage,type);
+            this.destroy();
+        });
     }
 
     init() {
-
+        let offSetArmaX = 60;
         if (this.arma === 'Espada1') {
             this.damage = 25;
             this.tiempo = 500;
@@ -31,9 +37,17 @@ export default class Arma extends Phaser.GameObjects.Rectangle {
             this.tiempo = 300;
             this.tiempoRetardo = 0;
         } else if (this.arma === 'Lanza') {
+            offSetArmaX = 120
+            this.y = this.y - 60;
+            this.damage = 15;
+            this.tiempo = 300;
+            this.tiempoRetardo = 0;
 
         } else if (this.arma === 'Maza') {
-
+            this.y = this.y - 60;
+            this.damage = 10;
+            this.tiempo = 300;
+            this.tiempoRetardo = 0;
         }
         else if (this.arma === 'Fuego') {
             this.y = this.y - 60;
@@ -41,12 +55,15 @@ export default class Arma extends Phaser.GameObjects.Rectangle {
             this.tiempo = 3000;
             this.tiempoRetardo = 0;
         }
+        else {
+            console.log('arma no encontrada');
+        }
 
         if (this.direction === 0) {
-            this.setPosition(this.x - 60, this.y);
+            this.setPosition(this.x - offSetArmaX, this.y);
         }
         else {
-            this.setPosition(this.x + 60, this.y);
+            this.setPosition(this.x + offSetArmaX, this.y);
         }
     }
 
@@ -54,12 +71,14 @@ export default class Arma extends Phaser.GameObjects.Rectangle {
         this.body.setVelocityX(this.player.body.velocityX);
         this.y = this.player.y - 60;
     }
+    
 
 
     preUpdate(t, dt) {
         this.followPlayer();
         this.contRetardo += dt;
         this.contAtaque += dt;
+       
         if (this.contRetardo > this.tiempoRetardo) {
             this.contRetardo = 0;
         }

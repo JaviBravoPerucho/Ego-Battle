@@ -94,6 +94,7 @@ export class MainScene extends Phaser.Scene {
         this.load.spritesheet('Shinjijump', './assets/img/shinjiimages/Jump.png', { frameWidth: 61, frameHeight: 77 });
         this.load.spritesheet('Shinjistrongattack', './assets/img/shinjiimages/Strong.png', { frameWidth: 63, frameHeight: 87 });
         this.load.spritesheet('Shinjinormalattack', './assets/img/shinjiimages/Normal.png', { frameWidth: 62, frameHeight: 69 });
+        this.load.spritesheet('ShinjiUlti', './assets/img/shinjiimages/ulti.png', { frameWidth: 69, frameHeight: 70 });
         switch (this.Mapinfo) {
             case 0:
                 this.load.spritesheet('Volcan', './assets/img/fondosimages/Volcan.png', { frameWidth: 800, frameHeight: 336 });//Fondo volcan
@@ -136,7 +137,7 @@ export class MainScene extends Phaser.Scene {
         this.WIDTH = this.sys.game.canvas.width;
         this.posicionInicial1 = this.WIDTH / 4;
         this.posicionInicial2 = this.WIDTH - this.WIDTH / 4;
-        this.alturaInicial = this.HEIGHT / 2;
+        this.alturaInicial = this.HEIGHT / 2.2;
         this.alturaVacio = this.HEIGHT;
         this.score1 = 0;
         this.score2 = 0;//Marcador de la partida
@@ -170,7 +171,7 @@ export class MainScene extends Phaser.Scene {
                 this.player1 = new Azazel(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player2, 1);
                 break
             case 2:
-                this.player1 = new Trevor(this, this.posicionInicial1, this.alturaInicial, this.player2, this.platforms);  
+                this.player1 = new Trevor(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player2, 1);  
                 break
             case 3:
                 this.player1 = new Shinji(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player2, 1);
@@ -186,7 +187,7 @@ export class MainScene extends Phaser.Scene {
                 this.player2 = new Azazel(this, this.posicionInicial2, this.alturaInicial, this.platforms, this.HUD, this.player1, 2);
                 break
             case 2:
-                this.player2 = new Trevor(this, this.posicionInicial2, this.alturaInicial, this.player1, this.platforms);
+                this.player2 = new Trevor(this, this.posicionInicial2, this.alturaInicial, this.platforms, this.HUD, this.player1, 2);
                 break
             case 3:
                 this.player2 = new Shinji(this, this.posicionInicial2, this.alturaInicial, this.platforms, this.HUD, this.player1, 2);
@@ -197,8 +198,9 @@ export class MainScene extends Phaser.Scene {
         this.HUD = new HUD(this, 0, 0, this.player1, this.player2, this.score1, this.score2);
         this.player1.HUD = this.HUD;
         this.player2.HUD = this.HUD;
-        this.player1.player2 = this.player2;
-        this.player1.playerOpuesto = this.player2;
+        this.player1.setOpositePlayer(this.player2);
+        this.player2.setOpositePlayer(this.player1);
+        
         if (this.Mapinfo == 1) {
             new OVNI(this, this.WIDTH / 3, this.HEIGHT / 10, this.player1, this.player2, 4000);
             new OVNI(this, this.WIDTH, this.HEIGHT / 10, this.player1, this.player2, 3500);
@@ -217,11 +219,23 @@ export class MainScene extends Phaser.Scene {
         this.terminaJuego();
     }
 
-    hitPlayer(player, damage) {
-        if (player.name == this.HUD.player2.name) this.HUD.BarraDeVida2.decrease(damage);
-        else if (player.name = this.HUD.player1.name) this.HUD.BarraDeVida1.decrease(damage);
+    hitPlayer(player, damage, type) {
+        var dir = -1;
+        var strength = 0;
+        if (player.name == this.HUD.player2.name) {
+            this.HUD.BarraDeVida2.decrease(damage);
+            if (this.player1.x < this.player2.x) { dir = 1; }
+        }
+        else if (player.name = this.HUD.player1.name) {
+            this.HUD.BarraDeVida1.decrease(damage);
+            if (this.player1.x > this.player2.x) { dir = 1; }
+        }
         if (player.name === 'Arturo') player.boolPoder = 0;
         player.vida -= damage;
+        if (type === 0) { strength = 300 / player.playerOpuesto.vida }
+        else { strength = (300 / player.playerOpuesto.vida) * 1.5 }
+        player.applyKnockback(dir, strength);
+        console.log(dir + ":" + strength);
     }
     createPlatforms() {//Crea la plataforma
         let platforms = this.physics.add.staticGroup();

@@ -1,7 +1,7 @@
 import Arma from './Arma.js';
 
 export default class Personaje extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, floor, HUD, playerOpuesto, width, height, bodyOffsetX, bodyOffsetY, name, arma1, arma1Width, arma1Height, arma2, arma2Width, arma2Height, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats) {
+    constructor(scene, x, y, floor, HUD, playerOpuesto, width, height, bodyOffsetX, bodyOffsetY, name, arma1, arma1Width, arma1Height, arma2, arma2Width, arma2Height, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats, movingSpeed) {
         super(scene, x, y);
 
         scene.add.existing(this).setScale(2, 2);
@@ -19,6 +19,7 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
         this.direction = 0;//0 izquierda 1 derecha
         this.indexPlayer = indexPlayer;
         this.scene = scene;
+        this.playerSpeed = movingSpeed;
 
         this.arma = undefined;
         this.rect = undefined;//Rectangulo para crear la colision del arma con el player opuesto
@@ -48,6 +49,12 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
         this.eliminate = false;
         this.attacking = false;
         this.boolPoder = true;
+        this.isTrevor = (this.idle === 'Trevoridle');
+        this.trevorAttack = false;
+        this.knock = false;
+        this.elapsedKnock = 0;
+        this.timeToMove = 750;
+        this.left = false;
 
         //Funcion para crear animaciones a partir de los arrays pasados por cada personaje
         function createAnim(keyString, frameRate, frames, repeat) {
@@ -61,6 +68,7 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
         this.on('animationcomplete', end => {//Detecta que ha dejado de pegar
             if (this.anims.currentAnim.key === this.strongAttack || this.anims.currentAnim.key === this.normalAttack) {
                 this.attacking = false;
+                if (this.isTrevor) { this.trevorAttack = false; }
             }
         })
 
@@ -88,46 +96,54 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
             this.hKey = this.scene.input.keyboard.addKey('P');
         }
     }
-    createWeapon() {
-        this.arma = new Arma(this.scene, this.x, this.y + 60, this.armaName, this.direction, this, this.playerOpuesto, 20, this.HUD, this.armaWidth, this.armaHeight);
-       // this.arma.parent = this;
-        this.scene.physics.add.overlap(this.arma, this.playerOpuesto, end => {
-            if (this.playerOpuesto.name == this.HUD.player2.name) this.HUD.BarraDeVida2.decrease(this.arma.damage);
-            else if (this.playerOpuesto.name = this.HUD.player1.name) this.HUD.BarraDeVida1.decrease(this.arma.damage);
-            this.playerOpuesto.vida -= this.arma.damage;
-            console.log('hit')
-            this.arma.destroy();
-        });
+    createWeapon(type) {
+        this.arma = new Arma(this.scene, this.x, this.y + 60, this.armaName, this.direction, this, this.playerOpuesto, 20, this.HUD, this.armaWidth, this.armaHeight, type);
+      
+    }
+
+    applyKnockback(direction, power) {
+        this.knock = true;
+        this.body.setVelocityX(direction * power * 15);
+        this.body.setVelocityY(-power * 35);
     }
 
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
+        if (this.knock) {
+            this.elapsedKnock += dt;
+            if (this.elapsedKnock > this.timeToMove) {
+                this.elapsedKnock = 0;
+                this.knock = false;
+            }
+        }
         if (this.body.onFloor()) {
             this.jumps = 0;
             this.onAir = false;
         }
         else { this.onAir = true; }
-
-        if (!this.stop) {
-            if (this.aKey.isDown && this.dKey.isDown) {
+        if (!this.stop && !this.trevorAttack) {
+            if (this.aKey.isDown && this.dKey.isDown && !this.knock) {
                 this.body.setVelocityX(0);
                 if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== this.idle) { this.play(this.idle); }
                 else if (!this.attacking && this.onAir && this.jump !== undefined && this.anims.currentAnim.key !== this.jump) { this.play(this.jump); }
             }
             else if (this.aKey.isDown) {
+                this.left = true;
                 this.direction = 0;
-                if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(-160); }
-                else { this.body.setVelocityX(0); }
+                if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(-this.playerSpeed); }
+                else if (!this.knock){ this.body.setVelocityX(0); }
+
                 if (this.anims.currentAnim.key !== this.walk) {
                     this.setFlip(true, false)
                     if (!this.attacking && !this.onAir) { this.play(this.walk); }
                     else if (!this.attacking && this.jump !== undefined) { this.play(this.jump); }
                 }
             }
-            else if (this.dKey.isDown) {
+            else if (this.dKey.isDown && !this.knock) {
+                this.left = false;
                 this.direction = 1;
-                if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(160); }
-                else { this.body.setVelocityX(0); }
+                if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(this.playerSpeed); }
+                else if (!this.knock){ this.body.setVelocityX(0); }
 
                 if (this.anims.currentAnim.key !== this.walk) {
                     this.setFlip(false, false);
@@ -135,13 +151,13 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
                     else if (!this.attacking && this.jump !== undefined) { this.play(this.jump); }
                 }
             }
-            else{
-                this.body.setVelocityX(0);
+            else {
+                if ( !this.knock)this.body.setVelocityX(0);
                 if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== this.idle) { this.play(this.idle); }
                 else if (!this.attacking && this.onAir && this.jump !== undefined && this.anims.currentAnim.key !== this.jump) { this.play(this.jump); }
             }
 
-            if (Phaser.Input.Keyboard.JustDown(this.wKey) && this.jumps < 2) {
+            if (Phaser.Input.Keyboard.JustDown(this.wKey) && this.jumps < 2 && !this.knock) {
                 this.jumps++;
                 this.body.setVelocityY(-400);
                 this.onAir = true;
@@ -154,7 +170,12 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
                     this.armaName = this.arma1;
                     this.armaWidth = this.arma1Width;
                     this.armaHeight = this.arma1Height;
-                    this.createWeapon();
+                    this.createWeapon(0);
+                    if (this.isTrevor) {
+                        this.trevorAttack = true;
+                        if (this.left) { this.body.setVelocityX(-400); }//ataque trevor hacia delante
+                        else { this.body.setVelocityX(400); }
+                    }
                 }
                 if (this.anims.currentAnim.key !== this.normalAttack) {
                     this.play(this.normalAttack);
@@ -168,7 +189,7 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
                     this.armaWidth = this.arma2Width;
                     this.armaHeight = this.arma2Height;
                     this.armaName = this.arma2;
-                    this.createWeapon();
+                    this.createWeapon(1);
                 }
                 if (this.anims.currentAnim.key !== this.strongAttack) {
                     this.play(this.strongAttack);

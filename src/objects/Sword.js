@@ -8,11 +8,11 @@ export default class Sword extends Phaser.GameObjects.Image {
         this.eliminate = false; 
         this.damage = 5;
         this.colliderSword = scene.physics.add.collider(this, player1, collision => {//colision con player
-            scene.hitPlayer(player1, this.damage)
+            scene.hitPlayer(player1, this.damage, 0)
             this.eliminate = true;
         });
         this.colliderSword1 = scene.physics.add.collider(this, player2, collision => {//colision con player
-            scene.hitPlayer(player2, this.damage)
+            scene.hitPlayer(player2, this.damage, 0)
             this.eliminate = true;
         });
         scene.physics.add.collider(this, floor, collision =>

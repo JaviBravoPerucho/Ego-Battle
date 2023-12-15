@@ -109,6 +109,7 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
 
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
+        console.log(this.HUD.waitTime());
         if (this.HUD.waitTime()) {
             if (this.knock) {
                 this.elapsedKnock += dt;
@@ -211,8 +212,8 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
             }
         }
         else {
-            this.body.setVelocityX(0);
-            if (this.anims.currentAnim.key !== this.idle) { this.play(this.idle); }
+            //this.body.setVelocityX(0);
+            //if (this.anims.currentAnim.key !== this.idle) { this.play(this.idle); }
         }
 
     }

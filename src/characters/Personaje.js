@@ -109,7 +109,7 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
 
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
-        //console.log(this.HUD.waitTime());
+        //console.log(this.HUD.waitTime());       
         if (this.HUD.waitTime()) {
             if (this.knock) {
                 this.elapsedKnock += dt;

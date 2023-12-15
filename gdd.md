@@ -135,7 +135,7 @@ Aparece un objeto en el mapa cada 10 segundos. Dependiendo del mapa caen objetos
 -**Peces**: Los peces aparecen en el mapa del muelle y salen del agua realizando un movimiento parabólico. Si chocan contra un jugador provocan 3 de daño y caen de vuelta en el agua.
 
 ## Habilidades de poder
-La barra de poder se va llenando en función de una dinámica propia de cada personaje, que va ligada a su personalidad. Tiene color morado y se va llenando 1 píxel en cada tick; hasta 200 píxeles. Al llenarse al completo, la barra se vuelve roja durante el tiempo en el que se ejecuta la habilidad. Estas son las formas con las que cada personaje llena su barra:
+La barra de poder se va llenando en función de una mecánica propia de cada personaje, que va ligada a su personalidad. Tiene color morado y se va llenando 1 píxel en cada tick; hasta 200 píxeles. Al llenarse al completo, la barra se vuelve roja durante el tiempo en el que se ejecuta la habilidad. Estas son las formas con las que cada personaje llena su barra:
 
 - Arturo: Debe evitar recibir daño para llenar su barra. Mientras no recibe daño su barra se va llenando, y si es golpeado se pausa el progreso de la barra durante 5 segundos. Esto hace que una estrategia ponderable con Arturo sea  evitar el combate a toda costa, y huir del oponente para cargar su barra de poder y provocarle daño así.
 

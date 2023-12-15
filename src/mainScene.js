@@ -90,11 +90,12 @@ export class MainScene extends Phaser.Scene {
         this.load.spritesheet('Azazelidle', './assets/img/azazelimages/Idle.png', { frameWidth: 150, frameHeight: 150 });
         this.load.spritesheet('Azazelwalk', './assets/img/azazelimages/Move.png', { frameWidth: 150, frameHeight: 150 });
         this.load.spritesheet('AzazelBall', './assets/img/azazelimages/AzazelBall.png', { frameWidth: 498, frameHeight: 498 });
-        this.load.spritesheet('Shinjiidle', './assets/img/shinjiimages/Idle.png', { frameWidth: 59, frameHeight: 77 });
+        this.load.spritesheet('Shinjiidle', './assets/img/shinjiimages/Idle.png', { frameWidth: 59, frameHeight: 85 });
         this.load.spritesheet('Shinjiwalk', './assets/img/shinjiimages/rungood.png', { frameWidth: 44, frameHeight: 85 });
-        this.load.spritesheet('Shinjijump', './assets/img/shinjiimages/Jump.png', { frameWidth: 61, frameHeight: 77 });
-        this.load.spritesheet('Shinjistrongattack', './assets/img/shinjiimages/Strong.png', { frameWidth: 63, frameHeight: 77 });
-        this.load.spritesheet('Shinjinormalattack', './assets/img/shinjiimages/Normal.png', { frameWidth: 64, frameHeight: 69});
+        this.load.spritesheet('Shinjijump', './assets/img/shinjiimages/Jump.png', { frameWidth: 61, frameHeight: 85 });
+        this.load.spritesheet('Shinjistrongattack', './assets/img/shinjiimages/Strong.png', { frameWidth: 63, frameHeight: 85 });
+        this.load.spritesheet('Shinjinormalattack', './assets/img/shinjiimages/Normal.png', { frameWidth: 63, frameHeight: 77 });
+        this.load.spritesheet('ShinjiShuriken', './assets/img/shinjiimages/Shuriken2.png', { frameWidth: 704, frameHeight: 720 });
         this.load.spritesheet('ShinjiUlti', './assets/img/shinjiimages/ulti.png', { frameWidth: 69, frameHeight: 70 });
         switch (this.Mapinfo) {
             case 0:
@@ -122,6 +123,7 @@ export class MainScene extends Phaser.Scene {
             case 4:
                 this.load.spritesheet('Jungla', './assets/img/fondosimages/jungla.png', { frameWidth: 800, frameHeight: 650 });//Fondo Jungla
                 this.load.image('Coconut', './assets/img/objimages/cocoimage.png');//Coco
+                this.load.image('palmTree', './assets/img/palmera.png');
                 break
             default:
                 break;
@@ -158,7 +160,7 @@ export class MainScene extends Phaser.Scene {
                 this.add.existing(new Phaser.GameObjects.Sprite(this, 600, 300, 'Castillo')).setScale(1.2, 1);
                 break
             case 4:
-                this.background = this.add.image(400, 300, 'background');
+                this.background = this.add.image(600, 300, 'Jungla').setScale(1.5, 1.5);
                 break
             default:
                 break;
@@ -265,7 +267,12 @@ export class MainScene extends Phaser.Scene {
                 //this.add.existing(new Phaser.GameObjects.Sprite(this, 600, 300, 'Castillo')).setScale(1.2, 1);
                 break
             case 4:
-                //this.background = this.add.image(400, 300, 'background');
+                platforms.create(this.WIDTH / 8, this.HEIGHT / 1.2, 'palmTree').setScale(0.7, 0.7).refreshBody().setFlip(true, false);
+                platforms.create(this.WIDTH / 1.1, this.HEIGHT / 1.2, 'palmTree').setScale(0.7, 0.7).refreshBody();
+                platforms.create(this.WIDTH / 4.5, this.HEIGHT / 1.2, 'palmTree').setScale(0.5, 0.5).refreshBody().setFlip(true, false);
+                platforms.create(this.WIDTH / 1.25, this.HEIGHT / 1.2, 'palmTree').setScale(0.5, 0.5).refreshBody();
+                platforms.create(this.WIDTH / 1.8, this.HEIGHT / 1.4, 'palmTree').setScale(1.2, 1.2).refreshBody().body.setSize(300, 5).setOffset(5, 60);
+                platforms.create(this.WIDTH / 2.05, this.HEIGHT, 'palmTree').setScale(0.8, 0.8).refreshBody().setFlip(true, false);
                 break
         }
         return platforms;

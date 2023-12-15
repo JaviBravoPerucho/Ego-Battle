@@ -136,8 +136,8 @@ export default class HUD extends Phaser.GameObjects.Container {
 
         //this.MarcoPlayer1 = new Marco(scene, 75, 125, player1.name);
         //this.MarcoPlayer2 = new Marco(scene, 1125, 125, player2.name);
-        this.bigMarco1 = new Marco(scene, 75, 400, player1.name).setScale(0.5, 0.5);
-        this.bigMarco2 = new Marco(scene, 1125, 400, player2.name).setScale(0.5, 0.5);
+        this.bigMarco1 = new Marco(scene, 0, 400, player1.name).setScale(0.5, 0.5);
+        this.bigMarco2 = new Marco(scene, 1200, 400, player2.name).setScale(0.5, 0.5);
         //this.add(this.MarcoPlayer1);
         //this.add(this.MarcoPlayer2);
         this.bigMarco1.flipX = true;
@@ -188,6 +188,7 @@ export default class HUD extends Phaser.GameObjects.Container {
             this.bigMarco1.setScale(this.scaleM, this.scaleM)
             this.bigMarco2.setScale(this.scaleM, this.scaleM)
         }
+        if (this.bigMarco1.x < 75) { this.bigMarco1.x += 2; this.bigMarco2.x -= 2; }
         
         this.score.setText(this.score1 + "-" + this.score2);
     }

@@ -150,7 +150,7 @@ export default class HUD extends Phaser.GameObjects.Container {
         this.move = false;
         this.fightText = undefined;
         this.timer = this.scene.add.text(this.scene.WIDTH / 2 - 32, 100, this.timeInit, { fontFamily: 'ka1', fontSize: 140 , fill: 'red'});
-        this.score = this.scene.add.text(this.scene.WIDTH / 2 - 50, 0, score1 + "-" + score2, { fontFamily: 'ka1', fontSize: 80 });
+        this.score = this.scene.add.text(this.scene.WIDTH / 2 - 50, 0, score1 + "-" + score2, { fontFamily: 'ka1', fontSize: 80, fill: 'white' });
         this.score1 = score1;
         this.score2 = score2;
 

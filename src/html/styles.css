@@ -15,18 +15,30 @@
 .logo{
     margin-top: 10px;
 }
+
+@font-face {
+    font-family: 'ka1';
+    src: url('/assets/fonts/ka1.ttf');
+    font-weight: 400;
+    font-weight: normal;
+}
+
 @font-face {
     font-family: 'Pixels';
-    src: '/assets/fonts/PixelifySans-Bold.ttf';
+    src: url('/assets/fonts/PixelifySans-Bold.ttf');
+    font-weight: 400;
+    font-weight: normal;
 }
 
 
-.contenedor{
+.contenedor {
     background-color: grey;
     max-width: 120em;
     width: 90%;
     height: 100%;
     padding: 1em;
+    text-align: center;
+    margin-left:150px;
 }
 .contenedor .ul{
     width: 100%;
@@ -35,39 +47,48 @@
     flex-flow: row nowrap;
     justify-content: flex-start;
     align-items: center;
+
 }
-    .contenedor .li {
-        background-color: indigo;
-        padding: 1em;
-        margin: 0 1em 0 0;
-        color: white;
-        transition: all .5s ease;
-    }
+.contenedor .li {
+    background-color: indigo;
+    padding: 1em;
+    margin: 0 0 0 2em;
+    color: white;
+    transition: all .5s ease;
+}
+
+
+
 .contenedor .li.activo{
     background-color: darkslategray;
     color: azure;
 }
-    .contenedor .subcontenedor {
-        min-height: 10vh;
-        height: 90%;
-        position: relative;
-        background: #000000; /* fallback for old browsers */
-        background: -webkit-linear-gradient(to right, #434343, #000000); /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to right, #434343, #000000);
-    }
-    .contenedor .bloque {
-        background-color:white;
-        margin: 1em;
-        padding: 1em;
-        position: absolute;
-        width: 100%;
-        height: 95%;
-        top: 1em;
-        opacity: 0;
-        transition: all .5s ease;
-    }
-.contenedor .bloque.activo{
+.contenedor .subcontenedor {
+    min-height: 10vh;
+    height: 90%;
+    position: relative;
+    background: #000000; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #434343, #000000); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #434343, #000000);
+}
+.contenedor .bloque {
+    background-color: white;
+    margin: 1em;
+    padding: 1em;
+    position: absolute;
+    width: 100%;
+    height: 95%;
+    top: 1em;
+    opacity: 0;
+    display: none;
+    visibility: hidden;
+    transition: all .5s ease;
+}
+
+.contenedor .bloque.activo {
     opacity: 1;
+    display: block;
+    visibility: visible;
 }
 
 nav {
@@ -146,4 +167,13 @@ img {
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+
+.textoRojo{
+    color: red;
+}
+
+.textoAzul{
+    color:blue;
 }

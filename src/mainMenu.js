@@ -111,8 +111,8 @@ export class Menu extends Phaser.Scene {
         this.load.image('Shinji', './assets/img/shinjiimages/shinjiportrait.png');
         this.load.image('start', './assets/img/uiimages/Startbutton.png');
         this.load.spritesheet('MenuFondo', './assets/img/fondosimages/MenuFondo.png', { frameWidth: 960, frameHeight: 540 });
-        this.load.image('nameImage', './assets/img/uiimages//marcoNombre.png');
-        this.load.image('text', './assets/img/uiimages//textoMarco.png');
+        this.load.image('nameImage', './assets/img/uiimages/marcoNombre.png');
+        this.load.image('text', './assets/img/uiimages/textoMarco.png');
         this.load.image('textomarco', './assets/img/uiimages/Marcostexto.png');
         this.load.image('Selector1', './assets/img/uiimages/Selector1.png');
         this.load.image('Selector2', './assets/img/uiimages/Selector2.png');

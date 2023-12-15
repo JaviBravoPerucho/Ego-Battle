@@ -64,6 +64,7 @@ export class MainScene extends Phaser.Scene {
         this.player2.vida = 300;
         if (player === this.player1) { this.score2++; }
         else { this.score1++; }
+        this.HUD.restartRound();
 
     }
     
@@ -206,7 +207,7 @@ export class MainScene extends Phaser.Scene {
             new OVNI(this, this.WIDTH, this.HEIGHT / 10, this.player1, this.player2, 3500);
         }
     }
-    update(t) {
+    update(t, dt) {
         this.time = t;
 
         if (t > time) {//Se genera el objeto 
@@ -214,7 +215,7 @@ export class MainScene extends Phaser.Scene {
             this.creaObjeto();
         }
         
-        this.HUD.update();
+        this.HUD.update(t, dt);
 
         this.terminaJuego();
     }

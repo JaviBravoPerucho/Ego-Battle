@@ -138,13 +138,13 @@ export default class HUD extends Phaser.GameObjects.Container {
         this.MarcoPlayer2 = new Marco(scene, 1125, 125, player2.name);
         this.add(this.MarcoPlayer1);
         this.add(this.MarcoPlayer2);
-        //this.MarcoPlayer1.x += this.MarcoPlayer1.width / 2;
-        //this.MarcoPlayer2.x -= this.MarcoPlayer2.width / 2;
-        //this.MarcoPlayer1.y += this.MarcoPlayer1.height;
-        //this.MarcoPlayer2.y += this.MarcoPlayer2.height;
         this.MarcoPlayer1.flipX = true;
 
-
+        this.timeInit = 5;
+        this.elapsed = 0;
+        this.ready = false;
+        this.fightText = undefined;
+        this.timer = this.scene.add.text(this.scene.WIDTH / 2 - 32, 100, this.timeInit, { fontFamily: 'ka1', fontSize: 140 , fill: 'red'});
         this.score = this.scene.add.text(this.scene.WIDTH / 2 - 50, 0, score1 + "-" + score2, { fontFamily: 'ka1', fontSize: 80 });
         this.score1 = score1;
         this.score2 = score2;
@@ -154,6 +154,15 @@ export default class HUD extends Phaser.GameObjects.Container {
         this.add(this.score);
      
         this.scene.add.existing(this);
+        
+    }
+
+    restartRound() {
+        this.timeInit = 3;
+        this.timer.setText(this.timeInit);
+        if(this.fightText !== undefined)this.fightText.destroy();
+        this.elapsed = 0;
+        this.ready = false;
     }
 
     countScore(player) {
@@ -161,7 +170,37 @@ export default class HUD extends Phaser.GameObjects.Container {
         else this.score1++;
     }
 
-    update() {
+    update(t, dt) {
+        if (!this.ready) {
+            this.SetTimer(t, dt);
+        }
+        
         this.score.setText(this.score1 + "-" + this.score2);
+    }
+
+
+    SetTimer(t, dt) {
+        if (this.timeInit > 0) {
+            this.elapsed += dt;
+            console.log(this.elapsed);
+            if (this.elapsed > 1000) {
+                this.timeInit--;
+                this.timer.setText(this.timeInit);
+                if (this.timeInit === 0) {
+                    this.fightText = this.scene.add.text(this.scene.WIDTH / 2 - 250, 100, '-FIGHT-', {
+                        fontFamily: 'ka1', fontSize: 140, fill: 'red'
+                    })
+                    this.timer.setText('');
+                }
+                this.elapsed = 0;
+            }
+        }
+        else {
+            this.elapsed += dt;
+            if (this.elapsed > 2000) {
+                this.fightText.destroy();
+                this.ready = true;
+            }
+        }
     }
 }

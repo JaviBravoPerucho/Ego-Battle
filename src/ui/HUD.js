@@ -134,12 +134,16 @@ export default class HUD extends Phaser.GameObjects.Container {
         this.add(this.BarraDePoder1);
         this.add(this.BarraDePoder2);
 
-        this.MarcoPlayer1 = new Marco(scene, 75, 125, player1.name);
-        this.MarcoPlayer2 = new Marco(scene, 1125, 125, player2.name);
-        this.add(this.MarcoPlayer1);
-        this.add(this.MarcoPlayer2);
-        this.MarcoPlayer1.flipX = true;
+        //this.MarcoPlayer1 = new Marco(scene, 75, 125, player1.name);
+        //this.MarcoPlayer2 = new Marco(scene, 1125, 125, player2.name);
+        this.bigMarco1 = new Marco(scene, 75, 400, player1.name).setScale(0.5, 0.5);
+        this.bigMarco2 = new Marco(scene, 1125, 400, player2.name).setScale(0.5, 0.5);
+        //this.add(this.MarcoPlayer1);
+        //this.add(this.MarcoPlayer2);
+        this.bigMarco1.flipX = true;
+        //this.MarcoPlayer1.flipX = true;
 
+        this.scaleM = 0.5;
         this.timeInit = 5;
         this.elapsed = 0;
         this.ready = false;
@@ -178,6 +182,12 @@ export default class HUD extends Phaser.GameObjects.Container {
         if (!this.ready) {
             this.SetTimer(t, dt);
         }
+        if (this.bigMarco1.y > 125 && this.move) { this.bigMarco1.y -= 5; this.bigMarco2.y -= 5; }
+        if (this.scaleM > 0.11 && this.move) {
+            this.scaleM -= 0.01;
+            this.bigMarco1.setScale(this.scaleM, this.scaleM)
+            this.bigMarco2.setScale(this.scaleM, this.scaleM)
+        }
         
         this.score.setText(this.score1 + "-" + this.score2);
     }
@@ -186,7 +196,6 @@ export default class HUD extends Phaser.GameObjects.Container {
     SetTimer(t, dt) {
         if (this.timeInit > 0) {
             this.elapsed += dt;
-            console.log(this.elapsed);
             if (this.elapsed > 1000) {
                 this.timeInit--;
                 this.timer.setText(this.timeInit);

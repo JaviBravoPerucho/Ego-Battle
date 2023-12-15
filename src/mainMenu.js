@@ -138,9 +138,9 @@ export class Menu extends Phaser.Scene {
         this.HEIGHT = this.sys.game.canvas.height;
         this.WIDTH = this.sys.game.canvas.width;
         this.textY = -100;
-        let style = { fontFamily: 'Pixels', fill: "orange", fontSize: 100 };
-        let styleblue = { fontFamily: 'Pixels', fill: "blue", fontSize: 30 };
-        let stylered = { fontFamily: 'Pixels', fill: "red", fontSize: 30 };
+        let style = { fontFamily: 'Pixels', fontSize: 100, fill: 'orange' };
+        let styleblue = { fontFamily: 'Pixels', fontSize: 30 , fill: 'blue' };
+        let stylered = { fontFamily: 'Pixels', fontSize: 30, fill: 'red' };
 
         new MenuBackground(this, this.WIDTH / 2, this.HEIGHT / 2).setScale(1.35, 1.2);
         this.text = this.add.text(25, this.textY, 'EGOBATTLE', style)

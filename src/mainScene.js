@@ -122,6 +122,7 @@ export class MainScene extends Phaser.Scene {
             case 4:
                 this.load.spritesheet('Jungla', './assets/img/fondosimages/jungla.png', { frameWidth: 800, frameHeight: 650 });//Fondo Jungla
                 this.load.image('Coconut', './assets/img/objimages/cocoimage.png');//Coco
+                this.load.image('palmTree', './assets/img/palmera.png');
                 break
             default:
                 break;
@@ -158,7 +159,7 @@ export class MainScene extends Phaser.Scene {
                 this.add.existing(new Phaser.GameObjects.Sprite(this, 600, 300, 'Castillo')).setScale(1.2, 1);
                 break
             case 4:
-                this.background = this.add.image(400, 300, 'background');
+                this.background = this.add.image(600, 300, 'Jungla').setScale(1.5, 1.5);
                 break
             default:
                 break;
@@ -265,7 +266,12 @@ export class MainScene extends Phaser.Scene {
                 //this.add.existing(new Phaser.GameObjects.Sprite(this, 600, 300, 'Castillo')).setScale(1.2, 1);
                 break
             case 4:
-                //this.background = this.add.image(400, 300, 'background');
+                platforms.create(this.WIDTH / 8, this.HEIGHT / 1.2, 'palmTree').setScale(0.7, 0.7).refreshBody().setFlip(true, false);
+                platforms.create(this.WIDTH / 1.1, this.HEIGHT / 1.2, 'palmTree').setScale(0.7, 0.7).refreshBody();
+                platforms.create(this.WIDTH / 4.5, this.HEIGHT / 1.2, 'palmTree').setScale(0.5, 0.5).refreshBody().setFlip(true, false);
+                platforms.create(this.WIDTH / 1.25, this.HEIGHT / 1.2, 'palmTree').setScale(0.5, 0.5).refreshBody();
+                platforms.create(this.WIDTH / 1.8, this.HEIGHT / 1.4, 'palmTree').setScale(1.2, 1.2).refreshBody().body.setSize(300, 5).setOffset(5, 60);
+                platforms.create(this.WIDTH / 2.05, this.HEIGHT, 'palmTree').setScale(0.8, 0.8).refreshBody().setFlip(true, false);
                 break
         }
         return platforms;

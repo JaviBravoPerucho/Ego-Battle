@@ -90,11 +90,11 @@ export class MainScene extends Phaser.Scene {
         this.load.spritesheet('Azazelidle', './assets/img/azazelimages/Idle.png', { frameWidth: 150, frameHeight: 150 });
         this.load.spritesheet('Azazelwalk', './assets/img/azazelimages/Move.png', { frameWidth: 150, frameHeight: 150 });
         this.load.spritesheet('AzazelBall', './assets/img/azazelimages/AzazelBall.png', { frameWidth: 498, frameHeight: 498 });
-        this.load.spritesheet('Shinjiidle', './assets/img/shinjiimages/Idle.png', { frameWidth: 59, frameHeight: 77 });
+        this.load.spritesheet('Shinjiidle', './assets/img/shinjiimages/Idle.png', { frameWidth: 59, frameHeight: 85 });
         this.load.spritesheet('Shinjiwalk', './assets/img/shinjiimages/rungood.png', { frameWidth: 44, frameHeight: 85 });
-        this.load.spritesheet('Shinjijump', './assets/img/shinjiimages/Jump.png', { frameWidth: 61, frameHeight: 77 });
-        this.load.spritesheet('Shinjistrongattack', './assets/img/shinjiimages/Strong.png', { frameWidth: 63, frameHeight: 77 });
-        this.load.spritesheet('Shinjinormalattack', './assets/img/shinjiimages/Normal.png', { frameWidth: 64, frameHeight: 69});
+        this.load.spritesheet('Shinjijump', './assets/img/shinjiimages/Jump.png', { frameWidth: 61, frameHeight: 85 });
+        this.load.spritesheet('Shinjistrongattack', './assets/img/shinjiimages/Strong.png', { frameWidth: 63, frameHeight: 85 });
+        this.load.spritesheet('Shinjinormalattack', './assets/img/shinjiimages/Normal.png', { frameWidth: 63, frameHeight: 77});
         this.load.spritesheet('ShinjiUlti', './assets/img/shinjiimages/ulti.png', { frameWidth: 69, frameHeight: 70 });
         switch (this.Mapinfo) {
             case 0:

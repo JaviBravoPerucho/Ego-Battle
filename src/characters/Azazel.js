@@ -63,7 +63,7 @@ export default class Azazel extends Personaje {
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
 
-        if (!this.stop) {
+        if (!this.stop && this.HUD.waitTime()) {
             if (this.aKey.isDown) {
                 if (this.right) { this.setFlip(true, false); this.right = false; }
                 if (this.attacking) { this.body.setVelocityX(-60); }

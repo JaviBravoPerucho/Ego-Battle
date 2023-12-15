@@ -143,6 +143,7 @@ export default class HUD extends Phaser.GameObjects.Container {
         this.timeInit = 5;
         this.elapsed = 0;
         this.ready = false;
+        this.move = false;
         this.fightText = undefined;
         this.timer = this.scene.add.text(this.scene.WIDTH / 2 - 32, 100, this.timeInit, { fontFamily: 'ka1', fontSize: 140 , fill: 'red'});
         this.score = this.scene.add.text(this.scene.WIDTH / 2 - 50, 0, score1 + "-" + score2, { fontFamily: 'ka1', fontSize: 80 });
@@ -163,12 +164,15 @@ export default class HUD extends Phaser.GameObjects.Container {
         if(this.fightText !== undefined)this.fightText.destroy();
         this.elapsed = 0;
         this.ready = false;
+        this.move = false;
     }
 
     countScore(player) {
         if (player === this.player1) this.score2++;
         else this.score1++;
     }
+
+    waitTime() { return this.move; }
 
     update(t, dt) {
         if (!this.ready) {
@@ -191,6 +195,7 @@ export default class HUD extends Phaser.GameObjects.Container {
                         fontFamily: 'ka1', fontSize: 140, fill: 'red'
                     })
                     this.timer.setText('');
+                    this.move = true;
                 }
                 this.elapsed = 0;
             }

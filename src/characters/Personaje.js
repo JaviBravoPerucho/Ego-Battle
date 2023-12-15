@@ -109,105 +109,112 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
 
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
-        if (this.knock) {
-            this.elapsedKnock += dt;
-            if (this.elapsedKnock > this.timeToMove) {
-                this.elapsedKnock = 0;
-                this.knock = false;
-            }
-        }
-        if (this.body.onFloor()) {
-            this.jumps = 0;
-            this.onAir = false;
-        }
-        else { this.onAir = true; }
-        if (!this.stop && !this.trevorAttack) {
-            if (this.aKey.isDown && this.dKey.isDown && !this.knock) {
-                this.body.setVelocityX(0);
-                if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== this.idle) { this.play(this.idle); }
-                else if (!this.attacking && this.onAir && this.jump !== undefined && this.anims.currentAnim.key !== this.jump) { this.play(this.jump); }
-            }
-            else if (this.aKey.isDown) {
-                this.left = true;
-                this.direction = 0;
-                if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(-this.playerSpeed); }
-                else if (!this.knock){ this.body.setVelocityX(0); }
-
-                if (this.anims.currentAnim.key !== this.walk) {
-                    this.setFlip(true, false)
-                    if (!this.attacking && !this.onAir) { this.play(this.walk); }
-                    else if (!this.attacking && this.jump !== undefined) { this.play(this.jump); }
+        if (this.HUD.waitTime()) {
+            if (this.knock) {
+                this.elapsedKnock += dt;
+                if (this.elapsedKnock > this.timeToMove) {
+                    this.elapsedKnock = 0;
+                    this.knock = false;
                 }
             }
-            else if (this.dKey.isDown && !this.knock) {
-                this.left = false;
-                this.direction = 1;
-                if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(this.playerSpeed); }
-                else if (!this.knock){ this.body.setVelocityX(0); }
-
-                if (this.anims.currentAnim.key !== this.walk) {
-                    this.setFlip(false, false);
-                    if (!this.attacking && !this.onAir) { this.play(this.walk); }
-                    else if (!this.attacking && this.jump !== undefined) { this.play(this.jump); }
+            if (this.body.onFloor()) {
+                this.jumps = 0;
+                this.onAir = false;
+            }
+            else { this.onAir = true; }
+            if (!this.stop && !this.trevorAttack) {
+                if (this.aKey.isDown && this.dKey.isDown && !this.knock) {
+                    this.body.setVelocityX(0);
+                    if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== this.idle) { this.play(this.idle); }
+                    else if (!this.attacking && this.onAir && this.jump !== undefined && this.anims.currentAnim.key !== this.jump) { this.play(this.jump); }
                 }
-            }
-            else {
-                if ( !this.knock)this.body.setVelocityX(0);
-                if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== this.idle) { this.play(this.idle); }
-                else if (!this.attacking && this.onAir && this.jump !== undefined && this.anims.currentAnim.key !== this.jump) { this.play(this.jump); }
-            }
+                else if (this.aKey.isDown) {
+                    this.left = true;
+                    this.direction = 0;
+                    if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(-this.playerSpeed); }
+                    else if (!this.knock) { this.body.setVelocityX(0); }
 
-            if (Phaser.Input.Keyboard.JustDown(this.wKey) && this.jumps < 2 && !this.knock) {
-                this.jumps++;
-                this.body.setVelocityY(-400);
-                this.onAir = true;
-                if (this.jump !== undefined && this.anims.currentAnim.key !== this.jump && !this.attacking) {
-                    this.play(this.jump);
-                }
-            }
-            if (Phaser.Input.Keyboard.JustDown(this.gKey) && !this.attacking) {
-                if (this.arma1 !== undefined) {
-                    this.armaName = this.arma1;
-                    this.armaWidth = this.arma1Width;
-                    this.armaHeight = this.arma1Height;
-                    this.createWeapon(0);
-                    if (this.isTrevor) {
-                        this.trevorAttack = true;
-                        if (this.left) { this.body.setVelocityX(-400); }//ataque trevor hacia delante
-                        else { this.body.setVelocityX(400); }
+                    if (this.anims.currentAnim.key !== this.walk) {
+                        this.setFlip(true, false)
+                        if (!this.attacking && !this.onAir) { this.play(this.walk); }
+                        else if (!this.attacking && this.jump !== undefined) { this.play(this.jump); }
                     }
                 }
-                if (this.anims.currentAnim.key !== this.normalAttack) {
-                    this.play(this.normalAttack);
-                 
-                }
-                this.attacking = true;
+                else if (this.dKey.isDown && !this.knock) {
+                    this.left = false;
+                    this.direction = 1;
+                    if (this.onAir || (!this.attacking && !this.onAir)) { this.body.setVelocityX(this.playerSpeed); }
+                    else if (!this.knock) { this.body.setVelocityX(0); }
 
-            }
-            if (Phaser.Input.Keyboard.JustDown(this.hKey) && !this.attacking) {
-                if (this.arma2 !== undefined) {
-                    this.armaWidth = this.arma2Width;
-                    this.armaHeight = this.arma2Height;
-                    this.armaName = this.arma2;
-                    this.createWeapon(1);
+                    if (this.anims.currentAnim.key !== this.walk) {
+                        this.setFlip(false, false);
+                        if (!this.attacking && !this.onAir) { this.play(this.walk); }
+                        else if (!this.attacking && this.jump !== undefined) { this.play(this.jump); }
+                    }
                 }
-                if (this.anims.currentAnim.key !== this.strongAttack) {
-                    this.play(this.strongAttack);
-                   
+                else {
+                    if (!this.knock) this.body.setVelocityX(0);
+                    if (!this.onAir && !this.attacking && this.anims.currentAnim.key !== this.idle) { this.play(this.idle); }
+                    else if (!this.attacking && this.onAir && this.jump !== undefined && this.anims.currentAnim.key !== this.jump) { this.play(this.jump); }
                 }
-                this.attacking = true;
-            }
 
-            if (this.vida <= 0) {              
-                this.scene.playerDied(this);
-            }
+                if (Phaser.Input.Keyboard.JustDown(this.wKey) && this.jumps < 2 && !this.knock) {
+                    this.jumps++;
+                    this.body.setVelocityY(-400);
+                    this.onAir = true;
+                    if (this.jump !== undefined && this.anims.currentAnim.key !== this.jump && !this.attacking) {
+                        this.play(this.jump);
+                    }
+                }
+                if (Phaser.Input.Keyboard.JustDown(this.gKey) && !this.attacking) {
+                    if (this.arma1 !== undefined) {
+                        this.armaName = this.arma1;
+                        this.armaWidth = this.arma1Width;
+                        this.armaHeight = this.arma1Height;
+                        this.createWeapon(0);
+                        if (this.isTrevor) {
+                            this.trevorAttack = true;
+                            if (this.left) { this.body.setVelocityX(-400); }//ataque trevor hacia delante
+                            else { this.body.setVelocityX(400); }
+                        }
+                    }
+                    if (this.anims.currentAnim.key !== this.normalAttack) {
+                        this.play(this.normalAttack);
 
-            if (this.y >= this.scene.alturaVacio) {
-                this.vida = 0;
-                this.y = this.scene.alturaInicial;
-                this.x = this.scene.posicionInicial;
+                    }
+                    this.attacking = true;
+
+                }
+                if (Phaser.Input.Keyboard.JustDown(this.hKey) && !this.attacking) {
+                    if (this.arma2 !== undefined) {
+                        this.armaWidth = this.arma2Width;
+                        this.armaHeight = this.arma2Height;
+                        this.armaName = this.arma2;
+                        this.createWeapon(1);
+                    }
+                    if (this.anims.currentAnim.key !== this.strongAttack) {
+                        this.play(this.strongAttack);
+
+                    }
+                    this.attacking = true;
+                }
+
+                if (this.vida <= 0) {
+                    this.scene.playerDied(this);
+                }
+
+                if (this.y >= this.scene.alturaVacio) {
+                    this.vida = 0;
+                    this.y = this.scene.alturaInicial;
+                    this.x = this.scene.posicionInicial;
+                }
             }
+        }
+        else {
+            this.body.setVelocityX(0);
+            if (this.anims.currentAnim.key !== this.idle) { this.play(this.idle); }
         }
 
     }
+    
 }

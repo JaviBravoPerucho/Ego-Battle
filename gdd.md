@@ -7,7 +7,7 @@
 
 ## Estética
 - PixelArt
-* Personalidades opuestas
+- Personalidades opuestas
 - Fantasía medieval
 - Escenarios extraordinarios de la naturaleza
 
@@ -92,9 +92,8 @@ Todos los personajes tienen la misma vida, la misma cantidad de poder máximo y 
 - **Volcán**: Las plataformas tienen lava y en el fondo hay un volcán. Caen bolas de fuego.
 
 
-![Volcán](assets/img/fondosimages/vulcan.gif) 
-
-![PlataformasVolcan](assets/img/fondosimages/capturadeljuego.png)
+![Volcán](assets/img/fondosimages/vulcan.gif)   
+![PlataformasVolcan](assets/img/fondosimages/volcanMapa.png)
 *Volcán con plataformas*
 
 
@@ -110,29 +109,39 @@ Todos los personajes tienen la misma vida, la misma cantidad de poder máximo y 
 
 ![PlataformasNave](assets/img/fondosimages/bocetomapa.png)
 *Idea de plataformas para la nave*
+![NaveMapa](assets/img/fondosimages/naveMapa.png)
+*Final*
 
 - **Jungla**: Lianas y vegetación alrededor. Caen cocos que rebotan por el mapa.
 
 ![Jungla](assets/img/fondosimages/jungla.png) 
 ![PlataformasJungla](assets/img/fondosimages/selvabocet.png)
 *Idea para plataformas de la jungla*
+![junglaMapa](assets/img/fondosimages/junglaMapa.png)
+*Final*
 
 - **Muelle**: Diferentes alturas para pelear. Saltan peces del agua.
 
 ![Muelle](assets/img/fondosimages/fondo.gif) 
 ![PlataformasMuelle](assets/img/fondosimages/muelle.png)
 *Idea para plataformas del muelle*
+![muelleMapa](assets/img/fondosimages/muelleMapa.png)
+*Final*
 
 ## Objetos
 Aparece un objeto en el mapa cada 10 segundos. Dependiendo del mapa caen objetos con la misma temática. No colisionan con las plataformas, solo con los personajes.
 
 - **Bola de fuego**: Las bolas de fuego caen en el mapa del volcán desde una posición X aleatoria y una posición Y fija por encima de la pantalla. Al colisionar con un jugador o con el suelo explotan creando una pequeña onda de empuje y haciendo 3 de daño.
+<br><img src="assets/img/objimages/VFB.png" width="200" height="400" />
 
 - **Espada**: Las espadas caen en el mapa del castillo desde una posición X aleatoria y una posición Y fija por encima de la pantalla. Al colisionar con un jugador provocan un sangrado que hace 1 de daño cada segundo durante 5 segundos. Si colisionan con el suelo ya no provocan sangrado y se quedan clavadas, pudiendo ser utilizadas como plataforma.
+<br><img src="assets/img/objimages/swordimage.png" width="100" height="200" />
 
 -**Cocos**: Los cocos caen en el mapa de la jungla y rebotan por los bordes del mapa como si no tuvieran gravedad durante 5 segundos. Si chocan contra un personaje, hacen 3 de daño y lo paralizan durante 0.5 segundos.
+<br><img src="assets/img/objimages/cocoimage.png" width="200" height="200" />
 
 -**Peces**: Los peces aparecen en el mapa del muelle y salen del agua realizando un movimiento parabólico. Si chocan contra un jugador provocan 3 de daño y caen de vuelta en el agua.
+<br><img src="assets/img/objimages/pezimage.png" width="300" height="200" />
 
 ## Habilidades de poder
 La barra de poder se va llenando en función de una mecánica propia de cada personaje, que va ligada a su personalidad. Tiene color morado y se va llenando 1 píxel en cada tick; hasta 200 píxeles. Al llenarse al completo, la barra se vuelve roja durante el tiempo en el que se ejecuta la habilidad. Estas son las formas con las que cada personaje llena su barra:
@@ -163,13 +172,18 @@ Habilidad de poder de cada personaje:
 - No hay botón de pausa para que nadie pare la partida.\
 - Indicador de combo de golpes, se reinician si fallas un ataque o si pasa 1s. Ejemplo: x1
 ![HUD](assets/img/uiimages/hud.png)
-
+*Idea inicial*
+![HUDActual](assets/img/uiimages/hudActual.png)
+*Actual*
 ## Menú
 
-Botón jugar\
--> Menú de selección de personaje(se cambia de personaje cada uno con sus flechas): Aparecen descripciones de los personajes sobre sus personalidades y atributos.\
--> Menú de selección de mapa(puedes elegir un mapa o dándole a un botón activar el random)\
--> Botón para iniciar la partida.
+- Botón de start: Aparece al haber seleccionado los 2 personajes y el mapa. Cambia de tamaño en forma de parpadeo.
+<br>![Start](assets/img/uiimages/botonStart.png)
+- Menú de selección de personaje: Aparecen marcos con los nombres, iconos y descripciones de los personajes sobre sus personalidades y atributos. Se bordea con un color el marco del nombre sobre el que está posicionado un jugador, y mientras no ha seleccionado parpadea el borde. Al seleccionar un personaje deja de parpadear, y el jugador ya no puede cambiar. Si se cruzan los dos bordes de marcos aparece uno con los colores divididos en medio, y no se puede seleccionar en este caso. Al seleccionar a los dos personajes aparece el menú de selección de mapas.
+<br>![SeleccionPersonajes](assets/img/uiimages/seleaccionPersonajes.png)
+
+- Menú de selección de mapa: Se quitan los marcos de los personajes y aparecen imágenes de cada mapa. Si el jugador pone el cursor por encima de cada imagen parpadean, y al clickar en una imagen se queda parpadeando, y aparece el botón de start. Al haber seleccionado un mapa no se puede cambiar la selección.
+![SeleccionMapas](assets/img/uiimages/seleccionMapas.png)
 
 ## Sonido
 

@@ -15,20 +15,20 @@
 .logo{
     margin-top: 10px;
 }
-
+/*
 @font-face {
     font-family: 'ka1';
     src: url('/assets/fonts/ka1.ttf');
     font-weight: 400;
     font-weight: normal;
-}
+}*/
 
-@font-face {
+/*@font-face {
     font-family: 'Pixels';
     src: url('/assets/fonts/PixelifySans-Bold.ttf');
     font-weight: 400;
     font-weight: normal;
-}
+}*/
 
 
 .contenedor {

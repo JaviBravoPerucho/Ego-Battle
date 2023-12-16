@@ -2,27 +2,27 @@ import MenuBackground from './ui/FondoMenu.js'
 import CharacterSelector from './ui/CharacterSelector.js'
 //import MainScene from './mainScene.js'
 
-const alturaMapa = 300, difMapa = 230, posInicialMapa = 120, proporcionMapa = 0.3, offsetParpadeoMapa = 0.02;
-const elapsedTimeMarcos = 300, elapsedTimeStartButton = 500, elapsedTimeMapas = 200
-const proporcionSelector = 1.2, offsetSelector = 302, offsetParpadeoSelector = 0.05;
-const proporcionStartButton = 0.15, offsetParpadeoStartButton = 0.01;
-const ArWidthProportion = 12, AzWidthProportion = 2.17, TWidthProportion = 2.98, SWidthProportion = 4.78, CSHeightProportion = 7;
-const tutorialText1X = 25, tutorialText2X = 900, tutorialTextY = 170;
+const ALTURA_MAPA = 300, DIF_MAPA = 230, POS_INICIAL_MAPA = 120, PROPORCION_MAPA = 0.3, OFFSET_PARPADEO_MAPA = 0.02;
+const ELAPSED_MARCOS = 300, ELAPSED_START_BUTTON = 500, ELAPSED_MAPAS = 300
+const PROPORCION_SELECTOR = 1.2, OFFSET_SELECTOR = 302, OFFSET_PARPADEO_SELECTOR = 0.05;
+const PROP_START = 0.15, OFFSET_PARPADEO_START = 0.01;
+const AR_W_PROP = 12, AZ_W_PROP = 2.17, T_W_PROP = 2.98, S_W_PROP = 4.78, CS_H_PROP = 7;
+const TUT_TEXT1_X = 25, TUT_TEXT2_X = 900, TUT_TEXT_Y = 170;
 
 class Selector extends Phaser.GameObjects.Image {
     constructor(scene, x, y, imageKey) {//Habra que pasarle player1 y player2 para que colisione con ellos 
         super(scene, x, y, imageKey);
-        scene.add.existing(this).setScale(proporcionSelector, proporcionSelector);
+        scene.add.existing(this).setScale(PROPORCION_SELECTOR, PROPORCION_SELECTOR);
         this.eliminate = false;
     }
 
     //Cambia la posicion del marco de seleccion una distancia fija en funcion de la direccion
     move(right) {
         if (right) {
-            this.setPosition(this.x + offsetSelector, this.y)
+            this.setPosition(this.x + OFFSET_SELECTOR, this.y)
         }
         else {
-            this.setPosition(this.x - offsetSelector, this.y)
+            this.setPosition(this.x - OFFSET_SELECTOR, this.y)
         }
     }
     preUpdate() { }
@@ -48,11 +48,11 @@ class Mapa extends Phaser.GameObjects.Image {
     preUpdate(t, dt) {
         if (this.intermitent) {
             this.elapsedTime += dt;
-            if (this.elapsedTime > elapsedTimeMapas) {
+            if (this.elapsedTime > ELAPSED_MAPAS) {
                 this.elapsedTime = 0;
                 this.changeSize = !this.changeSize;
-                if (this.changeSize) this.setScale(proporcionMapa + offsetParpadeoMapa, proporcionMapa + offsetParpadeoMapa)
-                else this.setScale(proporcionMapa, proporcionMapa);
+                if (this.changeSize) this.setScale(PROPORCION_MAPA + OFFSET_PARPADEO_MAPA, PROPORCION_MAPA + OFFSET_PARPADEO_MAPA)
+                else this.setScale(PROPORCION_MAPA, PROPORCION_MAPA);
             }
         }    
     }
@@ -139,18 +139,18 @@ export class Menu extends Phaser.Scene {
         this.WIDTH = this.sys.game.canvas.width;
         this.textY = -100;
         let style = { fontFamily: 'Pixels', fontSize: 100, fill: 'orange' };
-        let styleblue = { fontFamily: 'Pixels', fontSize: 30 , fill: 'blue' };
+        let styleblue = { fontFamily: 'Pixels', fontSize: 30, fill: '#87CEFA' };
         let stylered = { fontFamily: 'Pixels', fontSize: 30, fill: 'red' };
 
         new MenuBackground(this, this.WIDTH / 2, this.HEIGHT / 2).setScale(1.35, 1.2);
         this.text = this.add.text(25, this.textY, 'EGOBATTLE', style)
-        this.tutorialText1 = this.add.text(tutorialText1X, this.textY + tutorialTextY, 'Player1: A-D + Space', stylered)
-        this.tutorialText2 = this.add.text(tutorialText2X, this.textY + tutorialTextY, 'Player2: <- -> + Enter', styleblue)
+        this.tutorialText1 = this.add.text(TUT_TEXT1_X, this.textY + TUT_TEXT_Y, 'Player1: A-D + Space', stylered)
+        this.tutorialText2 = this.add.text(TUT_TEXT2_X, this.textY + TUT_TEXT_Y, 'Player2: <- -> + Enter', styleblue)
         this.tutorialTexts = [this.tutorialText1, this.tutorialText2];
-        this.startButton = this.add.image(this.WIDTH / 2.03, this.HEIGHT / 4, 'start').setScale(proporcionStartButton, proporcionStartButton).setInteractive();
+        this.startButton = this.add.image(this.WIDTH / 2.03, this.HEIGHT / 4, 'start').setScale(PROP_START, PROP_START).setInteractive().setVisible(false);
 
-        this.Selector1 = new Selector(this, (this.WIDTH / ArWidthProportion) + 40, (this.HEIGHT / CSHeightProportion) + 65, 'Selector1');
-        this.Selector2 = new Selector(this, (this.WIDTH / AzWidthProportion) + 492, (this.HEIGHT / CSHeightProportion) + 65, 'Selector2');
+        this.Selector1 = new Selector(this, (this.WIDTH / AR_W_PROP) + 40, (this.HEIGHT / CS_H_PROP) + 65, 'Selector1');
+        this.Selector2 = new Selector(this, (this.WIDTH / AZ_W_PROP) + 492, (this.HEIGHT / CS_H_PROP) + 65, 'Selector2');
         this.Selector3 = new Selector(this, 4000, (this.HEIGHT / 7) + 65, 'Selector3');
         this.selectors = [this.Selector1, this.Selector2, this.Selector3];
 
@@ -183,17 +183,17 @@ export class Menu extends Phaser.Scene {
             }
         });
 
-        this.player1 = new CharacterSelector(this, this.WIDTH / ArWidthProportion, this.HEIGHT / CSHeightProportion, 'Arturo');
-        this.player2 = new CharacterSelector(this, this.WIDTH / AzWidthProportion, this.HEIGHT / CSHeightProportion, 'Shinji');
-        this.player3 = new CharacterSelector(this, this.WIDTH / TWidthProportion, this.HEIGHT / CSHeightProportion, 'Trevor');
-        this.player4 = new CharacterSelector(this, this.WIDTH / SWidthProportion, this.HEIGHT / CSHeightProportion, 'Azazel');
+        this.player1 = new CharacterSelector(this, this.WIDTH / AR_W_PROP, this.HEIGHT / CS_H_PROP, 'Arturo');
+        this.player2 = new CharacterSelector(this, this.WIDTH / AZ_W_PROP, this.HEIGHT / CS_H_PROP, 'Shinji');
+        this.player3 = new CharacterSelector(this, this.WIDTH / T_W_PROP, this.HEIGHT / CS_H_PROP, 'Trevor');
+        this.player4 = new CharacterSelector(this, this.WIDTH / S_W_PROP, this.HEIGHT / CS_H_PROP, 'Azazel');
         this.arrayPlayers = [this.player1, this.player2, this.player3, this.player4];
 
-        this.mapCastillo = new Mapa(this, posInicialMapa, alturaMapa, 'castilloIcon');
-        this.mapMuelle = new Mapa(this, posInicialMapa+difMapa, alturaMapa, 'muelleIcon');
-        this.mapJungla = new Mapa(this, posInicialMapa+difMapa*2, alturaMapa, 'junglaIcon');
-        this.mapEspacio = new Mapa(this, posInicialMapa+difMapa*3, alturaMapa, 'espacioIcon');
-        this.mapVolcan = new Mapa(this, posInicialMapa + difMapa * 4, alturaMapa, 'volcanIcon');
+        this.mapCastillo = new Mapa(this, POS_INICIAL_MAPA, ALTURA_MAPA, 'castilloIcon');
+        this.mapMuelle = new Mapa(this, POS_INICIAL_MAPA+DIF_MAPA, ALTURA_MAPA, 'muelleIcon');
+        this.mapJungla = new Mapa(this, POS_INICIAL_MAPA+DIF_MAPA*2, ALTURA_MAPA, 'junglaIcon');
+        this.mapEspacio = new Mapa(this, POS_INICIAL_MAPA+DIF_MAPA*3, ALTURA_MAPA, 'espacioIcon');
+        this.mapVolcan = new Mapa(this, POS_INICIAL_MAPA + DIF_MAPA * 4, ALTURA_MAPA, 'volcanIcon');
         this.arrayMapas = [this.mapMuelle, this.mapEspacio, this.mapCastillo, this.mapJungla, this.mapVolcan];
 
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -229,11 +229,11 @@ export class Menu extends Phaser.Scene {
         this.elapsedTime2 += dt;
 
         if (!this.p1selected) {
-            if (this.elapsedTime > elapsedTimeMarcos) {
+            if (this.elapsedTime > ELAPSED_MARCOS) {
                 this.elapsedTime = 0; 
                 this.changeSize = !this.changeSize;
-                if (this.changeSize) { this.Selector1.setScale(proporcionSelector, proporcionSelector); }
-                else this.Selector1.setScale(proporcionSelector-offsetParpadeoSelector, proporcionSelector-offsetParpadeoSelector);
+                if (this.changeSize) { this.Selector1.setScale(PROPORCION_SELECTOR, PROPORCION_SELECTOR); }
+                else this.Selector1.setScale(PROPORCION_SELECTOR-OFFSET_PARPADEO_SELECTOR, PROPORCION_SELECTOR-OFFSET_PARPADEO_SELECTOR);
                
             }
             if (Phaser.Input.Keyboard.JustDown(this.akey)) {
@@ -251,14 +251,14 @@ export class Menu extends Phaser.Scene {
             }
         }
         else {
-            this.Selector1.setScale(proporcionSelector, proporcionSelector);
+            this.Selector1.setScale(PROPORCION_SELECTOR, PROPORCION_SELECTOR);
         }
         if (!this.p2selected) {
-            if (this.elapsedTime2 > elapsedTimeMarcos) {
+            if (this.elapsedTime2 > ELAPSED_MARCOS) {
                 this.elapsedTime2 = 0;
                 this.changeSize2 = !this.changeSize2;
-                if (this.changeSize2) { this.Selector2.setScale(proporcionSelector, proporcionSelector); }
-                else this.Selector2.setScale(proporcionSelector-offsetParpadeoSelector, proporcionSelector-offsetParpadeoSelector);
+                if (this.changeSize2) { this.Selector2.setScale(PROPORCION_SELECTOR, PROPORCION_SELECTOR); }
+                else this.Selector2.setScale(PROPORCION_SELECTOR-OFFSET_PARPADEO_SELECTOR, PROPORCION_SELECTOR-OFFSET_PARPADEO_SELECTOR);
 
             }
             if (Phaser.Input.Keyboard.JustDown(this.leftkey)) {
@@ -276,7 +276,7 @@ export class Menu extends Phaser.Scene {
             }
         }
         else {
-            this.Selector2.setScale(proporcionSelector, proporcionSelector);
+            this.Selector2.setScale(PROPORCION_SELECTOR, PROPORCION_SELECTOR);
         }
 
         if (this.p1selected && this.p2selected) {
@@ -301,14 +301,15 @@ export class Menu extends Phaser.Scene {
             });
            
             if (this.mapSelected) {
+                this.startButton.setVisible(true);
                 this.arrayMapas.forEach((mapa) => {
                     if (!mapa.selected) mapa.stopIntermitent = true;
                 });
-                if (this.elapsedTime > elapsedTimeStartButton) {
+                if (this.elapsedTime > ELAPSED_START_BUTTON) {
                     this.elapsedTime = 0;
                     this.changeSize = !this.changeSize;
-                    if (this.changeSize) { this.startButton.setScale(proporcionStartButton + offsetParpadeoStartButton, proporcionStartButton + offsetParpadeoStartButton); }
-                    else this.startButton.setScale(proporcionStartButton, proporcionStartButton);
+                    if (this.changeSize) { this.startButton.setScale(PROP_START + OFFSET_PARPADEO_START, PROP_START + OFFSET_PARPADEO_START); }
+                    else this.startButton.setScale(PROP_START, PROP_START);
                 }
             }
         }

@@ -1,5 +1,6 @@
 # Ego-Battle: ASSETS
 El juego se basa principalmente en pixel arts con diseños coloridos y animados.
+
 ## Personajes:
 - Arturo(rey): https://assetstore.unity.com/packages/2d/characters/medieval-king-pack-2-174863
 - Azazel(mago) https://assetstore.unity.com/packages/2d/characters/evil-wizard-168007

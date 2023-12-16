@@ -191,7 +191,7 @@ export default class HUD extends Phaser.GameObjects.Container {
         }
         if (this.bigMarco1.x < 75) { this.bigMarco1.x += 2; this.bigMarco2.x -= 2; }
         
-        this.score.setText(this.score1 + "-" + this.score2);
+        this.score.setText(this.score1 + "-" + this.score2,);
     }
 
 

@@ -306,7 +306,7 @@ export class MainScene extends Phaser.Scene {
         var value = Phaser.Math.Between(2, 11) * 100;//posicion desde donde cae
         switch (this.Mapinfo) {
             case 0:
-                new VolcanFireBall(this, value, -300, value, this.player);//Bolas de fuego
+                new VolcanFireBall(this, value, -300, value, this.player1, this.player2);//Bolas de fuego
                 break
             case 1:
                 //this.OVNI = new OVNI(this, this.WIDTH / 3, this.HEIGHT / 10, this.player1, this.player2);

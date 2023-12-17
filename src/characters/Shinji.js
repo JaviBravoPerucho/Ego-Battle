@@ -77,7 +77,7 @@ export default class Shinji extends Personaje {
             this.HUD.BarraDePoder2.draw();
         }
 
-        if (this.x > this.playerOpuesto.x) {
+        if (!this.playerOpuesto.left) {
             this.setPosition(this.playerOpuesto.x - 50, this.playerOpuesto.y - 30);
             this.mainScene.hitPlayer(this.playerOpuesto, this.ultidamage)
             super.attacking = true;

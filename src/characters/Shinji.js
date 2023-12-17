@@ -137,7 +137,7 @@ export default class Shinji extends Personaje {
             this.Shuriken = false;
         }
         if (this.anims.currentAnim.key === 'Shinjinormalattack' && this.Bomb) {
-            this.throwShuriken();
+            this.throwBomb();
             this.Bomb = false;
         }
 
@@ -187,7 +187,7 @@ export class ShinjiBomb extends Phaser.GameObjects.Sprite {
 
     constructor(scene, x, y, direction, playerOpuesto, floor, HUD) {
         super(scene, x, y);
-        scene.add.existing(this).setScale(0.05, 0.05);
+        scene.add.existing(this).setScale(1, 1);
         scene.physics.add.existing(this);
         scene.physics.add.collider(this, floor);
         this.delete = false;
@@ -207,7 +207,7 @@ export class ShinjiBomb extends Phaser.GameObjects.Sprite {
 
         scene.anims.create({//Anim idle
             key: 'Bomb',
-            frames: scene.anims.generateFrameNumbers('Shinjibomb', { start: 0, end: 0 }),
+            frames: scene.anims.generateFrameNumbers('ShinjiBomb', { start: 0, end: 0 }),
             frameRate: 10,
             repeat: -1
         });

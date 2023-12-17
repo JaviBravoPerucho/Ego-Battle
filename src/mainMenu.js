@@ -102,6 +102,8 @@ export class Menu extends Phaser.Scene {
         this.tutorialText2 = undefined;
         this.tutorialTexts = undefined;
         this.selectors = undefined;
+        this.seleccionSonido1 = false;
+        this.seleccionSonido2 = false;
     }
 
     preload() {
@@ -333,14 +335,22 @@ export class Menu extends Phaser.Scene {
             this.Selector2.setPosition(this.Selector2.x, this.Selector3.y)
             this.Selector3.setPosition(4000, this.Selector3.y)
         }
-        
+
+        if (this.p1selected && !this.seleccionSonido1) {
+            this.sonidoSeleccion(this.positionp1)
+            this.seleccionSonido1 = true;
+        }
+        if (this.p2selected && !this.seleccionSonido2) {
+            this.sonidoSeleccion(this.positionp2)
+            this.seleccionSonido2 = true;
+        }
     }
 
     sonidoSeleccion(key) {
-        if (key === 'Arturo') this.sound.play('arturoSeleccion');
-        else if (key == 'Azazel') this.sound.play('azazelSeleccion');
-        else if (key == 'Trevor') this.sound.play('trevorSeleccion');
-        else if (key == 'Shinji') this.sound.play('shinjiSeleccion');
+        if (key === 0) this.sound.play('arturoSeleccion');
+        else if (key == 1) this.sound.play('azazelSeleccion');
+        else if (key == 2) this.sound.play('trevorSeleccion');
+        else if (key == 3) this.sound.play('shinjiSeleccion');
     }
 
 }

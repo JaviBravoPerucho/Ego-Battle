@@ -32,8 +32,12 @@ export default class Arturo extends Personaje {
             "strong": 0,
             "normal": 0
         }
+        const mapSonidos = {
+            "normalSound": 'espadaGrandeArturo',
+            "strongSound": 'espadaPequenaArturo'
+        }
 
-        super(scene, x, y, floor, HUD, playerOpuesto, 22, 45, 68, 60, 'Arturo', 'Espada1', 650, 400, 'Espada2', 500, 200, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats, 160);
+        super(scene, x, y, floor, HUD, playerOpuesto, 22, 45, 68, 60, 'Arturo', 'Espada1', 650, 400, 'Espada2', 500, 200, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats, 160, mapSonidos);
 
         this.poder = 0;
         this.contPoder = 0;
@@ -54,6 +58,7 @@ export default class Arturo extends Personaje {
         this.body.setVelocityX(0);
         this.playerOpuesto.body.setVelocityX(0);
         this.play(this.idle);
+        this.scene.sound.play('arturoPoder')
         /*this.playerOpuesto.play(this.playerOpuesto.idle);*/
     }
 

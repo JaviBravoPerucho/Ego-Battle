@@ -33,7 +33,12 @@ export default class Shinji extends Personaje {
             "normal": 0
         }
 
-        super(scene, x, y, floor, HUD, playerOpuesto, 35, 65, 15, 20, 'Shinji', undefined, undefined, undefined, undefined, undefined, undefined, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats, 360);
+        const mapSonidos = {
+            "normalSound": 'shuriken',
+            "strongSound": 'bombshinji'
+        }
+
+        super(scene, x, y, floor, HUD, playerOpuesto, 35, 65, 15, 20, 'Shinji', undefined, undefined, undefined, undefined, undefined, undefined, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats, 360, mapSonidos);
 
         scene.add.existing(this).setScale(1.2, 1.2);
         this.right = true;

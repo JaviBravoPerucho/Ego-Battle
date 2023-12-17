@@ -1,7 +1,7 @@
 import Arma from './Arma.js';
 
 export default class Personaje extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, floor, HUD, playerOpuesto, width, height, bodyOffsetX, bodyOffsetY, name, arma1, arma1Width, arma1Height, arma2, arma2Width, arma2Height, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats, movingSpeed) {
+    constructor(scene, x, y, floor, HUD, playerOpuesto, width, height, bodyOffsetX, bodyOffsetY, name, arma1, arma1Width, arma1Height, arma2, arma2Width, arma2Height, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats, movingSpeed, mapSonidos) {
         super(scene, x, y);
 
         scene.add.existing(this).setScale(2, 2);
@@ -20,6 +20,7 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
         this.indexPlayer = indexPlayer;
         this.scene = scene;
         this.playerSpeed = movingSpeed;
+        this.mapSonidos = mapSonidos;
 
         this.arma = undefined;
         this.rect = undefined;//Rectangulo para crear la colision del arma con el player opuesto
@@ -181,7 +182,7 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
                     }
                     if (this.anims.currentAnim.key !== this.normalAttack) {
                         this.play(this.normalAttack);
-
+                        if (this.mapSonidos["normalSound"] !== undefined)this.scene.sound.play(this.mapSonidos["normalSound"])
                     }
                     this.attacking = true;
 
@@ -195,7 +196,7 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
                     }
                     if (this.anims.currentAnim.key !== this.strongAttack) {
                         this.play(this.strongAttack);
-
+                        if (this.mapSonidos["strongSound"] !== undefined) this.scene.sound.play(this.mapSonidos["strongSound"])
                     }
                     this.attacking = true;
                 }

@@ -28,7 +28,12 @@ export default class Azazel extends Personaje {
             "normal": 0
         }
 
-        super(scene, x, y, floor, HUD, playerOpuesto, 20, 45, 65, 55, 'Azazel', undefined, undefined, undefined,'Fuego', 450, 200, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats, 150);
+        const mapSonidos = {
+            "normalSound": 'bolafuegoAzazel',
+            "strongSound":'fuegoAzazel'
+        }
+
+        super(scene, x, y, floor, HUD, playerOpuesto, 20, 45, 65, 55, 'Azazel', undefined, undefined, undefined,'Fuego', 450, 200, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats, 150, mapSonidos);
 
         this.right = true;
         this.fireDuration = 3;
@@ -58,7 +63,9 @@ export default class Azazel extends Personaje {
     setOpositePlayer(player) {
         super.playerOpuesto = player;
     }
-
+    ulti() {
+        this.scene.sound.play('azazelPoder')
+    }
    
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
@@ -88,6 +95,7 @@ export default class Azazel extends Personaje {
                 if (this.HUD.player1 === this) this.HUD.BarraDePoder1.increase(this.poderPorFrame);
                 else if (this.HUD.player2 === this) this.HUD.BarraDePoder2.increase(this.poderPorFrame);
             }
+            if (this.poder == this.HUD.maxPoder) this.ulti();
 
             if (this.body.velocity.x === 0 && !this.onAir) this.boolPoder = true;
             else this.boolPoder = false;
@@ -96,7 +104,6 @@ export default class Azazel extends Personaje {
     }
 
     throwFireBall() {
-
         let dir, x, y;
         if (this.right) { dir = 1; x = this.body.x + 80; y = this.body.y + 40;}
         else { dir = 0; x = this.body.x - 45; y = this.body.y + 40;}

@@ -24,7 +24,7 @@ import HUD from './ui/HUD.js';
 const PLATFORMLAVA = 'platform'
 const PLAYER = 'player'
 var time = 3000;//Tiempo para caer primer objeto
-
+const TIME_INICIO = 2000, VOL_MUSICA = 0.1;
 
 export class MainScene extends Phaser.Scene {
     constructor() {//Le pasamos el mapa elegido ya sea int o string + jugador 1 + jugador 2
@@ -48,6 +48,9 @@ export class MainScene extends Phaser.Scene {
         this.p1info = 0;
         this.p2info = 3;
         this.fightAudio = undefined;
+        this.elapsedInicio = 0;
+        this.timeInicio = TIME_INICIO;
+        this.playInicio = true;
     }
 
     init(data) {
@@ -142,20 +145,31 @@ export class MainScene extends Phaser.Scene {
         this.load.audio('arturoRandom1', './assets/Audio/personajes/arturoAudio/arturoRandom1.mp3')
         this.load.audio('arturoRandom2', './assets/Audio/personajes/arturoAudio/arturoRandom2.mp3')    
         this.load.audio('arturoVictory', './assets/Audio/personajes/arturoAudio/arturoVictory.mp3')
+        this.load.audio('espadaGrandeArturo', './assets/Audio/personajes/arturoAudio/espadaGrandeArturo.mp3')
+        this.load.audio('espadaPequenaArturo', './assets/Audio/personajes/arturoAudio/espadaPequenaArturo.mp3')
         this.load.audio('azazelFunny', './assets/Audio/personajes/azazelAudio/azazelFunny.mp3')
         this.load.audio('azazelInicio', './assets/Audio/personajes/azazelAudio/azazelInicio.mp3')
         this.load.audio('azazelPoder', './assets/Audio/personajes/azazelAudio/azazelPoder.mp3')
         this.load.audio('azazelRandom1', './assets/Audio/personajes/azazelAudio/azazelRandom1.mp3')
         this.load.audio('azazelVictory', './assets/Audio/personajes/azazelAudio/azazelVictory.mp3')
+        this.load.audio('bolafuegoAzazel', './assets/Audio/personajes/azazelAudio/bolafuegoAzazel.mp3')
+        this.load.audio('fuegoAzazel', './assets/Audio/personajes/azazelAudio/fuegoAzazel.mp3')
         this.load.audio('shinjiInicio', './assets/Audio/personajes/shinjiAudio/shinjiInicio.mp3')
         this.load.audio('shinjiPoder', './assets/Audio/personajes/shinjiAudio/shinjiPoder.mp3')
         this.load.audio('shinjiRandom1', './assets/Audio/personajes/shinjiAudio/shinjiRandom1.mp3')
+        this.load.audio('shuriken', './assets/Audio/personajes/shinjiAudio/shuriken.mp3')
+        this.load.audio('bombshinji', './assets/Audio/personajes/shinjiAudio/bombshinji.mp3')
         this.load.audio('trevorAullido', './assets/Audio/personajes/trevorAudio/trevorAullido.mp3')
         this.load.audio('trevorInicio', './assets/Audio/personajes/trevorAudio/trevorInicio.mp3')
         this.load.audio('trevorPoder', './assets/Audio/personajes/trevorAudio/trevorPoder.mp3')
         this.load.audio('trevorRandom1', './assets/Audio/personajes/trevorAudio/trevorRandom1.mp3')
         this.load.audio('trevorVictory', './assets/Audio/personajes/trevorAudio/trevorVictory.mp3')
 
+        this.load.audio('musicaCastillo', './assets/Audio/musicaMapas/musicaCastillo.mp3')
+        this.load.audio('musicaJungla', './assets/Audio/musicaMapas/musicaJungla.mp3')
+        this.load.audio('musicaMuelle', './assets/Audio/musicaMapas/musicaMuelle.mp3')
+        this.load.audio('musicaNave', './assets/Audio/musicaMapas/musicaNave.mp3')
+        this.load.audio('musicaVolcan', './assets/Audio/musicaMapas/musicaVolcan.mp3')
     }
 
     create() {//asignamos player1 y player 2
@@ -172,19 +186,23 @@ export class MainScene extends Phaser.Scene {
         switch (this.Mapinfo) {
             case 0:
                 new Volcan(this, 600, 300).setScale(1.7, 1.8);
+                this.sound.play('musicaVolcan', { volume: VOL_MUSICA });
                 break
             case 1:
                 new Espacio(this, 600, 300).setScale(1.6, 1.4);
-                
+                this.sound.play('musicaNave', { volume: VOL_MUSICA });
                 break
             case 2:
                 new Muelle(this, 600, 350).setScale(1.8, 1.7);
+                this.sound.play('musicaMuelle', { volume: VOL_MUSICA });
                 break
             case 3:
                 this.add.existing(new Phaser.GameObjects.Sprite(this, 600, 300, 'Castillo')).setScale(1.2, 1);
+                this.sound.play('musicaCastillo', { volume: VOL_MUSICA });
                 break
             case 4:
                 this.background = this.add.image(600, 300, 'Jungla').setScale(1.5, 1.5);
+                this.sound.play('musicaJungla', { volume: VOL_MUSICA });
                 break
             default:
                 break;
@@ -193,15 +211,19 @@ export class MainScene extends Phaser.Scene {
         switch (this.p1info) {
             case 0:
                 this.player1 = new Arturo(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player2, 1);
+                this.sound.play('arturoInicio', { volume: 4 });
                 break
             case 1:
                 this.player1 = new Azazel(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player2, 1);
+                this.sound.play('azazelInicio');
                 break
             case 2:
-                this.player1 = new Trevor(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player2, 1);  
+                this.player1 = new Trevor(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player2, 1); 
+                this.sound.play('trevorInicio', { volume: 4 });
                 break
             case 3:
                 this.player1 = new Shinji(this, this.posicionInicial1, this.alturaInicial, this.platforms, this.HUD, this.player2, 1);
+                this.sound.play('shinjiInicio');
                 break
             default:
                 break;
@@ -244,6 +266,27 @@ export class MainScene extends Phaser.Scene {
         this.HUD.update(t, dt);
 
         this.terminaJuego();
+
+        this.elapsedInicio += dt;
+        if (this.elapsedInicio > this.timeInicio && this.playInicio) {
+            switch (this.p2info) {
+                case 0:
+                    this.sound.play('arturoInicio');
+                    break
+                case 1:
+                    this.sound.play('azazelInicio');
+                    break
+                case 2:
+                    this.sound.play('trevorInicio');
+                    break
+                case 3:
+                    this.sound.play('shinjiInicio');
+                    break
+                default:
+                    break;
+            }
+            this.playInicio = false;
+        }
     }
 
     hitPlayer(player, damage, type) {
@@ -327,9 +370,34 @@ export class MainScene extends Phaser.Scene {
     }
     
     terminaJuego() {
+        if (this.score1 > 2) {
+            switch (this.player1.name) {
+                case 'Arturo': this.sound.play('arturoVictory', { volume: 4 })
+                    break;
+                case 'Azazel': this.sound.play('azazelVictory')
+                    break;
+                case 'Trevor': this.sound.play('trevorVictory', { volume: 4 })
+                    break;
+                case 'Shinji': this.sound.play('shinjiVictory')
+                    break;
+            }
+        }
+        else if (this.score2 > 2) {
+            switch (this.player2.name) {
+                case 'Arturo': this.sound.play('arturoVictory', { volume: 4 })
+                    break;
+                case 'Azazel': this.sound.play('azazelVictory')
+                    break;
+                case 'Trevor': this.sound.play('trevorVictory', { volume: 4 })
+                    break;
+                case 'Shinji': this.sound.play('shinjiVictory')
+                    break;
+            }
+        }
         if (this.score1 > 2 || this.score2 > 2) {
             this.scene.start('menu');
         }
+        
     }
    
    

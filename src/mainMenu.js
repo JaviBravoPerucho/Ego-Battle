@@ -131,6 +131,7 @@ export class Menu extends Phaser.Scene {
         this.load.audio('azazelSeleccion', './assets/Audio/personajes/azazelAudio/azazelSeleccion.mp3')
         this.load.audio('shinjiSeleccion', './assets/Audio/personajes/shinjiAudio/shinjiSeleccion.mp3')
         this.load.audio('trevorSeleccion', './assets/Audio/personajes/trevorAudio/trevorSeleccion.mp3')
+        this.load.audio('botonStart', './assets/Audio/hud/botonStart.mp3')
 
     }
 
@@ -347,9 +348,9 @@ export class Menu extends Phaser.Scene {
     }
 
     sonidoSeleccion(key) {
-        if (key === 0) this.sound.play('arturoSeleccion');
+        if (key === 0) this.sound.play('arturoSeleccion', { volume: 4 });
         else if (key == 1) this.sound.play('azazelSeleccion');
-        else if (key == 2) this.sound.play('trevorSeleccion');
+        else if (key == 2) this.sound.play('trevorSeleccion', { volume: 4 });
         else if (key == 3) this.sound.play('shinjiSeleccion');
     }
 

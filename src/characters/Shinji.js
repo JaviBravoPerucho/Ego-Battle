@@ -152,7 +152,7 @@ export class ShinjiShuriken extends Phaser.GameObjects.Sprite {
         scene.physics.add.collider(this, floor);
         this.delete = false;
         this.elapsed = 0;
-        this.damage = 20;
+        this.damage = 10;
         this.HUD = HUD;
         this.body.setSize(130, 130);
         this.body.setOffset(240, 180);
@@ -191,6 +191,9 @@ export class ShinjiBomb extends Phaser.GameObjects.Sprite {
         scene.physics.add.existing(this);
         scene.physics.add.collider(this, floor);
         this.delete = false;
+        this.pegado = false;
+        this.playerOpuesto = playerOpuesto;
+        this.scene = scene;
         this.elapsed = 0;
         this.damage = 20;
         this.HUD = HUD;
@@ -201,8 +204,7 @@ export class ShinjiBomb extends Phaser.GameObjects.Sprite {
         else { this.body.setVelocityX(350); this.body.setVelocityY(-350) }
 
         scene.physics.add.collider(this, playerOpuesto, end => {
-            scene.hitPlayer(playerOpuesto, this.damage, 0);
-            this.delete = true;
+            this.pegado = true;
         });
 
         scene.anims.create({//Anim idle
@@ -218,8 +220,12 @@ export class ShinjiBomb extends Phaser.GameObjects.Sprite {
 
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
-        this.elapsed += dt;
-        if (this.elapsed > 5000) { this.delete = true; }
-        if (this.delete) { this.destroy(); }
+        if (this.pegado) {
+            this.setPosition(this.playerOpuesto.x, this.playerOpuesto.y);
+            this.elapsed += dt;
+        }
+
+        if (this.elapsed > 3000) { this.delete = true; }
+        if (this.delete) { this.scene.hitPlayer(this.playerOpuesto, this.damage, 0); this.destroy(); }
     }
 }

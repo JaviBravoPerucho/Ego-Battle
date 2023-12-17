@@ -25,7 +25,7 @@ class Look extends Phaser.GameObjects.Image {
         scene.add.existing(this)
         if (personaje === 'Arturo') { this.setScale(0.11, 0.11); }
         else if (personaje === 'Shinji') { this.setScale(0.11, 0.11); }
-        else if (personaje === 'Trevor') { this.setScale(1.4, 1.4); }
+        else if (personaje === 'Trevor') { this.setScale(0.11, 0.11); }
         else if (personaje === 'Azazel') { this.setScale(0.11, 0.11); }
     }
 }

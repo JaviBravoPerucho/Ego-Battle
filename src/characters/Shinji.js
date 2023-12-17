@@ -46,6 +46,7 @@ export default class Shinji extends Personaje {
         this.ultidamage = 50;
         this.playerOpuesto = playerOpuesto;
         this.Shuriken = true;
+        this.Bomb = true;
         this.x = x;
         this.y = y;
 
@@ -60,7 +61,10 @@ export default class Shinji extends Personaje {
                 super.attacking = false;
             }
             if (this.anims.currentAnim.key === 'Shinjistrongattack') {
-                super.Shuriken = true;
+                this.Shuriken = true;
+            }
+            if (this.anims.currentAnim.key === 'Shinjinormalattack') {
+                this.Bomb = true;
             }
         })
     }
@@ -99,6 +103,13 @@ export default class Shinji extends Personaje {
         else { dir = 0; x = this.body.x - 45; y = this.body.y + 40; }
         new ShinjiShuriken(this.scene, x, y, dir, this.playerOpuesto, this.floor, this.HUD);
     }
+    throwBomb() {
+        let dir, x, y;
+        console.log(this.left)
+        if (!this.left) { dir = 1; x = this.body.x + 80; y = this.body.y + 40; }
+        else { dir = 0; x = this.body.x - 45; y = this.body.y + 40; }
+        new ShinjiBomb(this.scene, x, y, dir, this.playerOpuesto, this.floor, this.HUD);
+    }
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
         if (this.ulti <= this.maxulti) {
@@ -124,6 +135,10 @@ export default class Shinji extends Personaje {
         if (this.anims.currentAnim.key === 'Shinjistrongattack' && this.Shuriken) {
             this.throwShuriken();
             this.Shuriken = false;
+        }
+        if (this.anims.currentAnim.key === 'Shinjinormalattack' && this.Bomb) {
+            this.throwShuriken();
+            this.Bomb = false;
         }
 
     }
@@ -158,6 +173,46 @@ export class ShinjiShuriken extends Phaser.GameObjects.Sprite {
         });
 
         this.play('Shuriken');
+    }
+
+
+    preUpdate(t, dt) {
+        super.preUpdate(t, dt);
+        this.elapsed += dt;
+        if (this.elapsed > 5000) { this.delete = true; }
+        if (this.delete) { this.destroy(); }
+    }
+}
+export class ShinjiBomb extends Phaser.GameObjects.Sprite {
+
+    constructor(scene, x, y, direction, playerOpuesto, floor, HUD) {
+        super(scene, x, y);
+        scene.add.existing(this).setScale(0.05, 0.05);
+        scene.physics.add.existing(this);
+        scene.physics.add.collider(this, floor);
+        this.delete = false;
+        this.elapsed = 0;
+        this.damage = 20;
+        this.HUD = HUD;
+        this.body.setSize(130, 130);
+        this.body.setOffset(240, 180);
+        //this.body.setAllowGravity(false);
+        if (direction == 0) { this.body.setVelocityX(-350); this.setFlip(true, false); this.body.setVelocityY(-150) }
+        else { this.body.setVelocityX(350); this.body.setVelocityY(-150) }
+
+        scene.physics.add.collider(this, playerOpuesto, end => {
+            scene.hitPlayer(playerOpuesto, this.damage, 0);
+            this.delete = true;
+        });
+
+        scene.anims.create({//Anim idle
+            key: 'Bomb',
+            frames: scene.anims.generateFrameNumbers('Shinjibomb', { start: 0, end: 0 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.play('Bomb');
     }
 
 

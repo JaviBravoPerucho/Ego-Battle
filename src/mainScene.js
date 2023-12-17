@@ -97,6 +97,7 @@ export class MainScene extends Phaser.Scene {
         this.load.spritesheet('Shinjistrongattack', './assets/img/shinjiimages/Strong.png', { frameWidth: 63, frameHeight: 85 });
         this.load.spritesheet('Shinjinormalattack', './assets/img/shinjiimages/Normal.png', { frameWidth: 63, frameHeight: 77 });
         this.load.spritesheet('ShinjiShuriken', './assets/img/shinjiimages/Shuriken2.png', { frameWidth: 704, frameHeight: 720 });
+        this.load.spritesheet('ShinjiBomb', './assets/img/shinjiimages/Bomba.png', { frameWidth: 69, frameHeight: 70 });
         this.load.spritesheet('ShinjiUlti', './assets/img/shinjiimages/ulti.png', { frameWidth: 69, frameHeight: 70 });
         switch (this.Mapinfo) {
             case 0:

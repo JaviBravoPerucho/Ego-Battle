@@ -190,11 +190,11 @@ Habilidad de poder de cada personaje:
 - Frase al seleccionar a cada personaje
 Ar: "Conquistaré el mundo!" Az: "Todo va acorde con el plan" T: "AAAAGH(Como una especie de rugido)" S: "..."
 - Frase principal de cada personaje al iniciar la ronda(primero la dice uno y luego el otro) 
-Ar: "Te vas a comer mi espada" Az: "Hay un 80% de probabilidad de que gane yo" T: "Te voy a matar" S: "A ver qué tal"
+Ar: "Te vas a comer mi espada" Az: "Hay un 80% de probabilidad de que gane yo" T: "Te voy a matar" S: "Que pereza"
 - Frase al quitarle una vida al oponente(2 frases(random))
-Ar: "Bastardo!" "Noo!" Az: "No caculé esto" "Ah!" T: "AAAAAAA!" "Me cago en tus muertos" S: "Vaya..." "Me... muero..."
+Ar: "Bastardo!" "Noo!" Az: "No caculé esto" "Ah!" T: "AAAAAAA!" "Me cago en tus muertos" S: "Eso me ha dado" 
 - Frase al ganar la partida.
-Ar:"Soy el mejor" Az: "Mis cálculos nunca fallan" T: "RUAAAA" S: "Vamos!"
+Ar:"Soy el mejor" Az: "Mis cálculos nunca fallan" T: "RUAAAA" S: "¡Fácil!"
 - Frase al activar el poder.
 Ar:"Ríndete ante mi!" Az:"Ya sé tu punto débil" T:"AAAAA!" S:"Santoryu"
 - Música en cada mapa.

@@ -187,7 +187,7 @@ export class ShinjiBomb extends Phaser.GameObjects.Sprite {
 
     constructor(scene, x, y, direction, playerOpuesto, floor, HUD) {
         super(scene, x, y);
-        scene.add.existing(this).setScale(1, 1);
+        scene.add.existing(this).setScale(0.1, 0.1);
         scene.physics.add.existing(this);
         scene.physics.add.collider(this, floor);
         this.delete = false;
@@ -197,8 +197,8 @@ export class ShinjiBomb extends Phaser.GameObjects.Sprite {
         this.body.setSize(130, 130);
         this.body.setOffset(240, 180);
         //this.body.setAllowGravity(false);
-        if (direction == 0) { this.body.setVelocityX(-350); this.setFlip(true, false); this.body.setVelocityY(-150) }
-        else { this.body.setVelocityX(350); this.body.setVelocityY(-150) }
+        if (direction == 0) { this.body.setVelocityX(-350); this.setFlip(true, false); this.body.setVelocityY(-350) }
+        else { this.body.setVelocityX(350); this.body.setVelocityY(-350) }
 
         scene.physics.add.collider(this, playerOpuesto, end => {
             scene.hitPlayer(playerOpuesto, this.damage, 0);

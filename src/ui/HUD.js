@@ -202,6 +202,7 @@ export default class HUD extends Phaser.GameObjects.Container {
                 this.timeInit--;
                 this.timer.setText(this.timeInit);
                 if (this.timeInit === 0) {
+                    this.scene.sound.play('fight');
                     this.fightText = this.scene.add.text(this.scene.WIDTH / 2 - 250, 100, '-FIGHT-', {
                         fontFamily: 'ka1', fontSize: 140, fill: 'red'
                     })

@@ -105,6 +105,7 @@ export class Menu extends Phaser.Scene {
     }
 
     preload() {
+        //UI
         this.load.image('Arturo', './assets/img/arturoimages/arturo.png');
         this.load.image('Trevor', './assets/img/trevorimages/trevor.png');
         this.load.image('Azazel', './assets/img/azazelimages/azazelportrait.png');
@@ -122,6 +123,13 @@ export class Menu extends Phaser.Scene {
         this.load.image('junglaIcon', './assets/img/fondosimages/junglaIcon.png');
         this.load.image('volcanIcon', './assets/img/fondosimages/volcanIcon.png');
         this.load.image('espacioIcon', './assets/img/fondosimages/espacioIcon.png');
+
+        //Audio
+        this.load.audio('arturoSeleccion', './assets/Audio/personajes/arturoAudio/arturoSeleccion.mp3')
+        this.load.audio('azazelSeleccion', './assets/Audio/personajes/azazelAudio/azazelSeleccion.mp3')
+        this.load.audio('shinjiSeleccion', './assets/Audio/personajes/shinjiAudio/shinjiSeleccion.mp3')
+        this.load.audio('trevorSeleccion', './assets/Audio/personajes/trevorAudio/trevorSeleccion.mp3')
+
     }
 
     shutdown() {
@@ -326,6 +334,13 @@ export class Menu extends Phaser.Scene {
             this.Selector3.setPosition(4000, this.Selector3.y)
         }
         
+    }
+
+    sonidoSeleccion(key) {
+        if (key === 'Arturo') this.sound.play('arturoSeleccion');
+        else if (key == 'Azazel') this.sound.play('azazelSeleccion');
+        else if (key == 'Trevor') this.sound.play('trevorSeleccion');
+        else if (key == 'Shinji') this.sound.play('shinjiSeleccion');
     }
 
 }

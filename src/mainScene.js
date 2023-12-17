@@ -47,6 +47,7 @@ export class MainScene extends Phaser.Scene {
         this.Mapinfo = 0;
         this.p1info = 0;
         this.p2info = 3;
+        this.fightAudio = undefined;
     }
 
     init(data) {
@@ -132,6 +133,27 @@ export class MainScene extends Phaser.Scene {
         //UI
         this.load.image('Borde', './assets/img/uiimages/border.png');
         this.load.image('BordePoder', './assets/img/uiimages/barrapoder.png');
+        //Audio
+        this.load.audio('fight', './assets/Audio/hud/fight.mp3')
+        this.load.audio('arturoFunny', './assets/Audio/personajes/arturoAudio/arturoFunny.mp3')
+        this.load.audio('arturoInicio', './assets/Audio/personajes/arturoAudio/arturoInicio.mp3')
+        this.load.audio('arturoPoder', './assets/Audio/personajes/arturoAudio/arturoPoder.mp3')
+        this.load.audio('arturoRandom1', './assets/Audio/personajes/arturoAudio/arturoRandom1.mp3')
+        this.load.audio('arturoRandom2', './assets/Audio/personajes/arturoAudio/arturoRandom2.mp3')    
+        this.load.audio('arturoVictory', './assets/Audio/personajes/arturoAudio/arturoVictory.mp3')
+        this.load.audio('azazelFunny', './assets/Audio/personajes/azazelAudio/azazelFunny.mp3')
+        this.load.audio('azazelInicio', './assets/Audio/personajes/azazelAudio/azazelInicio.mp3')
+        this.load.audio('azazelPoder', './assets/Audio/personajes/azazelAudio/azazelPoder.mp3')
+        this.load.audio('azazelRandom1', './assets/Audio/personajes/azazelAudio/azazelRandom1.mp3')
+        this.load.audio('azazelVictory', './assets/Audio/personajes/azazelAudio/azazelVictory.mp3')
+        this.load.audio('shinjiInicio', './assets/Audio/personajes/shinjiAudio/shinjiInicio.mp3')
+        this.load.audio('shinjiPoder', './assets/Audio/personajes/shinjiAudio/shinjiPoder.mp3')
+        this.load.audio('shinjiRandom1', './assets/Audio/personajes/shinjiAudio/shinjiRandom1.mp3')
+        this.load.audio('trevorAullido', './assets/Audio/personajes/trevorAudio/trevorAullido.mp3')
+        this.load.audio('trevorInicio', './assets/Audio/personajes/trevorAudio/trevorInicio.mp3')
+        this.load.audio('trevorPoder', './assets/Audio/personajes/trevorAudio/trevorPoder.mp3')
+        this.load.audio('trevorRandom1', './assets/Audio/personajes/trevorAudio/trevorRandom1.mp3')
+        this.load.audio('trevorVictory', './assets/Audio/personajes/trevorAudio/trevorVictory.mp3')
 
     }
 
@@ -144,6 +166,7 @@ export class MainScene extends Phaser.Scene {
         this.alturaVacio = this.HEIGHT;
         this.score1 = 0;
         this.score2 = 0;//Marcador de la partida
+
         console.log(this.Mapinfo,this.p1info,this.p2info)
         switch (this.Mapinfo) {
             case 0:

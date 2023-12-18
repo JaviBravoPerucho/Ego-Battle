@@ -117,33 +117,35 @@ export default class Shinji extends Personaje {
     }
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
-        if (this.ulti <= this.maxulti) {
-            if (this.x > this.playerOpuesto.x) {
-                if ((this.x - this.playerOpuesto.x) >= this.distance) {
-                    this.ulti += (this.x - this.playerOpuesto.x) * 0.005;
-                    if (this.HUD.player1 === this) this.HUD.BarraDePoder1.increase((this.x - this.playerOpuesto.x) * 0.0001);
-                    else if (this.HUD.player2 === this) this.HUD.BarraDePoder2.increase((this.x - this.playerOpuesto.x) * 0.0001);
+        if (!this.dontMove) {
+            if (this.ulti <= this.maxulti) {
+                if (this.x > this.playerOpuesto.x) {
+                    if ((this.x - this.playerOpuesto.x) >= this.distance) {
+                        this.ulti += (this.x - this.playerOpuesto.x) * 0.005;
+                        if (this.HUD.player1 === this) this.HUD.BarraDePoder1.increase((this.x - this.playerOpuesto.x) * 0.0001);
+                        else if (this.HUD.player2 === this) this.HUD.BarraDePoder2.increase((this.x - this.playerOpuesto.x) * 0.0001);
+                    }
+                }
+                else {
+                    if ((this.playerOpuesto.x - this.x) >= this.distance) {
+                        this.ulti += (this.playerOpuesto.x - this.x) * 0.001;
+                        if (this.HUD.player1 === this) this.HUD.BarraDePoder1.increase((this.playerOpuesto.x - this.x) * 0.0001);
+                        else if (this.HUD.player2 === this) this.HUD.BarraDePoder2.increase((this.playerOpuesto.x - this.x) * 0.0001);
+                    }
                 }
             }
             else {
-                if ((this.playerOpuesto.x - this.x) >= this.distance) {
-                    this.ulti += (this.playerOpuesto.x - this.x) * 0.001;
-                    if (this.HUD.player1 === this) this.HUD.BarraDePoder1.increase((this.playerOpuesto.x - this.x) * 0.0001);
-                    else if (this.HUD.player2 === this) this.HUD.BarraDePoder2.increase((this.playerOpuesto.x - this.x) * 0.0001);
-                }
+                this.ulti = 0;
+                this.ult();
             }
-        }
-        else {
-            this.ulti = 0;
-            this.ult();
-        }
-        if (this.anims.currentAnim.key === 'Shinjistrongattack' && this.Shuriken) {
-            this.throwShuriken();
-            this.Shuriken = false;
-        }
-        if (this.anims.currentAnim.key === 'Shinjinormalattack' && this.Bomb) {
-            this.throwBomb();
-            this.Bomb = false;
+            if (this.anims.currentAnim.key === 'Shinjistrongattack' && this.Shuriken) {
+                this.throwShuriken();
+                this.Shuriken = false;
+            }
+            if (this.anims.currentAnim.key === 'Shinjinormalattack' && this.Bomb) {
+                this.throwBomb();
+                this.Bomb = false;
+            }
         }
 
     }

@@ -40,7 +40,7 @@ export default class Azazel extends Personaje {
         this.fire = 0;
         this.boolPoder = false;
         this.poder = 0; 
-        this.poderPorFrame = 0.5;
+        this.poderPorFrame = 0.1;
         this.throwFire = true;
         this.elapsedStopAttack = 0;
         this.playerOpuesto = playerOpuesto;

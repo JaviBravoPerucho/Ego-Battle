@@ -164,7 +164,7 @@ export default class HUD extends Phaser.GameObjects.Container {
         
     }
 
-    restartRound() {
+    restartRound() {//Resetea todos los elementos del hud
         this.timeInit = 3;
         this.timer.setText(this.timeInit);
         if(this.fightText !== undefined)this.fightText.destroy();

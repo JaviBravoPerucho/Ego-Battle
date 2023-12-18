@@ -22,7 +22,6 @@ import HUD from './ui/HUD.js';
 
 
 const PLATFORMLAVA = 'platform'
-const PLAYER = 'player'
 var time = 3000;//Tiempo para caer primer objeto
 const TIME_INICIO = 2000, VOL_MUSICA = 0.1;
 
@@ -32,7 +31,6 @@ export class MainScene extends Phaser.Scene {
         this.player1 = undefined;//Jugador 1
         this.player2 = undefined;//Jugador 2
         this.platforms = undefined;
-        this.cursors = undefined;
         this.time = undefined;//Tiempo en el juego para poder pasarselo a otros objetos
         this.WIDTH = undefined; 
         this.HEIGHT = undefined; 
@@ -44,8 +42,8 @@ export class MainScene extends Phaser.Scene {
         this.alturaInicial = undefined;
         this.alturaVacio = 1000; // Altura en la que los personajes mueren por caerse al vacío
         this.tiempoObjeto = 10000 //Lapso de tiempo de aparicion de objetos
-        this.Mapinfo = 0;
-        this.p1info = 0;
+        this.Mapinfo = 0;//Define que mapa se va a jugar
+        this.p1info = 0;//Define que personaje juega cada jugador
         this.p2info = 3;
         this.fightAudio = undefined;
         this.elapsedInicio = 0;
@@ -54,11 +52,10 @@ export class MainScene extends Phaser.Scene {
         this.musica = undefined;
     }
 
-    init(data) {
+    init(data) {//Se lo pasamos desde mainMenu
         this.Mapinfo = data.parametro0;
         this.p1info = data.parametro1;
-        this.p2info = data.parametro2;
-       
+        this.p2info = data.parametro2;   
     }
 
     playerDied(player) {
@@ -104,6 +101,8 @@ export class MainScene extends Phaser.Scene {
         this.load.spritesheet('ShinjiShuriken', './assets/img/shinjiimages/Shuriken2.png', { frameWidth: 704, frameHeight: 720 });
         this.load.spritesheet('ShinjiBomb', './assets/img/shinjiimages/Bomba.png', { frameWidth: 626, frameHeight: 626 });
         this.load.spritesheet('ShinjiUlti', './assets/img/shinjiimages/ulti.png', { frameWidth: 69, frameHeight: 70 });
+
+        //Mapas
         this.load.spritesheet('Explosion', './assets/img/objimages/explosionFB.png', { frameWidth: 247, frameHeight: 240 });
         switch (this.Mapinfo) {
             case 0:
@@ -147,9 +146,11 @@ export class MainScene extends Phaser.Scene {
                 break;
         }
         //this.load.atlas('flares', './assets/img/flares.png', './assets/img/flares.json');//particulas
+
         //UI
         this.load.image('Borde', './assets/img/uiimages/border.png');
         this.load.image('BordePoder', './assets/img/uiimages/barrapoder.png');
+
         //Audio
         this.load.audio('fight', './assets/Audio/hud/fight.mp3')
         this.load.audio('arturoFunny', './assets/Audio/personajes/arturoAudio/arturoFunny.mp3')
@@ -323,6 +324,7 @@ export class MainScene extends Phaser.Scene {
         player.applyKnockback(dir, strength);
         console.log(dir + ":" + strength);
     }
+
     createPlatforms() {//Crea la plataforma
         let platforms = this.physics.add.staticGroup();
         switch (this.Mapinfo) {
@@ -339,16 +341,15 @@ export class MainScene extends Phaser.Scene {
                 break
             case 2:
                 platforms.create(this.WIDTH / 6, this.HEIGHT / 1.4, 'wood').setScale(0.4, 0.5).refreshBody();
-        platforms.create(this.WIDTH / 2.5, this.HEIGHT / 1.4, 'wood').setScale(0.4, 0.5).refreshBody();
-        platforms.create(this.WIDTH / 1.7, this.HEIGHT / 1.4, 'wood').setScale(0.4, 0.5).refreshBody();
-        platforms.create(this.WIDTH / 1.2, this.HEIGHT / 1.4, 'wood').setScale(0.4, 0.5).refreshBody();
-        platforms.create(this.WIDTH / 1.25, this.HEIGHT / 4, 'wood').setScale(0.8, 0.5).refreshBody();
-        platforms.create(this.WIDTH / 1.8, this.HEIGHT / 2.3, 'wood').setScale(0.2, 0.2).refreshBody();
-        platforms.create(this.WIDTH / 2.5, this.HEIGHT / 2, 'wood').setScale(0.2, 0.2).refreshBody();
+                platforms.create(this.WIDTH / 2.5, this.HEIGHT / 1.4, 'wood').setScale(0.4, 0.5).refreshBody();
+                platforms.create(this.WIDTH / 1.7, this.HEIGHT / 1.4, 'wood').setScale(0.4, 0.5).refreshBody();
+                platforms.create(this.WIDTH / 1.2, this.HEIGHT / 1.4, 'wood').setScale(0.4, 0.5).refreshBody();
+                platforms.create(this.WIDTH / 1.25, this.HEIGHT / 4, 'wood').setScale(0.8, 0.5).refreshBody();
+                platforms.create(this.WIDTH / 1.8, this.HEIGHT / 2.3, 'wood').setScale(0.2, 0.2).refreshBody();
+                platforms.create(this.WIDTH / 2.5, this.HEIGHT / 2, 'wood').setScale(0.2, 0.2).refreshBody();
                 break
             case 3:
                 platforms.create(600, this.HEIGHT + 150, 'bridge').setScale(0.7, 0.7).refreshBody();
-                //this.add.existing(new Phaser.GameObjects.Sprite(this, 600, 300, 'Castillo')).setScale(1.2, 1);
                 break
             case 4:
                 platforms.create(this.WIDTH / 8, this.HEIGHT / 1.2, 'palmTree').setScale(0.7, 0.7).refreshBody().setFlip(true, false);

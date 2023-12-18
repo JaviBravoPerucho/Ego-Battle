@@ -99,6 +99,7 @@ export default class Shinji extends Personaje {
             super.attacking = true;
             this.play('ShinjiUlti');
         }  
+        this.scene.sound.play('shinjiPoder')
 
     }
     throwShuriken() {

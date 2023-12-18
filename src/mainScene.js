@@ -193,7 +193,6 @@ export class MainScene extends Phaser.Scene {
         this.score1 = 0;
         this.score2 = 0;//Marcador de la partida
 
-        console.log(this.Mapinfo,this.p1info,this.p2info)
         switch (this.Mapinfo) {
             case 0:
                 new Volcan(this, 600, 300).setScale(1.7, 1.8);
@@ -211,7 +210,7 @@ export class MainScene extends Phaser.Scene {
                 this.musica.play();
                 break
             case 3:
-                this.add.existing(new Phaser.GameObjects.Sprite(this, 600, 300, 'Castillo')).setScale(1.2, 1);
+                this.add.existing(new Phaser.GameObjects.Sprite(this, 600, 300, 'Castillo')).setScale(1.2, 1);//Los mapas de Castillo y Jungla no tienen animacion asi que no les hemos hecho una clase
                 this.musica = this.sound.add('musicaCastillo', { volume: VOL_MUSICA })
                 this.musica.play();
                 break
@@ -284,7 +283,7 @@ export class MainScene extends Phaser.Scene {
         this.terminaJuego();
 
         this.elapsedInicio += dt;
-        if (this.elapsedInicio > this.timeInicio && this.playInicio) {
+        if (this.elapsedInicio > this.timeInicio && this.playInicio) {//Para que pueda sonar el audio del player 1 y luego el del player 2
             switch (this.p2info) {
                 case 0:
                     this.sound.play('arturoInicio', {volume:4});
@@ -316,16 +315,15 @@ export class MainScene extends Phaser.Scene {
             this.HUD.BarraDeVida1.decrease(damage);
             if (this.player1.x > this.player2.x) { dir = 1; }
         }
-        if (player.name === 'Arturo') player.boolPoder = 0;
-        else if (player.name === 'Trevor') player.poder += player.poderPorGolpe;
+        if (player.name === 'Arturo') player.boolPoder = false;//Para que deje de cargar la ulti si le han dado
+        else if (player.name === 'Trevor') player.poder += player.poderPorGolpe;//Para que cargue la ulti cuando le dan
         player.vida -= damage;
         if (type === 0) { strength = 300 / player.playerOpuesto.vida }
         else { strength = (300 / player.playerOpuesto.vida) * 1.5 }
         player.applyKnockback(dir, strength);
-        console.log(dir + ":" + strength);
     }
 
-    createPlatforms() {//Crea la plataforma
+    createPlatforms() {//Crea las plataformas
         let platforms = this.physics.add.staticGroup();
         switch (this.Mapinfo) {
             case 0:

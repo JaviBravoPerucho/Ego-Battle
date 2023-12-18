@@ -43,7 +43,6 @@ export default class Shinji extends Personaje {
         scene.add.existing(this).setScale(1.2, 1.2);
         this.right = true;
         this.ulti = 0;
-        this.Useulti = false;
         this.distance = 350;
         this.maxulti = 5000;
         this.poderPorFrame = 0.1;
@@ -87,7 +86,7 @@ export default class Shinji extends Personaje {
         }
 
         if (!this.playerOpuesto.left) {
-            this.setPosition(this.playerOpuesto.x - 50, this.playerOpuesto.y - 30);
+            this.setPosition(this.playerOpuesto.x - 50, this.playerOpuesto.y - 30);//Cambia su posicion a la del player opuesto y le inflinge dano, tambien llamamos a la animacion
             this.mainScene.hitPlayer(this.playerOpuesto, this.ultidamage)
             super.attacking = true;
             this.play('ShinjiUlti');
@@ -99,6 +98,7 @@ export default class Shinji extends Personaje {
             super.attacking = true;
             this.play('ShinjiUlti');
         }  
+        this.scene.sound.play('shinjiPoder')
         this.scene.sound.play('shinjiPoder')
 
     }

@@ -136,8 +136,6 @@ export class Menu extends Phaser.Scene {
     }
 
     shutdown() {
-        this.positionp1 = 0;
-        this.positionp2 = 0;
         this.p1selected = false;
         this.p2selected = false;
     }
@@ -188,6 +186,7 @@ export class Menu extends Phaser.Scene {
                         this.map = 3;
                             break
                 }
+                this.shutdown();
                 this.scene.start('mainScene', { parametro0: this.map, parametro1: this.positionp1, parametro2: this.positionp2 });
                 console.log("sigo vivo")
                 //this.scene.start('mainScene');          

@@ -406,9 +406,7 @@ export class MainScene extends Phaser.Scene {
             }
         }
         if (this.score1 > 2 || this.score2 > 2) {
-            var menuScene = this.scene.get('menu');
-            menuScene.scene.restart();
-            this.scene.start(menuScene);
+            this.scene.start('menu');
         }
     }
    

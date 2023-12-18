@@ -169,7 +169,10 @@ export default class HUD extends Phaser.GameObjects.Container {
         this.elapsed = 0;
         this.ready = false;
         this.move = false;
-        this.value = 300;
+        this.BarraDeVida1.value = 300;
+        this.BarraDeVida2.value = 300;
+        this.BarraDePoder1.value = 0;
+        this.BarraDePoder2.value = 0;
     }
 
     countScore(player) {

@@ -108,32 +108,37 @@ export class MainScene extends Phaser.Scene {
                 this.load.spritesheet('VFB', './assets/img/objimages/VFB.png', { frameWidth: 32, frameHeight: 67 });//Bola de fuego volcan
                 this.load.spritesheet('Explosion', './assets/img/objimages/explosionFB.png', { frameWidth: 247, frameHeight: 240 });//explosion bola de fuego
                 this.load.image(PLATFORMLAVA, './assets/img/fondosimages/lavaPlat.png');//Plataforma lava
+                this.load.audio('musicaVolcan', './assets/Audio/musicaMapas/musicaVolcan.mp3')
                 break
             case 1:
                 this.load.image('OVNI', './assets/img/objimages/ovniimage.png');//Ovni volador
                 this.load.spritesheet('Espacio', './assets/img/fondosimages/espacio.png', { frameWidth: 768, frameHeight: 432 });//Fondo Espacio
                 this.load.image('platformMetal', './assets/img/fondosimages/Plat2.png');
                 this.load.image('laser', './assets/img/objimages/laser.png');//laser
+                this.load.audio('musicaNave', './assets/Audio/musicaMapas/musicaNave.mp3')
                 break
             case 2:
                 this.load.spritesheet('Fish', './assets/img/objimages/pezimage.png', { frameWidth: 500, frameHeight: 659 });//Pez
                 this.load.spritesheet('Muelle', './assets/img/fondosimages/lago1.png', { frameWidth: 720, frameHeight: 405 });//Fondo Muelle
                 this.load.image('wood', './assets/img/fondosimages/madera.jpg');
+                this.load.audio('musicaMuelle', './assets/Audio/musicaMapas/musicaMuelle.mp3')
                 break
             case 3:
                 this.load.image('Sword', './assets/img/objimages/swordimage.png');//Espada
                 this.load.spritesheet('Castillo', './assets/img/fondosimages/castillo.jpg', { frameWidth: 1071, frameHeight: 600 });//Fondo castillo
                 this.load.image('background', './assets/img/fondosimages/castillo.jpg');//Fondo castillo
+                this.load.audio('musicaCastillo', './assets/Audio/musicaMapas/musicaCastillo.mp3')
                 break
             case 4:
                 this.load.spritesheet('Jungla', './assets/img/fondosimages/jungla.png', { frameWidth: 800, frameHeight: 650 });//Fondo Jungla
                 this.load.image('Coconut', './assets/img/objimages/cocoimage.png');//Coco
                 this.load.image('palmTree', './assets/img/palmera.png');
+                this.load.audio('musicaJungla', './assets/Audio/musicaMapas/musicaJungla.mp3')
                 break
             default:
                 break;
         }
-        this.load.atlas('flares', './assets/img/flares.png', './assets/img/flares.json');//particulas
+        //this.load.atlas('flares', './assets/img/flares.png', './assets/img/flares.json');//particulas
         //UI
         this.load.image('Borde', './assets/img/uiimages/border.png');
         this.load.image('BordePoder', './assets/img/uiimages/barrapoder.png');
@@ -163,13 +168,7 @@ export class MainScene extends Phaser.Scene {
         this.load.audio('trevorInicio', './assets/Audio/personajes/trevorAudio/trevorInicio.mp3')
         this.load.audio('trevorPoder', './assets/Audio/personajes/trevorAudio/trevorPoder.mp3')
         this.load.audio('trevorRandom1', './assets/Audio/personajes/trevorAudio/trevorRandom1.mp3')
-        this.load.audio('trevorVictory', './assets/Audio/personajes/trevorAudio/trevorVictory.mp3')
-
-        this.load.audio('musicaCastillo', './assets/Audio/musicaMapas/musicaCastillo.mp3')
-        this.load.audio('musicaJungla', './assets/Audio/musicaMapas/musicaJungla.mp3')
-        this.load.audio('musicaMuelle', './assets/Audio/musicaMapas/musicaMuelle.mp3')
-        this.load.audio('musicaNave', './assets/Audio/musicaMapas/musicaNave.mp3')
-        this.load.audio('musicaVolcan', './assets/Audio/musicaMapas/musicaVolcan.mp3')
+        this.load.audio('trevorVictory', './assets/Audio/personajes/trevorAudio/trevorVictory.mp3')       
     }
 
     create() {//asignamos player1 y player 2

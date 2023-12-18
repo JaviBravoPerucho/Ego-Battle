@@ -103,11 +103,12 @@ export class MainScene extends Phaser.Scene {
         this.load.spritesheet('ShinjiShuriken', './assets/img/shinjiimages/Shuriken2.png', { frameWidth: 704, frameHeight: 720 });
         this.load.spritesheet('ShinjiBomb', './assets/img/shinjiimages/Bomba.png', { frameWidth: 626, frameHeight: 626 });
         this.load.spritesheet('ShinjiUlti', './assets/img/shinjiimages/ulti.png', { frameWidth: 69, frameHeight: 70 });
+        this.load.spritesheet('Explosion', './assets/img/objimages/explosionFB.png', { frameWidth: 247, frameHeight: 240 });
         switch (this.Mapinfo) {
             case 0:
                 this.load.spritesheet('Volcan', './assets/img/fondosimages/Volcan.png', { frameWidth: 800, frameHeight: 336 });//Fondo volcan
                 this.load.spritesheet('VFB', './assets/img/objimages/VFB.png', { frameWidth: 32, frameHeight: 67 });//Bola de fuego volcan
-                this.load.spritesheet('Explosion', './assets/img/objimages/explosionFB.png', { frameWidth: 247, frameHeight: 240 });//explosion bola de fuego
+                //this.load.spritesheet('Explosion', './assets/img/objimages/explosionFB.png', { frameWidth: 247, frameHeight: 240 });//explosion bola de fuego
                 this.load.image(PLATFORMLAVA, './assets/img/fondosimages/lavaPlat.png');//Plataforma lava
                 this.load.audio('musicaVolcan', './assets/Audio/musicaMapas/musicaVolcan.mp3')
                 this.load.audio('explosion', './assets/Audio/explosion.mp3')

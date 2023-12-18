@@ -220,6 +220,12 @@ export class ShinjiBomb extends Phaser.GameObjects.Sprite {
             frameRate: 10,
             repeat: -1
         });
+        this.scene.anims.create({//Anim explosion
+            key: 'hitExplosion2',
+            frames: scene.anims.generateFrameNumbers('Explosion', { start: 0, end: 4 }),
+            frameRate: 15,
+            repeat: 0
+        });
 
         this.play('Bomb');
     }
@@ -231,8 +237,8 @@ export class ShinjiBomb extends Phaser.GameObjects.Sprite {
             this.setPosition(this.playerOpuesto.x, this.playerOpuesto.y);
             this.elapsed += dt;
         }
-
+        if (this.elapsed > 2800) { this.setScale(0.5, 0.5); this.play('hitExplosion2'); } 
         if (this.elapsed > 3000) { this.delete = true; }
-        if (this.delete) { this.scene.hitPlayer(this.playerOpuesto, this.damage, 0); this.destroy(); }
+        if (this.delete) {  this.scene.hitPlayer(this.playerOpuesto, this.damage, 0); this.destroy(); }
     }
 }

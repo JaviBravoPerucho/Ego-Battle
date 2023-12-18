@@ -12,7 +12,7 @@ export default class Fish extends Phaser.GameObjects.Sprite {
         this.player = player;
         this.player2 = player2;
         this.damage = 25;
-        
+        this.scene.sound.play('fishJump', { volume: 0.1 });
         this.scene.anims.create({//Anim basica
             key: 'flyFish',
             frames: scene.anims.generateFrameNumbers('Fish', { start: 0, end: 7 }),

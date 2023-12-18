@@ -8,6 +8,7 @@ class Laser extends Phaser.GameObjects.Image {
         this.timeToDestroy = 1500;
         this.elapsed = 0;
         this.delete = false;
+        this.scene.sound.play('laser', { volume: 0.5 });
         scene.physics.add.collider(this, player, collision => {
             scene.hitPlayer(player, this.damage, 0);
             this.delete = true;

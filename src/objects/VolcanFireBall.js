@@ -8,11 +8,13 @@ export default class VolcanFireBall extends Phaser.GameObjects.Sprite {
         this.elapsed = 0;
         this.collision1 = scene.physics.add.collider(this, player1, collider =>
         {
+            this.scene.sound.play('explosion', { volume: 2 });
             scene.hitPlayer(player1, this.damage, 0);
             scene.physics.world.removeCollider(this.collision1)
             this.hit = true;
         });
         this.collision2 = scene.physics.add.collider(this, player2, collider => {
+            this.scene.sound.play('explosion', { volume: 2 });
             scene.hitPlayer(player2, this.damage, 0);
             scene.physics.world.removeCollider(this.collision2)
             this.hit = true;
@@ -55,6 +57,7 @@ export default class VolcanFireBall extends Phaser.GameObjects.Sprite {
 
       
         if (this.eliminate) {//Elimina
+            this.scene.sound.play('explosion', { volume: 2 });
             this.destroy();
         }  
     }

@@ -69,7 +69,7 @@ export default class Azazel extends Personaje {
     ulti() {
         this.armaMasDano = true;
         this.ultiActivated = true;
-        this.scene.sound.play('azazelPoder')
+        this.scene.sound.play('azazelPoder', { volume: 2 })
     }
    
     preUpdate(t, dt) {

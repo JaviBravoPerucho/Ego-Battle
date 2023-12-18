@@ -24,7 +24,7 @@ import HUD from './ui/HUD.js';
 const PLATFORMLAVA = 'platform'
 const PLAYER = 'player'
 var time = 3000;//Tiempo para caer primer objeto
-const TIME_INICIO = 2000, VOL_MUSICA = 0.1;
+const TIME_INICIO = 2000, VOL_MUSICA = 0.4;
 
 export class MainScene extends Phaser.Scene {
     constructor() {//Le pasamos el mapa elegido ya sea int o string + jugador 1 + jugador 2
@@ -207,7 +207,7 @@ export class MainScene extends Phaser.Scene {
                 break
             case 3:
                 this.add.existing(new Phaser.GameObjects.Sprite(this, 600, 300, 'Castillo')).setScale(1.2, 1);
-                this.sound.play('musicaCastillo', { volume: VOL_MUSICA + 0.5});
+                this.sound.play('musicaCastillo', { volume: VOL_MUSICA});
                 break
             case 4:
                 this.background = this.add.image(600, 300, 'Jungla').setScale(1.5, 1.5);

@@ -51,7 +51,7 @@ export default class Arma extends Phaser.GameObjects.Rectangle {
         }
         else if (this.arma === 'Fuego') {
             this.y = this.y - 60;
-            this.damage = 40;
+            this.damage = 18;
             this.tiempo = 3000;
             this.tiempoRetardo = 0;
         }

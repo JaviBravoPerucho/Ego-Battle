@@ -42,20 +42,20 @@ export default class Azazel extends Personaje {
         this.poder = 0; 
         this.poderPorFrame = 0;
         this.throwFire = true;
+        this.elapsedStopAttack = 0;
         this.playerOpuesto = playerOpuesto;
 
 
-        this.on('animationcomplete', end => {//Detecta que ha dejado de pegar
-            this.throwFire = true;
-            if (this.anims.currentAnim.key === mapAnimaciones["idle"]) {
-                if (this.fire < this.fireDuration) {
-                    this.fire++;
-                    this.play(mapAnimaciones["idle"]);
-                }
-                else {
-                    this.fire = 0;
-                    this.attacking = false;
-                }
+        this.on('animationcomplete', end => {//Detecta que ha dejado de pegar      
+            if (this.anims.currentAnim.key === mapAnimaciones["normal"]) {
+                this.throwFire = true;
+                this.attacking = false;
+                this.elapsedStopAttack = 0;
+            }
+            else if (this.anims.currentAnim.key === mapAnimaciones["strong"]) {
+                this.throwFire = true;
+                this.attacking = false;
+                this.elapsedStopAttack = 0;
             }
         })
 
@@ -70,19 +70,14 @@ export default class Azazel extends Personaje {
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
 
-        if (!this.stop && this.HUD.waitTime()) {
-            if (this.aKey.isDown) {
-                if (this.right) { this.setFlip(true, false); this.right = false; }
-                if (this.attacking) { this.body.setVelocityX(-60); }
-                else { this.body.setVelocityX(-150); }
-            }
-            else if (this.dKey.isDown) {
-                if (!this.right) { this.setFlip(false, false); this.right = true; }
-                if (this.attacking) { this.body.setVelocityX(60); }
-                else { this.body.setVelocityX(150); }
-            }
-            else {
-                this.body.setVelocityX(0);
+        if (!this.stop && !this.dontMove) {
+            if (this.attacking) {
+                this.elapsedStopAttack += dt;
+                if (this.elapsedStopAttack > 450) {
+                    this.attacking = false;
+                    this.throwFire = true;
+                    this.elapsedStopAttack = 0;
+                }
             }
 
             if (this.anims.currentAnim.key === 'Azazelnormalattack' && this.throwFire) {
@@ -105,7 +100,7 @@ export default class Azazel extends Personaje {
 
     throwFireBall() {
         let dir, x, y;
-        if (this.right) { dir = 1; x = this.body.x + 80; y = this.body.y + 40;}
+        if (!this.left) { dir = 1; x = this.body.x + 80; y = this.body.y + 40;}
         else { dir = 0; x = this.body.x - 45; y = this.body.y + 40;}
         new AzazelBall(this.scene, x, y, dir, this.playerOpuesto, this.floor, this.HUD);
     }

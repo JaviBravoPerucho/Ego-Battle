@@ -200,7 +200,7 @@ export class ShinjiBomb extends Phaser.GameObjects.Sprite {
         this.playerOpuesto = playerOpuesto;
         this.scene = scene;
         this.elapsed = 0;
-        this.damage = 20;
+        this.damage = 15;
         this.HUD = HUD;
         this.body.setSize(130, 130);
         this.body.setOffset(240, 180);

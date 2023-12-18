@@ -7,19 +7,25 @@ export default class Sword extends Phaser.GameObjects.Image {
         scene.physics.add.existing(this);
         this.eliminate = false; 
         this.damage = 5;
+        this.hitFloor = false;
         this.colliderSword = scene.physics.add.collider(this, player1, collision => {//colision con player
+            this.scene.sound.play('sword', { volume: 0.1 });
             scene.hitPlayer(player1, this.damage, 0)
             this.eliminate = true;
         });
         this.colliderSword1 = scene.physics.add.collider(this, player2, collision => {//colision con player
+            this.scene.sound.play('sword', { volume: 0.1 });
             scene.hitPlayer(player2, this.damage, 0)
             this.eliminate = true;
         });
         scene.physics.add.collider(this, floor, collision =>
         {
-            this.scene.sound.play('sword', { volume: 1 });
-            scene.physics.world.removeCollider(this.colliderSword);
-            scene.physics.world.removeCollider(this.colliderSword1);
+            if (!this.hitFloor) {
+                this.scene.sound.play('sword', { volume: 0.15 });
+                scene.physics.world.removeCollider(this.colliderSword);
+                scene.physics.world.removeCollider(this.colliderSword1);
+                this.hitFloor = true;
+            }    
         });//Al tocar el suelo ya no se choca con los jugadores, porque se clava
          
         this.init(time);

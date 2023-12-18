@@ -134,6 +134,7 @@ export class MainScene extends Phaser.Scene {
                 this.load.image('background', './assets/img/fondosimages/castillo.jpg');//Fondo castillo
                 this.load.audio('musicaCastillo', './assets/Audio/musicaMapas/musicaCastillo.mp3')
                 this.load.audio('sword', './assets/Audio/espadaObjeto.mp3')
+                this.load.image('bridge', './assets/img/fondosimages/puente.png');
                 break
             case 4:
                 this.load.spritesheet('Jungla', './assets/img/fondosimages/jungla.png', { frameWidth: 800, frameHeight: 650 });//Fondo Jungla
@@ -206,7 +207,7 @@ export class MainScene extends Phaser.Scene {
                 break
             case 3:
                 this.add.existing(new Phaser.GameObjects.Sprite(this, 600, 300, 'Castillo')).setScale(1.2, 1);
-                this.sound.play('musicaCastillo', { volume: VOL_MUSICA });
+                this.sound.play('musicaCastillo', { volume: VOL_MUSICA + 0.5});
                 break
             case 4:
                 this.background = this.add.image(600, 300, 'Jungla').setScale(1.5, 1.5);
@@ -340,6 +341,7 @@ export class MainScene extends Phaser.Scene {
         platforms.create(this.WIDTH / 2.5, this.HEIGHT / 2, 'wood').setScale(0.2, 0.2).refreshBody();
                 break
             case 3:
+                platforms.create(600, this.HEIGHT + 150, 'bridge').setScale(0.7, 0.7).refreshBody();
                 //this.add.existing(new Phaser.GameObjects.Sprite(this, 600, 300, 'Castillo')).setScale(1.2, 1);
                 break
             case 4:

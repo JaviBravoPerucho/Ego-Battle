@@ -162,6 +162,7 @@ export class MainScene extends Phaser.Scene {
         this.load.audio('fuegoAzazel', './assets/Audio/personajes/azazelAudio/fuegoAzazel.mp3')
         this.load.audio('shinjiInicio', './assets/Audio/personajes/shinjiAudio/shinjiInicio.mp3')
         this.load.audio('shinjiPoder', './assets/Audio/personajes/shinjiAudio/shinjiPoder.mp3')
+        this.load.audio('shinjiVictory', './assets/Audio/personajes/shinjiAudio/shinjiVictory.mp3')
         this.load.audio('shinjiRandom1', './assets/Audio/personajes/shinjiAudio/shinjiRandom1.mp3')
         this.load.audio('shuriken', './assets/Audio/personajes/shinjiAudio/shuriken.mp3')
         this.load.audio('bombshinji', './assets/Audio/personajes/shinjiAudio/bombshinji.mp3')
@@ -273,13 +274,13 @@ export class MainScene extends Phaser.Scene {
         if (this.elapsedInicio > this.timeInicio && this.playInicio) {
             switch (this.p2info) {
                 case 0:
-                    this.sound.play('arturoInicio');
+                    this.sound.play('arturoInicio', {volume:4});
                     break
                 case 1:
                     this.sound.play('azazelInicio');
                     break
                 case 2:
-                    this.sound.play('trevorInicio');
+                    this.sound.play('trevorInicio', { volume: 4 });
                     break
                 case 3:
                     this.sound.play('shinjiInicio');
@@ -397,9 +398,10 @@ export class MainScene extends Phaser.Scene {
             }
         }
         if (this.score1 > 2 || this.score2 > 2) {
-            this.scene.start('menu');
+            var menuScene = this.scene.get('menu');
+            menuScene.scene.restart();
+            this.scene.start(menuScene);
         }
-        
     }
    
    

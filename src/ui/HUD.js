@@ -171,7 +171,12 @@ export default class HUD extends Phaser.GameObjects.Container {
         this.elapsed = 0;
         this.ready = false;
         this.move = false;
+        this.BarraDeVida1.value = 300;
+        this.BarraDeVida1.draw();
+        this.BarraDeVida2.value = 300;
+        this.BarraDeVida2.draw();
         this.BarraDePoder1.value = 0;
+        this.BarraDePoder1.draw();
         this.BarraDePoder2.value = 0;
         this.BarraDeVida1.value = this.player1.vida;
         this.BarraDeVida2.value = this.player2.vida;
@@ -179,6 +184,8 @@ export default class HUD extends Phaser.GameObjects.Container {
         this.BarraDeVida2.damageDone = 0;
         this.BarraDeVida1.draw();
         this.BarraDeVida2.draw();
+        this.BarraDePoder2.draw();
+
     }
 
     countScore(player) {

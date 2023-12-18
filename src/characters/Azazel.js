@@ -40,10 +40,13 @@ export default class Azazel extends Personaje {
         this.fire = 0;
         this.boolPoder = false;
         this.poder = 0; 
-        this.poderPorFrame = 0;
+        this.poderPorFrame = 0.5;
         this.throwFire = true;
         this.elapsedStopAttack = 0;
         this.playerOpuesto = playerOpuesto;
+        this.utliActivated = false;
+        this.contUlti = 0;
+        this.tiempoUlti = 10000;
 
 
         this.on('animationcomplete', end => {//Detecta que ha dejado de pegar      
@@ -64,6 +67,8 @@ export default class Azazel extends Personaje {
         super.playerOpuesto = player;
     }
     ulti() {
+        this.armaMasDano = true;
+        this.ultiActivated = true;
         this.scene.sound.play('azazelPoder')
     }
    
@@ -85,12 +90,49 @@ export default class Azazel extends Personaje {
                 this.throwFire = false;
             }
 
-            if (this.poder < this.HUD.maxPoder && this.boolPoder) {
-                this.poder += this.poderPorFrame;
-                if (this.HUD.player1 === this) this.HUD.BarraDePoder1.increase(this.poderPorFrame);
-                else if (this.HUD.player2 === this) this.HUD.BarraDePoder2.increase(this.poderPorFrame);
+            if (!this.ultiActivated) {
+                if (this.poder < this.HUD.maxPoder && this.boolPoder) {
+                    this.poder += this.poderPorFrame;
+                    if (this.HUD.player1 === this) {
+                        this.HUD.BarraDePoder1.value = this.poder;
+                        this.HUD.BarraDePoder1.draw();
+                    }
+                    else if (this.HUD.player2 === this) {
+                        this.HUD.BarraDePoder2.value = this.poder;
+                        this.HUD.BarraDePoder2.draw();
+                    }
+                }
+                if (this.poder == this.HUD.maxPoder) {
+                    this.ulti();
+                    this.poder = 0;
+                    if (this.HUD.player1 === this) {
+                        this.HUD.BarraDePoder1.color = 0xff0000;
+                        this.HUD.BarraDePoder1.draw();
+                    }
+                    else if (this.HUD.player2 === this) {
+                        this.HUD.BarraDePoder2.color = 0xff0000;
+                        this.HUD.BarraDePoder2.draw();
+                    }
+                }
+            } else {
+                this.contUlti += dt;
+                if (this.contUlti >= this.tiempoUlti) {
+                    this.ultiActivated = false;
+                    this.armaMasDano = false;
+                    this.contUlti = 0;
+                    if (this.HUD.player1 === this) {
+                        this.HUD.BarraDePoder1.value = 0;
+                        this.HUD.BarraDePoder1.color = 0x800080;
+                        this.HUD.BarraDePoder1.draw();
+                    }
+                    else if (this.HUD.player2 === this) {
+                        this.HUD.BarraDePoder2.value = 0;
+                        this.HUD.BarraDePoder2.color = 0x800080;
+                        this.HUD.BarraDePoder2.draw();
+                    }
+                }
             }
-            if (this.poder == this.HUD.maxPoder) this.ulti();
+            
 
             if (this.body.velocity.x === 0 && !this.onAir) this.boolPoder = true;
             else this.boolPoder = false;
@@ -102,20 +144,21 @@ export default class Azazel extends Personaje {
         let dir, x, y;
         if (!this.left) { dir = 1; x = this.body.x + 80; y = this.body.y + 40;}
         else { dir = 0; x = this.body.x - 45; y = this.body.y + 40;}
-        new AzazelBall(this.scene, x, y, dir, this.playerOpuesto, this.floor, this.HUD);
+        new AzazelBall(this.scene, x, y, dir, this.playerOpuesto, this.floor, this.HUD, this.armaMasDano);
     }
 
 }
 export class AzazelBall extends Phaser.GameObjects.Sprite {
 
-    constructor(scene, x, y, direction, playerOpuesto, floor, HUD) {
+    constructor(scene, x, y, direction, playerOpuesto, floor, HUD, masDano) {
         super(scene, x, y);
         scene.add.existing(this).setScale(0.2, 0.2);
         scene.physics.add.existing(this);
         scene.physics.add.collider(this, floor);
         this.delete = false;
         this.elapsed = 0;
-        this.damage = 10;
+        if (masDano) this.damage = 20;
+        else this.damage = 10;
         this.HUD = HUD;
         this.body.setSize(130, 130);
         this.body.setOffset(240, 180);

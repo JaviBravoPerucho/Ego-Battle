@@ -33,6 +33,8 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
         this.arma1Height = arma1Height;
         this.arma2Width = arma2Width;
         this.arma2Height = arma2Height;
+        this.armaMasDano = false;
+        this.armaDamage = 20;
 
         this.mapAnimaciones = mapAnimaciones;//Mapas con las caracteristicas de las animaciones del personaje
         this.mapFrameRates = mapFrameRates;
@@ -99,7 +101,7 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
         }
     }
     createWeapon(type) {
-        this.arma = new Arma(this.scene, this.x, this.y + 60, this.armaName, this.direction, this, this.playerOpuesto, 20, this.HUD, this.armaWidth, this.armaHeight, type);
+        this.arma = new Arma(this.scene, this.x, this.y + 60, this.armaName, this.direction, this, this.playerOpuesto, this.armaDamage, this.HUD, this.armaWidth, this.armaHeight, type);
       
     }
 

@@ -75,7 +75,7 @@ export default class Arturo extends Personaje {
         else { this.onAir = true; }
 
         if (!this.stop) {
-            if (this.poder < this.HUD.maxPoder && this.boolPoder) {
+            if (this.poder < this.HUD.maxPoder && this.boolPoder && !this.dontMove  ) {
                 this.poder += this.poderPorFrame;
                 if (this.HUD.player1 === this) this.HUD.BarraDePoder1.increase(this.poderPorFrame);
                 else if (this.HUD.player2 === this) this.HUD.BarraDePoder2.increase(this.poderPorFrame);
@@ -86,11 +86,11 @@ export default class Arturo extends Personaje {
                 this.poder = 0;
                 if (this.HUD.player1 === this) {
                     this.HUD.BarraDePoder1.color = 0xff0000;
-                    this.HUD.BarraDePoder1.increase(this.poderPorFrame);
+                    this.HUD.BarraDePoder1.draw();
                 }
                 else if (this.HUD.player2 === this) {
                     this.HUD.BarraDePoder2.color = 0xff0000;
-                    this.HUD.BarraDePoder2.increase(this.poderPorFrame);
+                    this.HUD.BarraDePoder2.draw();
                 }
             }
 
@@ -119,7 +119,6 @@ export default class Arturo extends Personaje {
                     this.HUD.BarraDePoder2.value = 0;
                     this.HUD.BarraDePoder2.color = 0x800080;
                 }
-                console.log("ULTI");
             }
         }
         

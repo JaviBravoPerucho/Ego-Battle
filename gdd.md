@@ -74,7 +74,7 @@ Todos los personajes tienen la misma vida, la misma cantidad de poder máximo y 
     - Ataque principal: Dash con una lanza hacia delante causando daño(10 de daño)
     - Ataque secundario: golpea con la maza(7 daño + empuje)
     - Barra de poder: se recarga recibiendo daño
-    - Poder: al haber recibido bastante daño su furia se ha acumulado y se vuelve loco, corriendo hacia su oponente como una bestia y realizando muchos ataques en poco tiempo(0.2 s por ataque).
+    - Poder: al haber recibido bastante daño su furia se ha acumulado y se vuelve loco, corriendo con el doble de velocidad.
 
 ![Trevor](assets/img/trevorimages/trevor.png) 
 
@@ -144,13 +144,13 @@ Aparece un objeto en el mapa cada 10 segundos. Dependiendo del mapa caen objetos
 <br><img src="assets/img/objimages/pezimage.png" width="300" height="200" />
 
 ## Habilidades de poder
-La barra de poder se va llenando en función de una mecánica propia de cada personaje, que va ligada a su personalidad. Tiene color morado y se va llenando 1 píxel en cada tick; hasta 200 píxeles. Al llenarse al completo, la barra se vuelve roja durante el tiempo en el que se ejecuta la habilidad. Estas son las formas con las que cada personaje llena su barra:
+La barra de poder se va llenando en función de una mecánica propia de cada personaje, que va ligada a su personalidad. Tiene color morado. Al llenarse al completo, la barra se vuelve roja durante el tiempo en el que se ejecuta la habilidad. Estas son las formas con las que cada personaje llena su barra:
 
 - Arturo: Debe evitar recibir daño para llenar su barra. Mientras no recibe daño su barra se va llenando, y si es golpeado se pausa el progreso de la barra durante 5 segundos. Esto hace que una estrategia ponderable con Arturo sea  evitar el combate a toda costa, y huir del oponente para cargar su barra de poder y provocarle daño así.
 
 - Azazel: Debe quedarse quieto para llenar su barra. Solo llena su barra si está quieto, y si se mueve su barra deja de llenarse. Debe posicionarse estratégicamente para poder estar quieto el mayor tiempo posible. Por eso se mantendrá lejos de su oponente y lanzará bolas de fuego, y tendrá que reposcionarse cuando el rival se acerque. Puede paralizarle con la llamarada para aprovechar y reposicionarse.
 
-- Trevor: LLena su barra de poder recibiendo daño. Por eso va a querer estar en combate constantemente y perseguirá a sus oponentes, al contrario del resto de personajes que se benefician de mantenerse lejos.
+- Trevor: LLena su barra de poder recibiendo daño. Por cada golpe que recibe gana 20 puntos de poder, hasta 200;Por eso va a querer estar en combate constantemente y perseguirá a sus oponentes, al contrario del resto de personajes que se benefician de mantenerse lejos.
 
 - Shinji: LLena su barra si está los suficientemente lejos de su oponente. Si está demasiado cerca no llena su barra, y sus ataques son a distancia, así que la estrategia principal es huir del oponente e ir lanzando shurikens y bombas. El oponente tendrá que acercarse lo máximo para evitar que llene su barra.
 
@@ -162,7 +162,7 @@ Habilidad de poder de cada personaje:
 
 - Shinji: Shinji se teletransporta en la espalda del oponente y le hace 40 de daño, mostrando una animación del apuñalamiento.
 
-- Trevor: Se incrementa su velocidad un 50% de la velocidad base y el tiempo de retardo de sus ataques se reduce a la mitad.
+- Trevor: Se duplica su velocidad durante 10 segundos.
 
 ## UI:
 

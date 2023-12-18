@@ -41,10 +41,10 @@ export default class Trevor extends Personaje {
         this.poder = 0;
         this.contPoder = 0;
         this.tiempoPoder = 5000;
-        this.poderPorFrame = 0;
+        this.poderPorGolpe = 20;
         this.danoUlti = 50;
         this.contUlti = 0;
-        this.tiempoUlti = 3000;
+        this.tiempoUlti = 10000;
         this.x = x;
 
         this.ultiActivated = false;
@@ -54,6 +54,7 @@ export default class Trevor extends Personaje {
 
     ulti() {
         this.ultiActivated = true;
+        this.playerSpeed *= 2;
         this.scene.sound.play('trevorPoder')
     }
 
@@ -73,43 +74,44 @@ export default class Trevor extends Personaje {
         }
         else { this.onAir = true; }
 
-        if (!this.stop) {
-            if (this.poder < this.HUD.maxPoder && this.boolPoder) {
-                this.poder += this.poderPorFrame;
-                if (this.HUD.player1 === this) this.HUD.BarraDePoder1.increase(this.poderPorFrame);
-                else if (this.HUD.player2 === this) this.HUD.BarraDePoder2.increase(this.poderPorFrame);
+        if (!this.ultiActivated) {
+            if (this.HUD.player1 === this) {
+                this.HUD.BarraDePoder1.value = this.poder;
+                this.HUD.BarraDePoder1.draw();
             }
-
-            if (this.poder == this.HUD.maxPoder) {
+            else if (this.HUD.player2 === this) {
+                this.HUD.BarraDePoder2.value = this.poder;
+                this.HUD.BarraDePoder2.draw();
+            }
+            if (this.poder >= this.HUD.maxPoder) {
                 this.ulti();
                 this.poder = 0;
                 if (this.HUD.player1 === this) {
                     this.HUD.BarraDePoder1.color = 0xff0000;
-                    this.HUD.BarraDePoder1.increase(this.poderPorFrame);
+                    this.HUD.BarraDePoder1.draw();
                 }
                 else if (this.HUD.player2 === this) {
                     this.HUD.BarraDePoder2.color = 0xff0000;
-                    this.HUD.BarraDePoder2.increase(this.poderPorFrame);
+                    this.HUD.BarraDePoder2.draw();
                 }
             }
 
         } else {
             this.contUlti += dt;
-            this.body.setVelocityX(0);
             if (this.contUlti >= this.tiempoUlti) {
-                this.scene.hitPlayer(this.playerOpuesto, this.danoUlti);
-                this.stop = false;
-                this.playerOpuesto.stop = false;
+                this.ultiActivated = false;
+                this.playerSpeed /= 2;
                 this.contUlti = 0;
                 if (this.HUD.player1 === this) {
                     this.HUD.BarraDePoder1.value = 0;
                     this.HUD.BarraDePoder1.color = 0x800080;
+                    this.HUD.BarraDePoder1.draw();
                 }
                 else if (this.HUD.player2 === this) {
                     this.HUD.BarraDePoder2.value = 0;
                     this.HUD.BarraDePoder2.color = 0x800080;
+                    this.HUD.BarraDePoder2.draw();
                 }
-                console.log("ULTI");
             }
         }
 

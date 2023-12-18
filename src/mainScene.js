@@ -309,6 +309,7 @@ export class MainScene extends Phaser.Scene {
             if (this.player1.x > this.player2.x) { dir = 1; }
         }
         if (player.name === 'Arturo') player.boolPoder = 0;
+        else if (player.name === 'Trevor') player.poder += player.poderPorGolpe;
         player.vida -= damage;
         if (type === 0) { strength = 300 / player.playerOpuesto.vida }
         else { strength = (300 / player.playerOpuesto.vida) * 1.5 }

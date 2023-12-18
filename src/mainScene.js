@@ -169,7 +169,9 @@ export class MainScene extends Phaser.Scene {
         this.load.audio('trevorInicio', './assets/Audio/personajes/trevorAudio/trevorInicio.mp3')
         this.load.audio('trevorPoder', './assets/Audio/personajes/trevorAudio/trevorPoder.mp3')
         this.load.audio('trevorRandom1', './assets/Audio/personajes/trevorAudio/trevorRandom1.mp3')
-        this.load.audio('trevorVictory', './assets/Audio/personajes/trevorAudio/trevorVictory.mp3')       
+        this.load.audio('trevorVictory', './assets/Audio/personajes/trevorAudio/trevorVictory.mp3')     
+        this.load.audio('lanzaTrevor', './assets/Audio/personajes/trevorAudio/lanzaTrevor.mp3')
+        this.load.audio('mazaTrevor', './assets/Audio/personajes/trevorAudio/mazaTrevor.mp3') 
     }
 
     create() {//asignamos player1 y player 2

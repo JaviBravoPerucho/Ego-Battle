@@ -13,7 +13,7 @@ export default class Azazel extends Personaje {
             "idle": 10,
             "walk": 12,
             "strong": 6,
-            "normal": 7
+            "normal": 4    
         }
         const mapFrames = {
             "idle": 7,

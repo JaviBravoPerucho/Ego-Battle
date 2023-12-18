@@ -105,8 +105,8 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
 
     applyKnockback(direction, power) {
         this.knock = true;
-        this.body.setVelocityX(direction * power * 15);
-        this.body.setVelocityY(-power * 35);
+        this.body.setVelocityX(direction * power * 25);
+        this.body.setVelocityY(-power * 50);
     }
 
     move() {

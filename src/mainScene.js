@@ -69,7 +69,8 @@ export class MainScene extends Phaser.Scene {
         if (player === this.player1) { this.score2++; }
         else { this.score1++; }
         this.HUD.restartRound();
-
+        this.player1.move();
+        this.player2.move();
     }
     
     preload() {//Dependiendo de lo seleccionado cargamos una cosa u otra (mas adelante)

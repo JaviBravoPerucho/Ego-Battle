@@ -211,6 +211,8 @@ export default class HUD extends Phaser.GameObjects.Container {
                     })
                     this.timer.setText('');
                     this.move = true;
+                    this.player1.move();
+                    this.player2.move();
                 }
                 this.elapsed = 0;
             }

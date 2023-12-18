@@ -55,6 +55,7 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
         this.knock = false;
         this.elapsedKnock = 0;
         this.timeToMove = 750;
+        this.dontMove = true;
         this.left = false;
 
         //Funcion para crear animaciones a partir de los arrays pasados por cada personaje
@@ -108,10 +109,15 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
         this.body.setVelocityY(-power * 35);
     }
 
+    move() {
+        this.dontMove = !this.dontMove;
+    }
+
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
+        console.log(this.dontMove);
         //console.log(this.HUD.waitTime());       
-        if (this.HUD.waitTime()) {
+        if (!this.dontMove) {
             if (this.knock) {
                 this.elapsedKnock += dt;
                 if (this.elapsedKnock > this.timeToMove) {
@@ -214,7 +220,7 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
         }
         else {
             this.body.setVelocityX(0);
-            if (this.anims.currentAnim.key !== this.idle) { this.play(this.idle); }
+            //if (this.anims.currentAnim.key !== this.idle) { this.play(this.idle); }
         }
 
     }

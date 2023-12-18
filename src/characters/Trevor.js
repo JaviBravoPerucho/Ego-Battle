@@ -55,7 +55,7 @@ export default class Trevor extends Personaje {
     ulti() {
         this.ultiActivated = true;
         this.playerSpeed *= 2;
-        this.scene.sound.play('trevorPoder')
+        this.scene.sound.play('trevorPoder', {volume:4})
     }
 
     setOpositePlayer(player) {

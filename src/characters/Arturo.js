@@ -58,7 +58,7 @@ export default class Arturo extends Personaje {
         this.body.setVelocityX(0);
         this.playerOpuesto.body.setVelocityX(0);
         this.play(this.idle);
-        this.scene.sound.play('arturoPoder')
+        this.scene.sound.play('arturoPoder' , {volume: 4})
         /*this.playerOpuesto.play(this.playerOpuesto.idle);*/
     }
 

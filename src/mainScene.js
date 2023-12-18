@@ -51,6 +51,7 @@ export class MainScene extends Phaser.Scene {
         this.elapsedInicio = 0;
         this.timeInicio = TIME_INICIO;
         this.playInicio = true;
+        this.musica = undefined;
     }
 
     init(data) {
@@ -195,23 +196,28 @@ export class MainScene extends Phaser.Scene {
         switch (this.Mapinfo) {
             case 0:
                 new Volcan(this, 600, 300).setScale(1.7, 1.8);
-                this.sound.play('musicaVolcan', { volume: VOL_MUSICA });
+                this.musica = this.sound.add('musicaVolcan', { volume: VOL_MUSICA })
+                this.musica.play();
                 break
             case 1:
                 new Espacio(this, 600, 300).setScale(1.6, 1.4);
-                this.sound.play('musicaNave', { volume: VOL_MUSICA });
+                this.musica = this.sound.add('musicaNave', { volume: VOL_MUSICA })
+                this.musica.play();
                 break
             case 2:
                 new Muelle(this, 600, 350).setScale(1.8, 1.7);
-                this.sound.play('musicaMuelle', { volume: VOL_MUSICA });
+                this.musica = this.sound.add('musicaMuelle', { volume: VOL_MUSICA })
+                this.musica.play();
                 break
             case 3:
                 this.add.existing(new Phaser.GameObjects.Sprite(this, 600, 300, 'Castillo')).setScale(1.2, 1);
-                this.sound.play('musicaCastillo', { volume: VOL_MUSICA + 0.5});
+                this.musica = this.sound.add('musicaCastillo', { volume: VOL_MUSICA })
+                this.musica.play();
                 break
             case 4:
                 this.background = this.add.image(600, 300, 'Jungla').setScale(1.5, 1.5);
-                this.sound.play('musicaJungla', { volume: VOL_MUSICA });
+                this.musica = this.sound.add('musicaJungla', { volume: VOL_MUSICA })
+                this.musica.play();
                 break
             default:
                 break;
@@ -381,6 +387,7 @@ export class MainScene extends Phaser.Scene {
     }
     
     terminaJuego() {
+     
         if (this.score1 > 2) {
             switch (this.player1.name) {
                 case 'Arturo': this.sound.play('arturoVictory', { volume: 4 })
@@ -406,6 +413,7 @@ export class MainScene extends Phaser.Scene {
             }
         }
         if (this.score1 > 2 || this.score2 > 2) {
+            this.musica.stop()
             this.scene.start('menu');
         }
     }

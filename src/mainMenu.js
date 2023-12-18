@@ -138,6 +138,7 @@ export class Menu extends Phaser.Scene {
     shutdown() {
         this.p1selected = false;
         this.p2selected = false;
+        this.mapSelected = false;
     }
 
 

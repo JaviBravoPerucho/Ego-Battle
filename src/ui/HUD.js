@@ -32,12 +32,14 @@
         }
 
         /*var d = Math.floor(this.p * this.value);*/
+        console.log(this.damageDone);
+        console.log(this.value);
         if (this.right == 1) this.fillRect(this.x + 2 + this.damageDone, this.y + 2, this.value, this.height - 8);
         else this.fillRect(this.x + 2, this.y + 2, this.value, this.height-8);
     }
     decrease(amount) {
         this.value -= amount;
-        this.damageDone += amount;
+        this.damageDone += amount;       
         if (this.value < 0) {
             this.value = 0;
         }
@@ -169,10 +171,14 @@ export default class HUD extends Phaser.GameObjects.Container {
         this.elapsed = 0;
         this.ready = false;
         this.move = false;
-        this.BarraDeVida1.value = 300;
-        this.BarraDeVida2.value = 300;
         this.BarraDePoder1.value = 0;
         this.BarraDePoder2.value = 0;
+        this.BarraDeVida1.value = this.player1.vida;
+        this.BarraDeVida2.value = this.player2.vida;
+        this.BarraDeVida1.damageDone = 0;
+        this.BarraDeVida2.damageDone = 0;
+        this.BarraDeVida1.draw();
+        this.BarraDeVida2.draw();
     }
 
     countScore(player) {

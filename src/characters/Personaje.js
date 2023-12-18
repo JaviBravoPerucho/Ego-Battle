@@ -116,7 +116,6 @@ export default class Personaje extends Phaser.GameObjects.Sprite {
     preUpdate(t, dt) {
         super.preUpdate(t, dt);      
         if (!this.dontMove) {
-            console.log(this.attacking);
             if (this.knock) {
                 this.elapsedKnock += dt;
                 if (this.elapsedKnock > this.timeToMove) {

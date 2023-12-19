@@ -156,7 +156,7 @@ La barra de poder se va llenando en función de una mecánica propia de cada per
 
 Habilidad de poder de cada personaje:
 
-- Arturo: Los dos personajes se quedan quietos durante 5 segundos, y Arturo lanza una orden que se muestra como sonido: "Ríndete ante mi!", hasta que se le quita 50 de daño al oponente de Arturo y se reactiva el input.
+- Arturo: El oponente se quedan quietos durante 5 segundos, y Arturo lanza una orden que se muestra como sonido: "Ríndete ante mi!", hasta que se le quita 50 de daño al oponente de Arturo y se reactiva el input.
 
 - Azazel: Sus ataques hacen el doble de daño durante 10 segundos.
 

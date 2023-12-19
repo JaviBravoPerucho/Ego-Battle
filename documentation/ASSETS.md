@@ -28,13 +28,8 @@ https://www.pinterest.es/pin/6896205652450226/
 
 - Iconos de personajes: Hechos con Dall-E 2:https://openai.com/dall-e-2
 
-## Audios
-
-- Audios de los personajes grabados por los desarrolladores: Arturo y Trevor por Javi, Shinji por Sergio y Azazel por David.
-- Audio de "Fight!" grabado por Sergio
-- 
-
-
+## Fuentes de texto
+- Score: https://www.dafont.com/es/karmatic-arcade.font
 
 # Decisiones 
 En general hemos tomado imagenes que se adapten a los estilos de los mapas, además cada personaje cuenta con un mapa que le indentifica,

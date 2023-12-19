@@ -13,8 +13,8 @@ body {
     padding: 0
 }
 .imagen{
-    width: 1500px;
-    height: 700px;
+    width: 750px;
+    height: 350px;
 }
 .logo{
     margin-top: 10px;
@@ -38,26 +38,25 @@ body {
 .contenedor {
     background-color: grey;
     max-width: 120em;
-    width: 100%;
+    width: 70%;
     height: 100%;
     padding: 1em;
     text-align: center;
-    margin-left:250px;
+    margin-left:190px;
 }
 .contenedor .ul{
-    width: 53%;
+    width: 80%;
     background-color: black;
     display: flex;
     align-items: center;
-    margin-left:420px;
-
+    margin-left:100px;
 }
 .contenedor .li {
     background-color: indigo;
     padding: 1em;
     color: white;
     transition: all .5s ease;
-    font-size:22px;
+    font-size:15px;
     margin-left:50px;
 }
 
@@ -80,14 +79,15 @@ body {
     background-color: white;
     padding: 1em;
     position: absolute;
-    width: 99%;
-    height: 95%;
+    width: 95%;
+    height: 80%;
     top: 1em;
     opacity: 0;
     display: none;
     visibility: hidden;
     transition: all .5s ease;
     text-align:center;
+    margin-left:10px;
 }
 
 .contenedor .bloque.activo {
@@ -178,8 +178,10 @@ img {
 
 .textoRojo{
     color: red;
+    font-size: 25px;
 }
 
-.textoAzul{
-    color:blue;
+.textoAzul {
+    color: blue;
+    font-size: 25px;
 }

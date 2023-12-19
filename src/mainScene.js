@@ -111,7 +111,7 @@ export class MainScene extends Phaser.Scene {
                 //this.load.spritesheet('Explosion', './assets/img/objimages/explosionFB.png', { frameWidth: 247, frameHeight: 240 });//explosion bola de fuego
                 this.load.image(PLATFORMLAVA, './assets/img/fondosimages/lavaPlat.png');//Plataforma lava
                 this.load.audio('musicaVolcan', './assets/Audio/musicaMapas/musicaVolcan.mp3')
-                this.load.audio('explosion', './assets/Audio/explosion.mp3')
+                this.load.audio('explosion', './assets/Audio/objetos/explosion.mp3')
                 break
             case 1:
                 this.load.image('OVNI', './assets/img/objimages/ovniimage.png');//Ovni volador
@@ -119,21 +119,21 @@ export class MainScene extends Phaser.Scene {
                 this.load.image('platformMetal', './assets/img/fondosimages/Plat2.png');
                 this.load.image('laser', './assets/img/objimages/laser.png');//laser
                 this.load.audio('musicaNave', './assets/Audio/musicaMapas/musicaNave.mp3')
-                this.load.audio('laser', './assets/Audio/laserSonido.mp3')
+                this.load.audio('laser', './assets/Audio/objetos/laserSonido.mp3')
                 break
             case 2:
                 this.load.spritesheet('Fish', './assets/img/objimages/pezimage.png', { frameWidth: 500, frameHeight: 659 });//Pez
                 this.load.spritesheet('Muelle', './assets/img/fondosimages/lago1.png', { frameWidth: 720, frameHeight: 405 });//Fondo Muelle
                 this.load.image('wood', './assets/img/fondosimages/madera.jpg');
                 this.load.audio('musicaMuelle', './assets/Audio/musicaMapas/musicaMuelle.mp3')
-                this.load.audio('fishJump', './assets/Audio/pez.mp3')
+                this.load.audio('fishJump', './assets/Audio/objetos/pez.mp3')
                 break
             case 3:
                 this.load.image('Sword', './assets/img/objimages/swordimage.png');//Espada
                 this.load.spritesheet('Castillo', './assets/img/fondosimages/castillo.jpg', { frameWidth: 1071, frameHeight: 600 });//Fondo castillo
                 this.load.image('background', './assets/img/fondosimages/castillo.jpg');//Fondo castillo
                 this.load.audio('musicaCastillo', './assets/Audio/musicaMapas/musicaCastillo.mp3')
-                this.load.audio('sword', './assets/Audio/espadaObjeto.mp3')
+                this.load.audio('sword', './assets/Audio/objetos/espadaObjeto.mp3')
                 this.load.image('bridge', './assets/img/fondosimages/puente.png');
                 break
             case 4:

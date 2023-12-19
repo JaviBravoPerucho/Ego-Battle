@@ -37,7 +37,7 @@ export default class Arturo extends Personaje {
             "strongSound": 'espadaPequenaArturo'
         }
 
-        super(scene, x, y, floor, HUD, playerOpuesto, 22, 45, 68, 60, 'Arturo', 'Espada1', 650, 400, 'Espada2', 500, 200, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats, 160, mapSonidos);
+        super(scene, x, y, floor, HUD, playerOpuesto, 22, 45, 68, 60, 'Arturo', 'Espada1', 650, 400, 'Espada2', 500, 200, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats, 200, mapSonidos);
 
         this.poder = 0;
         this.contPoder = 0;
@@ -47,17 +47,15 @@ export default class Arturo extends Personaje {
         this.contUlti = 0;
         this.tiempoUlti = 3000;
         this.x = x;
-        this.stop = false;
+        this.ultiActivated = false;
         this.boolPoder = true;
         this.playerOpuesto = playerOpuesto;
     }
 
     ulti() {
-        this.stop = true;
+        this.ultiActivated = true;
         this.playerOpuesto.stop = true;
-        this.body.setVelocityX(0);
         this.playerOpuesto.body.setVelocityX(0);
-        this.play(this.idle);
         this.scene.sound.play('arturoPoder' , {volume: 4})
         /*this.playerOpuesto.play(this.playerOpuesto.idle);*/
     }
@@ -67,6 +65,7 @@ export default class Arturo extends Personaje {
     }
 
     preUpdate(t, dt) {
+        console.log(this.stop)
         super.preUpdate(t, dt);
         if (this.body.onFloor()) {
             this.jumps = 0;
@@ -74,7 +73,7 @@ export default class Arturo extends Personaje {
         }
         else { this.onAir = true; }
 
-        if (!this.stop) {
+        if (!this.ultiActivated) {
             if (this.poder < this.HUD.maxPoder && this.boolPoder && !this.dontMove  ) {
                 this.poder += this.poderPorFrame;
                 if (this.HUD.player1 === this) this.HUD.BarraDePoder1.increase(this.poderPorFrame);
@@ -105,10 +104,9 @@ export default class Arturo extends Personaje {
 
         } else {
             this.contUlti += dt;
-            this.body.setVelocityX(0);
             if (this.contUlti >= this.tiempoUlti) {
                 this.scene.hitPlayer(this.playerOpuesto, this.danoUlti);
-                this.stop = false;
+                this.ultiActivated = false;
                 this.playerOpuesto.stop = false;
                 this.contUlti = 0;
                 if (this.HUD.player1 === this) {

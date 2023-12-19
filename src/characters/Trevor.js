@@ -36,7 +36,7 @@ export default class Trevor extends Personaje {
             "strongSound": 'mazaTrevor'
         }
 
-        super(scene, x, y, floor, HUD, playerOpuesto, 22, 38, 65, 60, 'Trevor', 'Lanza',1300, 100, 'Maza', 450, 200, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats, 180, mapSonidos);
+        super(scene, x, y, floor, HUD, playerOpuesto, 22, 38, 65, 60, 'Trevor', 'Lanza',1300, 100, 'Maza', 450, 200, indexPlayer, mapAnimaciones, mapFrameRates, mapFrames, mapRepeats, 200, mapSonidos);
 
         this.poder = 0;
         this.contPoder = 0;

@@ -159,7 +159,7 @@ export class MainScene extends Phaser.Scene {
         this.load.audio('arturoRandom1', './assets/Audio/personajes/arturoAudio/arturoRandom1.mp3')
         this.load.audio('arturoRandom2', './assets/Audio/personajes/arturoAudio/arturoRandom2.mp3')    
         this.load.audio('arturoVictory', './assets/Audio/personajes/arturoAudio/arturoVictory.mp3')
-        this.load.audio('espadaGrandeArturo', './assets/Audio/personajes/arturoAudio/espadaGrandeArturo.mp3')
+        this.load.audio('espadaGrandeArturo', './assets/Audio/personajes/arturoAudio/espadagrandeArturo.mp3')
         this.load.audio('espadaPequenaArturo', './assets/Audio/personajes/arturoAudio/espadaPequenaArturo.mp3')
         this.load.audio('azazelFunny', './assets/Audio/personajes/azazelAudio/azazelFunny.mp3')
         this.load.audio('azazelInicio', './assets/Audio/personajes/azazelAudio/azazelInicio.mp3')
